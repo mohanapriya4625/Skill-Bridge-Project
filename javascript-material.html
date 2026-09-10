@@ -1,0 +1,3386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JavaScript Fundamentals | SkillBridge</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+:root{
+    --primary:#ff6b00;
+    --primary-dark:#e85d00;
+    --primary-light:#fff1e6;
+
+    --navy:#12233f;
+    --navy2:#24456f;
+
+    --bg:#f5f7fb;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#7b8497;
+    --border:#e7eaf0;
+
+    --success:#20b26b;
+    --success-light:#e9f9f1;
+    --danger:#ef4444;
+
+    --sidebar:260px;
+
+    --shadow:0 10px 30px rgba(18,35,63,.08);
+}
+
+body.dark{
+    --bg:#0d1625;
+    --card:#162235;
+    --text:#f3f6fb;
+    --muted:#9ba8bb;
+    --border:#29374b;
+
+    --primary-light:#3a281d;
+
+    --navy:#09111e;
+    --navy2:#14243c;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.3s;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* LOADER */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:.5s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    width:75px;
+    height:75px;
+    border-radius:22px;
+    background:var(--primary);
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+    font-weight:800;
+
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+        box-shadow:0 0 0 15px rgba(255,107,0,.15);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+
+    width:var(--sidebar);
+    height:100vh;
+
+    background:var(--navy);
+    color:white;
+
+    padding:25px 15px;
+
+    z-index:1000;
+
+    overflow-y:auto;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:0 10px 30px;
+}
+
+.brand-logo{
+    width:45px;
+    height:45px;
+
+    border-radius:14px;
+    background:var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+}
+
+.brand h2{
+    font-size:20px;
+}
+
+.brand span{
+    color:var(--primary);
+}
+
+.nav-title{
+    color:#8996a9;
+    font-size:10px;
+    font-weight:700;
+
+    letter-spacing:1px;
+    text-transform:uppercase;
+
+    padding:10px 15px;
+}
+
+.nav-menu{
+    list-style:none;
+}
+
+.nav-menu li{
+    margin:5px 0;
+}
+
+.nav-menu a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:13px 15px;
+
+    border-radius:12px;
+
+    color:#aeb9ca;
+
+    font-size:13px;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.nav-menu a i{
+    width:20px;
+    text-align:center;
+}
+
+.nav-menu a:hover{
+    color:white;
+    background:rgba(255,107,0,.15);
+    transform:translateX(4px);
+}
+
+.nav-menu a.active{
+    background:var(--primary);
+    color:white;
+}
+
+
+/* MAIN */
+
+.main{
+    margin-left:var(--sidebar);
+    min-height:100vh;
+}
+
+
+/* TOPBAR */
+
+.topbar{
+    height:78px;
+
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 35px;
+
+    position:sticky;
+    top:0;
+
+    z-index:900;
+}
+
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.mobile-menu{
+    display:none;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:12px;
+
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+.heading h1{
+    font-size:19px;
+    font-weight:800;
+}
+
+.heading p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+
+/* SEARCH */
+
+.search{
+    position:relative;
+}
+
+.search input{
+    width:230px;
+    height:42px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:var(--bg);
+    color:var(--text);
+
+    outline:none;
+
+    padding:0 40px 0 15px;
+}
+
+.search input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(255,107,0,.1);
+}
+
+.search i{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+}
+
+
+/* ICON */
+
+.icon-btn{
+    width:42px;
+    height:42px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:var(--card);
+    color:var(--text);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.3s;
+}
+
+.icon-btn:hover{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:white;
+    transform:translateY(-2px);
+}
+
+
+/* PROFILE */
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    cursor:pointer;
+    padding:4px;
+
+    border-radius:12px;
+}
+
+.profile:hover{
+    background:var(--bg);
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#ff6b00,#ff9c52);
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+    font-weight:800;
+}
+
+.profile-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.profile-info span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+}
+
+
+/* CONTENT */
+
+.content{
+    padding:30px 35px 60px;
+}
+
+
+/* BREADCRUMB */
+
+.breadcrumb{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-bottom:20px;
+}
+
+.breadcrumb span:last-child{
+    color:var(--primary);
+    font-weight:700;
+}
+
+
+/* HERO */
+
+.course-hero{
+    background:linear-gradient(135deg,#12233f,#24456f);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:25px;
+
+    position:relative;
+    overflow:hidden;
+
+    animation:fadeUp .6s ease;
+}
+
+.course-hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    border-radius:50%;
+
+    background:rgba(255,107,0,.15);
+
+    right:-80px;
+    top:-100px;
+}
+
+.hero-left{
+    position:relative;
+    z-index:2;
+    max-width:680px;
+}
+
+.course-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    background:rgba(255,255,255,.12);
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    margin-bottom:15px;
+}
+
+.hero-left h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.hero-left p{
+    color:#cbd6e6;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.hero-right{
+    position:relative;
+    z-index:2;
+
+    min-width:150px;
+    text-align:center;
+}
+
+.progress-circle{
+    width:115px;
+    height:115px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:
+    conic-gradient(
+        var(--primary) 0deg 270deg,
+        rgba(255,255,255,.15) 270deg 360deg
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.progress-circle::after{
+    content:"";
+
+    position:absolute;
+
+    width:88px;
+    height:88px;
+
+    border-radius:50%;
+
+    background:#172d4e;
+}
+
+.progress-circle strong{
+    position:relative;
+    z-index:2;
+    font-size:21px;
+}
+
+.hero-right small{
+    display:block;
+    color:#cbd6e6;
+    margin-top:10px;
+}
+
+
+/* LAYOUT */
+
+.course-layout{
+    display:grid;
+    grid-template-columns:290px 1fr;
+
+    gap:22px;
+
+    margin-top:25px;
+}
+
+
+/* TOPICS */
+
+.topics-panel{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:20px;
+
+    height:fit-content;
+
+    position:sticky;
+    top:100px;
+
+    animation:fadeUp .7s ease;
+}
+
+.topics-panel h3{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.topics-panel > p{
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:17px;
+}
+
+.topic-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:11px;
+
+    border-radius:12px;
+
+    margin-bottom:7px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.topic-item:hover{
+    background:var(--primary-light);
+}
+
+.topic-item.active{
+    background:var(--primary);
+    color:white;
+}
+
+.topic-icon{
+    width:32px;
+    height:32px;
+
+    flex-shrink:0;
+
+    border-radius:9px;
+
+    background:var(--bg);
+
+    color:var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+}
+
+.topic-item.active .topic-icon{
+    background:rgba(255,255,255,.15);
+    color:white;
+}
+
+.topic-text{
+    flex:1;
+}
+
+.topic-text strong{
+    display:block;
+    font-size:10px;
+}
+
+.topic-text span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.topic-item.active .topic-text span{
+    color:#dce5f1;
+}
+
+.topic-check{
+    font-size:11px;
+    color:var(--success);
+}
+
+.topic-item.active .topic-check{
+    color:white;
+}
+
+
+/* CONTENT CARD */
+
+.content-card{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    animation:fadeUp .8s ease;
+}
+
+.lesson-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    gap:15px;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.lesson-number{
+    color:var(--primary);
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.lesson-header h2{
+    font-size:23px;
+}
+
+.lesson-header p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:6px;
+}
+
+.bookmark{
+    width:42px;
+    height:42px;
+
+    border:1px solid var(--border);
+    border-radius:11px;
+
+    background:transparent;
+    color:var(--muted);
+
+    transition:.3s;
+}
+
+.bookmark:hover,
+.bookmark.saved{
+    color:var(--primary);
+    border-color:var(--primary);
+    background:var(--primary-light);
+}
+
+
+/* LESSON */
+
+.lesson-body{
+    padding-top:25px;
+}
+
+.lesson-body h3{
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.lesson-body p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:17px;
+}
+
+.concept-box{
+    background:var(--primary-light);
+
+    border-left:4px solid var(--primary);
+
+    padding:17px;
+
+    border-radius:10px;
+
+    margin:20px 0;
+}
+
+.concept-box strong{
+    display:block;
+    color:var(--primary);
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.concept-box p{
+    color:var(--text);
+    margin:0;
+}
+
+
+/* KEY POINTS */
+
+.key-points{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+
+    margin:20px 0;
+}
+
+.key-point{
+    padding:14px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+}
+
+.key-point i{
+    color:var(--primary);
+    margin-top:2px;
+}
+
+.key-point span{
+    font-size:11px;
+    line-height:1.6;
+}
+
+
+/* CODE */
+
+.code-card{
+    margin:20px 0;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    border:1px solid #27354b;
+}
+
+.code-header{
+    background:#17243a;
+
+    padding:12px 15px;
+
+    color:#cbd6e6;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    font-size:10px;
+}
+
+.copy-code{
+    border:none;
+    background:rgba(255,255,255,.1);
+
+    color:white;
+
+    padding:6px 9px;
+
+    border-radius:7px;
+
+    font-size:9px;
+}
+
+.copy-code:hover{
+    background:var(--primary);
+}
+
+pre{
+    margin:0;
+
+    background:#0d1727;
+
+    color:#dce7f5;
+
+    padding:18px;
+
+    overflow-x:auto;
+
+    font-family:Consolas,monospace;
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+
+/* OUTPUT */
+
+.output-box{
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:13px;
+
+    font-size:11px;
+
+    margin-top:10px;
+}
+
+.output-box strong{
+    color:var(--success);
+}
+
+
+/* SHORTCUT */
+
+.shortcut{
+    margin-top:20px;
+
+    padding:17px;
+
+    border-radius:14px;
+
+    background:var(--navy);
+
+    color:white;
+}
+
+.shortcut-title{
+    color:#ffb27d;
+
+    font-size:10px;
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:7px;
+}
+
+.shortcut p{
+    color:#d6deea;
+    margin:0;
+
+    font-size:12px;
+}
+
+
+/* PRACTICE */
+
+.practice{
+    margin-top:25px;
+
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+}
+
+.practice h3{
+    margin-bottom:6px;
+}
+
+.practice > p{
+    font-size:11px;
+}
+
+.option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    margin:8px 0;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    transition:.3s;
+}
+
+.option:hover{
+    border-color:var(--primary);
+    background:var(--primary-light);
+}
+
+.option input{
+    accent-color:var(--primary);
+}
+
+.practice-result{
+    display:none;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-top:12px;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+.practice-result.show{
+    display:block;
+}
+
+.practice-result.correct{
+    background:var(--success-light);
+    color:var(--success);
+}
+
+.practice-result.wrong{
+    background:#fff0f0;
+    color:var(--danger);
+}
+
+body.dark .practice-result.wrong{
+    background:#351c21;
+}
+
+
+/* ACTIONS */
+
+.lesson-actions{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-top:25px;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--border);
+}
+
+.action-btn{
+    border:1px solid var(--border);
+
+    background:transparent;
+    color:var(--text);
+
+    padding:11px 16px;
+
+    border-radius:10px;
+
+    font-size:11px;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.action-btn:hover{
+    border-color:var(--primary);
+    color:var(--primary);
+
+    transform:translateY(-2px);
+}
+
+.complete-btn{
+    background:var(--primary);
+    border-color:var(--primary);
+
+    color:white;
+}
+
+.complete-btn:hover{
+    background:var(--primary-dark);
+    color:white;
+}
+
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    background:var(--navy);
+    color:white;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:12px;
+
+    box-shadow:0 18px 40px rgba(0,0,0,.2);
+
+    transform:translateY(100px);
+
+    opacity:0;
+
+    transition:.4s;
+
+    z-index:9999;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.toast i{
+    color:var(--primary);
+}
+
+
+/* OVERLAY */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.5);
+
+    z-index:950;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .course-layout{
+        grid-template-columns:240px 1fr;
+    }
+
+    .search input{
+        width:180px;
+    }
+
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .topbar{
+        padding:0 20px;
+    }
+
+    .content{
+        padding:25px 20px 50px;
+    }
+
+    .profile-info{
+        display:none;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .course-layout{
+        grid-template-columns:1fr;
+    }
+
+    .topics-panel{
+        position:static;
+    }
+
+    .topic-list{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:7px;
+    }
+
+    .topic-item{
+        margin:0;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        height:70px;
+    }
+
+    .heading h1{
+        font-size:16px;
+    }
+
+    .heading p{
+        display:none;
+    }
+
+    .top-actions{
+        gap:6px;
+    }
+
+    .icon-btn,
+    .avatar,
+    .mobile-menu{
+        width:38px;
+        height:38px;
+    }
+
+    .content{
+        padding:18px 14px 40px;
+    }
+
+    .course-hero{
+        flex-direction:column;
+        align-items:flex-start;
+
+        padding:23px;
+
+        border-radius:20px;
+    }
+
+    .hero-left h2{
+        font-size:22px;
+    }
+
+    .hero-left p{
+        font-size:11px;
+    }
+
+    .hero-right{
+        align-self:center;
+    }
+
+    .topic-list{
+        grid-template-columns:1fr;
+    }
+
+    .content-card{
+        padding:18px;
+    }
+
+    .lesson-header h2{
+        font-size:20px;
+    }
+
+    .lesson-body p{
+        font-size:12px;
+    }
+
+    .key-points{
+        grid-template-columns:1fr;
+    }
+
+    .lesson-actions{
+        flex-direction:column;
+    }
+
+    .action-btn{
+        width:100%;
+    }
+
+    .toast{
+        left:15px;
+        right:15px;
+        bottom:15px;
+
+        justify-content:center;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-logo">
+        SB
+    </div>
+
+</div>
+
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            SB
+        </div>
+
+        <h2>
+            Skill<span>Bridge</span>
+        </h2>
+
+    </div>
+
+
+    <div class="nav-title">
+        Main Menu
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="study-material.html" class="active">
+                <i class="fa-solid fa-book-open"></i>
+                Study Materials
+            </a>
+        </li>
+
+        <li>
+            <a href="aptitude.html">
+                <i class="fa-solid fa-brain"></i>
+                Aptitude Tests
+            </a>
+        </li>
+
+        <li>
+            <a href="coding.html">
+                <i class="fa-solid fa-code"></i>
+                Coding Practice
+            </a>
+        </li>
+
+        <li>
+            <a href="progress.html">
+                <i class="fa-solid fa-chart-line"></i>
+                My Progress
+            </a>
+        </li>
+
+    </ul>
+
+
+    <div class="nav-title">
+        Account
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logoutUser(event)">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+    <div class="top-left">
+
+        <button
+            class="mobile-menu"
+            id="menuBtn"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+
+        <div class="heading">
+
+            <h1>
+                JavaScript Fundamentals
+            </h1>
+
+            <p>
+                Build interactive and dynamic web applications
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-actions">
+
+
+        <div class="search">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search topics..."
+            >
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        </div>
+
+
+        <button
+            class="icon-btn"
+            id="themeBtn"
+            title="Toggle theme"
+        >
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+
+        <button
+            class="icon-btn"
+            onclick="showToast('New JavaScript lesson available 🔔')"
+        >
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+
+        <div
+            class="profile"
+            onclick="goToProfile()"
+        >
+
+            <div class="avatar">
+                MP
+            </div>
+
+            <div class="profile-info">
+
+                <strong>
+                    Mohana
+                </strong>
+
+                <span>
+                    Student
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<section class="content">
+
+
+<div class="breadcrumb">
+
+    <span>
+        Study Materials
+    </span>
+
+    <i class="fa-solid fa-chevron-right"></i>
+
+    <span>
+        JavaScript
+    </span>
+
+</div>
+
+
+<!-- HERO -->
+
+<div class="course-hero">
+
+    <div class="hero-left">
+
+        <div class="course-tag">
+
+            <i class="fa-brands fa-js"></i>
+
+            Programming
+
+        </div>
+
+
+        <h2>
+            Master JavaScript ⚡
+        </h2>
+
+
+        <p>
+            Learn JavaScript from fundamentals to modern
+            asynchronous programming. Practice real code,
+            understand DOM manipulation and build interactive
+            web applications.
+        </p>
+
+    </div>
+
+
+    <div class="hero-right">
+
+        <div class="progress-circle">
+
+            <strong>
+                75%
+            </strong>
+
+        </div>
+
+        <small>
+            Course Progress
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="course-layout">
+
+
+<!-- TOPICS -->
+
+<aside class="topics-panel">
+
+    <h3>
+        JavaScript Topics
+    </h3>
+
+    <p>
+        10 topics • 6 hours
+    </p>
+
+
+    <div class="topic-list">
+
+
+        <div
+            class="topic-item active"
+            onclick="selectTopic(this,'Variables & Data Types',0)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-database"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Variables & Data Types
+                </strong>
+
+                <span>
+                    30 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Operators & Conditions',1)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-code-branch"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Operators & Conditions
+                </strong>
+
+                <span>
+                    30 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Loops',2)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-repeat"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Loops
+                </strong>
+
+                <span>
+                    35 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Functions',3)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-gears"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Functions
+                </strong>
+
+                <span>
+                    40 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Arrays',4)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-table-list"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Arrays
+                </strong>
+
+                <span>
+                    35 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Objects',5)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-cube"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Objects
+                </strong>
+
+                <span>
+                    35 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'DOM Manipulation',6)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-window-maximize"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    DOM Manipulation
+                </strong>
+
+                <span>
+                    45 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Events',7)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Events
+                </strong>
+
+                <span>
+                    30 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'ES6+',8)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    ES6+
+                </strong>
+
+                <span>
+                    40 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+
+        <div
+            class="topic-item"
+            onclick="selectTopic(this,'Async JavaScript',9)"
+        >
+
+            <div class="topic-icon">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+
+            <div class="topic-text">
+
+                <strong>
+                    Async JavaScript
+                </strong>
+
+                <span>
+                    45 min
+                </span>
+
+            </div>
+
+            <div class="topic-check">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- LESSON -->
+
+<div class="learning-area">
+
+<div class="content-card">
+
+
+<div class="lesson-header">
+
+    <div>
+
+        <div class="lesson-number">
+            LESSON 01
+        </div>
+
+        <h2 id="lessonTitle">
+            Variables & Data Types
+        </h2>
+
+        <p id="lessonSubtitle">
+            Learn how JavaScript stores and manages data.
+        </p>
+
+    </div>
+
+
+    <button
+        class="bookmark"
+        id="bookmarkBtn"
+        onclick="toggleBookmark()"
+    >
+
+        <i class="fa-regular fa-bookmark"></i>
+
+    </button>
+
+</div>
+
+
+<div
+    class="lesson-body"
+    id="lessonContent"
+>
+
+
+<h3>
+    What are Variables?
+</h3>
+
+<p>
+    Variables are containers used to store values in JavaScript.
+    Modern JavaScript mainly uses <b>let</b> and <b>const</b>.
+    The older <b>var</b> keyword is also available but is generally
+    avoided in modern code when block scope is preferred.
+</p>
+
+
+<div class="concept-box">
+
+    <strong>
+        💡 Key Concept
+    </strong>
+
+    <p>
+        Use <b>let</b> when the value may change and
+        <b>const</b> when the variable should not be reassigned.
+    </p>
+
+</div>
+
+
+<h3>
+    Common Data Types
+</h3>
+
+
+<div class="key-points">
+
+    <div class="key-point">
+
+        <i class="fa-solid fa-font"></i>
+
+        <span>
+            String – text values such as "SkillBridge"
+        </span>
+
+    </div>
+
+
+    <div class="key-point">
+
+        <i class="fa-solid fa-hashtag"></i>
+
+        <span>
+            Number – numeric values such as 100
+        </span>
+
+    </div>
+
+
+    <div class="key-point">
+
+        <i class="fa-solid fa-toggle-on"></i>
+
+        <span>
+            Boolean – true or false
+        </span>
+
+    </div>
+
+
+    <div class="key-point">
+
+        <i class="fa-solid fa-box"></i>
+
+        <span>
+            Object – collection of related properties
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- CODE -->
+
+<div class="code-card">
+
+    <div class="code-header">
+
+        <span>
+            JavaScript Example
+        </span>
+
+        <button
+            class="copy-code"
+            onclick="copyCode()"
+        >
+
+            <i class="fa-regular fa-copy"></i>
+
+            Copy
+
+        </button>
+
+    </div>
+
+
+<pre id="codeBlock"><code>const studentName = "Mohana";
+let score = 85;
+const passed = true;
+
+console.log(studentName);
+console.log(score);
+console.log(passed);</code></pre>
+
+</div>
+
+
+<div class="output-box">
+
+    <strong>
+        Output:
+    </strong>
+
+    <br>
+
+    Mohana
+
+    <br>
+
+    85
+
+    <br>
+
+    true
+
+</div>
+
+
+<div class="shortcut">
+
+    <div class="shortcut-title">
+        ⚡ Developer Tip
+    </div>
+
+    <p>
+        Prefer <b>const</b> by default. Use <b>let</b> only
+        when you know the variable needs to be reassigned.
+        This makes your code easier to understand and maintain.
+    </p>
+
+</div>
+
+
+<!-- PRACTICE -->
+
+<div class="practice">
+
+    <h3>
+        Quick Practice ⚡
+    </h3>
+
+    <p>
+        Which keyword is commonly used when a variable
+        should not be reassigned?
+    </p>
+
+
+    <label class="option">
+
+        <input
+            type="radio"
+            name="jsQuestion"
+            value="var"
+        >
+
+        var
+
+    </label>
+
+
+    <label class="option">
+
+        <input
+            type="radio"
+            name="jsQuestion"
+            value="let"
+        >
+
+        let
+
+    </label>
+
+
+    <label class="option">
+
+        <input
+            type="radio"
+            name="jsQuestion"
+            value="const"
+        >
+
+        const
+
+    </label>
+
+
+    <label class="option">
+
+        <input
+            type="radio"
+            name="jsQuestion"
+            value="function"
+        >
+
+        function
+
+    </label>
+
+
+    <button
+        class="action-btn complete-btn"
+        onclick="checkAnswer()"
+        style="margin-top:10px;"
+    >
+
+        <i class="fa-solid fa-check"></i>
+
+        Check Answer
+
+    </button>
+
+
+    <div
+        class="practice-result"
+        id="practiceResult"
+    ></div>
+
+</div>
+
+
+</div>
+
+
+<div class="lesson-actions">
+
+    <button
+        class="action-btn"
+        onclick="previousTopic()"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Previous
+
+    </button>
+
+
+    <button
+        class="action-btn complete-btn"
+        onclick="markComplete()"
+    >
+
+        <i class="fa-solid fa-check"></i>
+
+        Mark as Complete
+
+    </button>
+
+
+    <button
+        class="action-btn"
+        onclick="nextTopic()"
+    >
+
+        Next
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Success
+    </span>
+
+</div>
+
+
+<script>
+
+
+/* LOADER */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document
+        .getElementById("loader")
+        .classList.add("hide");
+
+    },700);
+
+});
+
+
+/* MOBILE MENU */
+
+const sidebar =
+document.getElementById("sidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+
+menuBtn.addEventListener("click",()=>{
+
+    sidebar.classList.toggle("open");
+
+    overlay.classList.toggle("show");
+
+});
+
+
+overlay.addEventListener("click",()=>{
+
+    sidebar.classList.remove("open");
+
+    overlay.classList.remove("show");
+
+});
+
+
+/* DARK MODE */
+
+const themeBtn =
+document.getElementById("themeBtn");
+
+
+const savedTheme =
+localStorage.getItem("skillbridge-theme");
+
+
+if(savedTheme==="dark"){
+
+    document.body.classList.add("dark");
+
+    themeBtn.innerHTML =
+    '<i class="fa-solid fa-sun"></i>';
+
+}
+
+
+themeBtn.addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark");
+
+
+    const dark =
+    document.body.classList.contains("dark");
+
+
+    localStorage.setItem(
+        "skillbridge-theme",
+        dark ? "dark" : "light"
+    );
+
+
+    themeBtn.innerHTML = dark
+
+    ? '<i class="fa-solid fa-sun"></i>'
+
+    : '<i class="fa-solid fa-moon"></i>';
+
+
+    showToast(
+        dark
+        ? "Dark mode enabled 🌙"
+        : "Light mode enabled ☀️"
+    );
+
+});
+
+
+/* PROFILE */
+
+function goToProfile(){
+
+    window.location.href =
+    "profile.html";
+
+}
+
+
+/* BOOKMARK */
+
+function toggleBookmark(){
+
+    const button =
+    document.getElementById(
+        "bookmarkBtn"
+    );
+
+
+    button.classList.toggle("saved");
+
+
+    const saved =
+    button.classList.contains("saved");
+
+
+    button.innerHTML = saved
+
+    ? '<i class="fa-solid fa-bookmark"></i>'
+
+    : '<i class="fa-regular fa-bookmark"></i>';
+
+
+    showToast(
+        saved
+        ? "Topic bookmarked 🔖"
+        : "Bookmark removed"
+    );
+
+}
+
+
+/* TOPIC DATA */
+
+const topicData = {
+
+
+"Variables & Data Types":{
+
+    subtitle:
+    "Learn how JavaScript stores and manages data.",
+
+    concept:
+    "Variables store data. JavaScript supports strings, numbers, booleans, objects, arrays, null and undefined among other values.",
+
+    points:[
+        "Use const for values that should not be reassigned.",
+        "Use let when reassignment is required.",
+        "Strings represent text.",
+        "Numbers represent numeric values."
+    ],
+
+    code:`const name = "Mohana";
+let age = 22;
+const student = true;
+
+console.log(name);
+console.log(age);
+console.log(student);`,
+
+    output:
+    "Mohana<br>22<br>true",
+
+    shortcut:
+    "Prefer const by default. Switch to let only when reassignment is required."
+
+},
+
+
+"Operators & Conditions":{
+
+    subtitle:
+    "Control program logic using operators and conditional statements.",
+
+    concept:
+    "Operators perform calculations and comparisons. Conditional statements execute code based on whether a condition is true or false.",
+
+    points:[
+        "Arithmetic operators perform calculations.",
+        "Comparison operators compare values.",
+        "if executes code when a condition is true.",
+        "else handles the alternative case."
+    ],
+
+    code:`let marks = 85;
+
+if(marks >= 40){
+    console.log("Pass");
+}else{
+    console.log("Fail");
+}`,
+
+    output:
+    "Pass",
+
+    shortcut:
+    "Use strict comparison === when you want value and type to match."
+
+},
+
+
+"Loops":{
+
+    subtitle:
+    "Repeat code efficiently using JavaScript loops.",
+
+    concept:
+    "Loops execute a block of code repeatedly until a condition becomes false or the collection has been processed.",
+
+    points:[
+        "for loop is useful for counted repetition.",
+        "while loop runs while a condition remains true.",
+        "for...of iterates over iterable values.",
+        "Avoid infinite loops by updating the condition."
+    ],
+
+    code:`for(let i = 1; i <= 5; i++){
+    console.log(i);
+}`,
+
+    output:
+    "1<br>2<br>3<br>4<br>5",
+
+    shortcut:
+    "Use for...of when you simply need each value from an array."
+
+},
+
+
+"Functions":{
+
+    subtitle:
+    "Create reusable blocks of JavaScript code.",
+
+    concept:
+    "Functions group instructions into reusable units. They can receive parameters and return values.",
+
+    points:[
+        "Functions reduce repeated code.",
+        "Parameters receive input values.",
+        "return sends a value back.",
+        "Arrow functions provide concise syntax."
+    ],
+
+    code:`function add(a,b){
+    return a + b;
+}
+
+const result = add(10,20);
+
+console.log(result);`,
+
+    output:
+    "30",
+
+    shortcut:
+    "Keep functions small and focused on one clear task."
+
+},
+
+
+"Arrays":{
+
+    subtitle:
+    "Store and manipulate multiple values using arrays.",
+
+    concept:
+    "An array stores multiple values in a single variable and provides methods for adding, removing and transforming elements.",
+
+    points:[
+        "Array indexing starts from 0.",
+        "push() adds an item to the end.",
+        "pop() removes the last item.",
+        "map() can transform array values."
+    ],
+
+    code:`const skills = [
+    "HTML",
+    "CSS",
+    "JavaScript"
+];
+
+console.log(skills[0]);
+
+skills.push("React");
+
+console.log(skills);`,
+
+    output:
+    "HTML<br>HTML, CSS, JavaScript, React",
+
+    shortcut:
+    "Remember: the first array element always has index 0."
+
+},
+
+
+"Objects":{
+
+    subtitle:
+    "Represent related data using key-value pairs.",
+
+    concept:
+    "Objects store related information as properties and values, making them useful for representing real-world entities.",
+
+    points:[
+        "Objects use key-value pairs.",
+        "Properties can be accessed using dot notation.",
+        "Bracket notation is useful for dynamic keys.",
+        "Objects can contain functions called methods."
+    ],
+
+    code:`const student = {
+    name: "Mohana",
+    score: 90,
+    course: "MCA"
+};
+
+console.log(student.name);`,
+
+    output:
+    "Mohana",
+
+    shortcut:
+    "Use objects when multiple pieces of information belong to one entity."
+
+},
+
+
+"DOM Manipulation":{
+
+    subtitle:
+    "Change webpage content and elements using JavaScript.",
+
+    concept:
+    "The DOM represents an HTML document as a tree of objects. JavaScript can select, modify and create elements through the DOM.",
+
+    points:[
+        "getElementById selects an element by ID.",
+        "querySelector selects using CSS selectors.",
+        "textContent changes text.",
+        "classList helps manage CSS classes."
+    ],
+
+    code:`const title =
+document.querySelector("#title");
+
+title.textContent =
+"Welcome to SkillBridge";`,
+
+    output:
+    "The page heading becomes 'Welcome to SkillBridge'.",
+
+    shortcut:
+    "querySelector() is a flexible choice when you need CSS-style selectors."
+
+},
+
+
+"Events":{
+
+    subtitle:
+    "Make webpages respond to user actions.",
+
+    concept:
+    "Events allow JavaScript to respond to actions such as clicks, keyboard input, form submission and mouse movement.",
+
+    points:[
+        "click handles mouse clicks.",
+        "input responds to field changes.",
+        "submit handles form submission.",
+        "addEventListener attaches event handlers."
+    ],
+
+    code:`const button =
+document.querySelector("#btn");
+
+button.addEventListener(
+    "click",
+    () => {
+        alert("Hello!");
+    }
+);`,
+
+    output:
+    "A Hello! alert appears when the button is clicked.",
+
+    shortcut:
+    "Prefer addEventListener() for flexible event handling."
+
+},
+
+
+"ES6+":{
+
+    subtitle:
+    "Use modern JavaScript features for cleaner code.",
+
+    concept:
+    "ES6 and later versions introduced features such as let, const, arrow functions, template literals, destructuring, spread syntax and modules.",
+
+    points:[
+        "Arrow functions simplify function syntax.",
+        "Template literals make string formatting easier.",
+        "Destructuring extracts values.",
+        "Spread syntax expands iterable values."
+    ],
+
+    code:`const name = "Mohana";
+
+const message =
+    \`Welcome, \${name}!\`;
+
+console.log(message);`,
+
+    output:
+    "Welcome, Mohana!",
+
+    shortcut:
+    "Template literals are especially useful when combining text with variables."
+
+},
+
+
+"Async JavaScript":{
+
+    subtitle:
+    "Handle delayed operations and asynchronous tasks.",
+
+    concept:
+    "Asynchronous JavaScript allows operations such as API requests and timers to complete without blocking the rest of the program.",
+
+    points:[
+        "Promises represent future completion.",
+        "async functions simplify asynchronous code.",
+        "await pauses within an async function.",
+        "fetch() is commonly used for HTTP requests."
+    ],
+
+    code:`async function loadData(){
+
+    const response =
+        await fetch(
+            "https://jsonplaceholder.typicode.com/todos/1"
+        );
+
+    const data =
+        await response.json();
+
+    console.log(data.title);
+}
+
+loadData();`,
+
+    output:
+    "Returns the title from the requested API response.",
+
+    shortcut:
+    "Use async/await with try/catch when writing readable asynchronous code."
+
+}
+
+};
+
+
+/* SELECT TOPIC */
+
+function selectTopic(element,topic,index){
+
+    document
+    .querySelectorAll(".topic-item")
+    .forEach(item=>{
+        item.classList.remove("active");
+    });
+
+
+    element.classList.add("active");
+
+
+    const data =
+    topicData[topic];
+
+
+    if(!data) return;
+
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent = topic;
+
+
+    document.getElementById(
+        "lessonSubtitle"
+    ).textContent =
+    data.subtitle;
+
+
+    document.getElementById(
+        "lessonContent"
+    ).innerHTML = `
+
+        <h3>
+            About ${topic}
+        </h3>
+
+        <p>
+            ${data.concept}
+        </p>
+
+        <div class="concept-box">
+
+            <strong>
+                💡 Key Concept
+            </strong>
+
+            <p>
+                ${data.concept}
+            </p>
+
+        </div>
+
+
+        <h3>
+            Important Points
+        </h3>
+
+
+        <div class="key-points">
+
+            ${data.points.map(point=>`
+
+                <div class="key-point">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+                        ${point}
+                    </span>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+
+
+        <div class="code-card">
+
+            <div class="code-header">
+
+                <span>
+                    JavaScript Example
+                </span>
+
+                <button
+                    class="copy-code"
+                    onclick="copyDynamicCode()"
+                >
+
+                    <i class="fa-regular fa-copy"></i>
+
+                    Copy
+
+                </button>
+
+            </div>
+
+
+            <pre id="dynamicCode"><code>${escapeHtml(data.code)}</code></pre>
+
+        </div>
+
+
+        <div class="output-box">
+
+            <strong>
+                Expected Result:
+            </strong>
+
+            <br>
+
+            ${data.output}
+
+        </div>
+
+
+        <div class="shortcut">
+
+            <div class="shortcut-title">
+                ⚡ Developer Tip
+            </div>
+
+            <p>
+                ${data.shortcut}
+            </p>
+
+        </div>
+
+
+        <div class="practice">
+
+            <h3>
+                Quick Practice ⚡
+            </h3>
+
+            <p>
+                Which option represents a good practice
+                while learning ${topic}?
+            </p>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="dynamicJS"
+                    value="learn"
+                >
+
+                Understand the concept and practice with code
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="dynamicJS"
+                    value="guess"
+                >
+
+                Guess without testing the code
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="dynamicJS"
+                    value="ignore"
+                >
+
+                Ignore errors completely
+
+            </label>
+
+
+            <button
+                class="action-btn complete-btn"
+                onclick="checkDynamicAnswer()"
+                style="margin-top:10px;"
+            >
+
+                <i class="fa-solid fa-check"></i>
+
+                Check Answer
+
+            </button>
+
+
+            <div
+                class="practice-result"
+                id="practiceResult"
+            ></div>
+
+        </div>
+
+    `;
+
+
+    showToast(
+        topic + " opened 📚"
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(text){
+
+    return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* COPY ORIGINAL CODE */
+
+function copyCode(){
+
+    const code =
+    document.getElementById(
+        "codeBlock"
+    ).innerText;
+
+
+    navigator.clipboard.writeText(code);
+
+
+    showToast(
+        "Code copied 📋"
+    );
+
+}
+
+
+/* COPY DYNAMIC CODE */
+
+function copyDynamicCode(){
+
+    const code =
+    document.getElementById(
+        "dynamicCode"
+    ).innerText;
+
+
+    navigator.clipboard.writeText(code);
+
+
+    showToast(
+        "Code copied 📋"
+    );
+
+}
+
+
+/* ORIGINAL PRACTICE */
+
+function checkAnswer(){
+
+    const selected =
+    document.querySelector(
+        'input[name="jsQuestion"]:checked'
+    );
+
+
+    const result =
+    document.getElementById(
+        "practiceResult"
+    );
+
+
+    if(!selected){
+
+        result.textContent =
+        "Please select an answer first.";
+
+        result.className =
+        "practice-result show wrong";
+
+        return;
+
+    }
+
+
+    if(selected.value==="const"){
+
+        result.textContent =
+        "🎉 Correct! const prevents reassignment of the variable.";
+
+        result.className =
+        "practice-result show correct";
+
+        showToast(
+            "Correct answer! 🎉"
+        );
+
+    }else{
+
+        result.textContent =
+        "❌ Incorrect. The correct answer is const.";
+
+        result.className =
+        "practice-result show wrong";
+
+        showToast(
+            "Try again 💪"
+        );
+
+    }
+
+}
+
+
+/* DYNAMIC PRACTICE */
+
+function checkDynamicAnswer(){
+
+    const selected =
+    document.querySelector(
+        'input[name="dynamicJS"]:checked'
+    );
+
+
+    const result =
+    document.getElementById(
+        "practiceResult"
+    );
+
+
+    if(!selected){
+
+        result.textContent =
+        "Please select an answer first.";
+
+        result.className =
+        "practice-result show wrong";
+
+        return;
+
+    }
+
+
+    if(selected.value==="learn"){
+
+        result.textContent =
+        "🎉 Correct! Understanding + practicing code is the best approach.";
+
+        result.className =
+        "practice-result show correct";
+
+        showToast(
+            "Correct! 🎉"
+        );
+
+    }else{
+
+        result.textContent =
+        "❌ Not quite. Practice the concept and test your code.";
+
+        result.className =
+        "practice-result show wrong";
+
+    }
+
+}
+
+
+/* COMPLETE */
+
+function markComplete(){
+
+    const active =
+    document.querySelector(
+        ".topic-item.active"
+    );
+
+
+    if(active){
+
+        const check =
+        active.querySelector(
+            ".topic-check"
+        );
+
+
+        check.innerHTML =
+        '<i class="fa-solid fa-circle-check"></i>';
+
+        check.style.color =
+        "var(--success)";
+
+    }
+
+
+    showToast(
+        "Lesson marked as completed ✅"
+    );
+
+}
+
+
+/* GET TOPICS */
+
+function getTopics(){
+
+    return Array.from(
+        document.querySelectorAll(
+            ".topic-item"
+        )
+    );
+
+}
+
+
+/* NEXT */
+
+function nextTopic(){
+
+    const topics =
+    getTopics();
+
+
+    const active =
+    document.querySelector(
+        ".topic-item.active"
+    );
+
+
+    const index =
+    topics.indexOf(active);
+
+
+    if(index < topics.length-1){
+
+        const next =
+        topics[index+1];
+
+
+        const name =
+        next.querySelector(
+            ".topic-text strong"
+        ).textContent;
+
+
+        selectTopic(
+            next,
+            name,
+            index+1
+        );
+
+    }else{
+
+        showToast(
+            "🎉 You completed the final topic!"
+        );
+
+    }
+
+}
+
+
+/* PREVIOUS */
+
+function previousTopic(){
+
+    const topics =
+    getTopics();
+
+
+    const active =
+    document.querySelector(
+        ".topic-item.active"
+    );
+
+
+    const index =
+    topics.indexOf(active);
+
+
+    if(index > 0){
+
+        const previous =
+        topics[index-1];
+
+
+        const name =
+        previous.querySelector(
+            ".topic-text strong"
+        ).textContent;
+
+
+        selectTopic(
+            previous,
+            name,
+            index-1
+        );
+
+    }else{
+
+        showToast(
+            "This is the first topic."
+        );
+
+    }
+
+}
+
+
+/* SEARCH */
+
+const searchInput =
+document.getElementById(
+    "searchInput"
+);
+
+
+searchInput.addEventListener(
+    "input",
+    ()=>{
+
+        const value =
+        searchInput.value
+        .toLowerCase()
+        .trim();
+
+
+        document
+        .querySelectorAll(".topic-item")
+        .forEach(item=>{
+
+            const text =
+            item.innerText
+            .toLowerCase();
+
+
+            item.style.display =
+            text.includes(value)
+            ? "flex"
+            : "none";
+
+        });
+
+    }
+);
+
+
+/* TOAST */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+    document.getElementById(
+        "toast"
+    );
+
+
+    document.getElementById(
+        "toastMessage"
+    ).textContent =
+    message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+    setTimeout(()=>{
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },2500);
+
+}
+
+
+/* LOGOUT */
+
+function logoutUser(event){
+
+    event.preventDefault();
+
+
+    const confirmation =
+    confirm(
+        "Are you sure you want to logout?"
+    );
+
+
+    if(confirmation){
+
+        showToast(
+            "Logging out..."
+        );
+
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "login.html";
+
+        },900);
+
+    }
+
+}
+
+
+/* ESCAPE KEY */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key==="Escape"){
+
+            sidebar.classList.remove(
+                "open"
+            );
+
+            overlay.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

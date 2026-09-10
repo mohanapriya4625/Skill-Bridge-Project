@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aptitude Practice | SkillBridge</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+    --navy:#12233f;
+    --navy2:#1b3154;
+    --bg:#f6f8fc;
+    --card:#fff;
+    --text:#172033;
+    --muted:#718096;
+    --border:#e6eaf0;
+    --success:#18a66a;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+    --purple:#8b5cf6;
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+    --sidebar-width:255px;
+    --topbar-height:76px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+body.dark{
+    --bg:#0d1728;
+    --card:#142238;
+    --text:#f4f7fb;
+    --muted:#9eabc0;
+    --border:#263751;
+    --navy:#091527;
+    --navy2:#12233c;
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+/* LOADER */
+#loader{
+    position:fixed;inset:0;background:var(--navy);display:flex;
+    align-items:center;justify-content:center;z-index:9999;transition:.5s ease;
+}
+.loader-box{text-align:center;color:#fff;animation:loaderFloat 1.5s ease infinite alternate}
+.loader-logo{
+    width:72px;height:72px;margin:auto;border-radius:20px;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;
+    box-shadow:0 0 0 10px rgba(255,107,0,.1);
+}
+.loader-box h3{margin-top:18px;font-size:18px}
+.loader-box p{margin-top:6px;color:#aebbd0;font-size:13px}
+@keyframes loaderFloat{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;left:0;top:0;width:var(--sidebar-width);height:100vh;
+    background:linear-gradient(180deg,var(--navy),#0d1b30);color:#fff;z-index:1000;
+    display:flex;flex-direction:column;transition:.35s ease;
+}
+.logo-area{height:90px;display:flex;align-items:center;padding:0 22px;gap:12px}
+.logo-icon{
+    width:43px;height:43px;border-radius:13px;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;
+    box-shadow:0 8px 20px rgba(255,107,0,.25);
+}
+.logo-text h2{font-size:19px;font-weight:800}
+.logo-text span{display:block;font-size:10px;color:#91a1ba;margin-top:2px}
+.nav{padding:10px 14px;flex:1;overflow-y:auto}
+.nav-title{
+    color:#687a96;font-size:10px;text-transform:uppercase;letter-spacing:1.4px;
+    padding:15px 12px 8px;font-weight:700;
+}
+.nav a{
+    display:flex;align-items:center;gap:13px;padding:12px 13px;margin:4px 0;
+    border-radius:10px;color:#b9c5d8;font-size:13px;font-weight:500;transition:.25s ease;
+}
+.nav a i{width:20px;text-align:center;font-size:15px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.07);transform:translateX(4px)}
+.nav a.active{
+    color:#fff;background:linear-gradient(90deg,rgba(255,107,0,.22),rgba(255,107,0,.07));
+    border-left:3px solid var(--orange);
+}
+.nav a.active i{color:var(--orange)}
+.sidebar-bottom{padding:15px;border-top:1px solid rgba(255,255,255,.08)}
+.mini-profile{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;transition:.25s}
+.mini-profile:hover{background:rgba(255,255,255,.06)}
+.avatar{
+    width:39px;height:39px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+}
+.mini-profile-info{flex:1;min-width:0}
+.mini-profile-info strong{display:block;font-size:12px;color:#fff}
+.mini-profile-info span{display:block;color:#8393aa;font-size:10px;margin-top:2px}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-width);min-height:100vh}
+.topbar{
+    height:var(--topbar-height);background:var(--card);border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;
+    padding:0 30px;backdrop-filter:blur(15px);
+}
+.topbar-left{display:flex;align-items:center;gap:15px}
+.mobile-menu{
+    display:none;width:40px;height:40px;border:1px solid var(--border);
+    background:var(--card);border-radius:10px;color:var(--text)
+}
+.page-title h1{font-size:20px;font-weight:800}
+.page-title p{color:var(--muted);font-size:11px;margin-top:3px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{
+    width:39px;height:39px;border-radius:10px;border:1px solid var(--border);
+    background:var(--card);color:var(--muted);display:flex;align-items:center;
+    justify-content:center;transition:.25s;position:relative;
+}
+.icon-btn:hover{color:var(--orange);border-color:rgba(255,107,0,.4);transform:translateY(-2px)}
+.notification-dot{position:absolute;top:8px;right:8px;width:6px;height:6px;background:var(--orange);border-radius:50%}
+.content{padding:30px;max-width:1350px;margin:auto}
+
+/* HERO */
+.aptitude-hero{
+    background:
+        radial-gradient(circle at 85% 20%,rgba(255,107,0,.22),transparent 30%),
+        radial-gradient(circle at 20% 100%,rgba(59,130,246,.14),transparent 30%),
+        linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff;border-radius:22px;padding:30px;position:relative;overflow:hidden;
+    margin-bottom:25px;box-shadow:var(--shadow);animation:fadeUp .7s ease both;
+}
+.aptitude-hero::before{
+    content:"?";position:absolute;right:70px;top:-25px;font-size:190px;font-weight:800;
+    color:rgba(255,255,255,.035);transform:rotate(10deg)
+}
+.hero-content{position:relative;z-index:2;max-width:820px}
+.hero-tag{
+    display:inline-flex;align-items:center;gap:7px;background:rgba(255,107,0,.15);
+    color:#ffb07d;padding:7px 12px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:13px;
+}
+.hero-content h2{font-size:28px;margin-bottom:8px}
+.hero-content p{color:#b7c4d8;font-size:13px;line-height:1.7;max-width:700px}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{
+    border:0;border-radius:10px;padding:11px 16px;font-size:11px;font-weight:700;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.25s;
+}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;box-shadow:0 8px 18px rgba(255,107,0,.2)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(255,107,0,.28)}
+.btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--orange);color:var(--orange)}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px}
+.stat-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;
+    display:flex;align-items:center;gap:13px;box-shadow:var(--shadow);transition:.3s;animation:fadeUp .7s ease both
+}
+.stat-card:nth-child(2){animation-delay:.08s}.stat-card:nth-child(3){animation-delay:.16s}.stat-card:nth-child(4){animation-delay:.24s}
+.stat-card:hover{transform:translateY(-5px)}
+.stat-icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,107,0,.1);color:var(--orange);flex-shrink:0
+}
+.stat-icon.green{color:var(--success);background:rgba(24,166,106,.1)}
+.stat-icon.blue{color:var(--blue);background:rgba(59,130,246,.1)}
+.stat-icon.purple{color:var(--purple);background:rgba(139,92,246,.1)}
+.stat-info strong{display:block;font-size:20px;font-weight:800}
+.stat-info span{color:var(--muted);font-size:10px;margin-top:3px;display:block}
+
+/* SECTIONS */
+.section-header{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:15px
+}
+.section-heading h3{font-size:18px;font-weight:800}
+.section-heading p{color:var(--muted);font-size:11px;margin-top:4px}
+
+/* CATEGORY CARDS */
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.category-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;
+    box-shadow:var(--shadow);transition:.3s;cursor:pointer;animation:fadeUp .6s ease both
+}
+.category-card:hover{transform:translateY(-5px);border-color:rgba(255,107,0,.4)}
+.category-top{display:flex;align-items:center;justify-content:space-between}
+.category-icon{
+    width:42px;height:42px;border-radius:12px;background:rgba(255,107,0,.09);
+    color:var(--orange);display:flex;align-items:center;justify-content:center
+}
+.category-card:nth-child(2) .category-icon{color:var(--blue);background:rgba(59,130,246,.09)}
+.category-card:nth-child(3) .category-icon{color:var(--purple);background:rgba(139,92,246,.09)}
+.category-card:nth-child(4) .category-icon{color:var(--success);background:rgba(24,166,106,.09)}
+.category-card h4{font-size:13px;margin-top:13px}
+.category-card p{font-size:9px;color:var(--muted);line-height:1.5;margin-top:5px}
+.category-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:13px;font-size:9px}
+.category-bottom span{color:var(--muted)}
+.category-bottom b{color:var(--orange)}
+
+/* PRACTICE LAYOUT */
+.practice-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px}
+.filter-panel{
+    background:var(--card);border:1px solid var(--border);border-radius:17px;padding:17px;
+    margin-bottom:18px;box-shadow:var(--shadow);animation:fadeUp .7s ease .2s both
+}
+.filter-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.search-box{position:relative}
+.search-box i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px}
+.search-box input{
+    width:100%;height:42px;border:1px solid var(--border);background:var(--bg);color:var(--text);
+    border-radius:10px;padding:0 13px 0 37px;outline:none;font-size:11px;transition:.25s
+}
+.search-box input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,107,0,.08)}
+.filter-select{
+    height:42px;border:1px solid var(--border);background:var(--bg);color:var(--text);
+    border-radius:10px;padding:0 12px;outline:none;font-size:11px
+}
+.filter-select:focus{border-color:var(--orange)}
+.filter-chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+    border:1px solid var(--border);background:var(--bg);color:var(--muted);padding:7px 11px;
+    border-radius:20px;font-size:9px;font-weight:700;transition:.25s
+}
+.chip:hover{color:var(--orange);border-color:var(--orange)}
+.chip.active{color:#fff;border-color:var(--orange);background:var(--orange)}
+
+/* QUESTION CARDS */
+.question-list{display:flex;flex-direction:column;gap:12px}
+.question-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:17px;
+    display:flex;gap:15px;transition:.3s;animation:fadeUp .5s ease both
+}
+.question-card:hover{transform:translateX(4px);border-color:rgba(255,107,0,.35);box-shadow:var(--shadow)}
+.question-number{
+    width:40px;height:40px;border-radius:11px;background:rgba(255,107,0,.08);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0
+}
+.question-info{flex:1;min-width:0}
+.question-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.question-title h4{font-size:13px;font-weight:750}
+.tag{
+    display:inline-flex;align-items:center;padding:5px 8px;border-radius:20px;font-size:8px;font-weight:700;
+    background:var(--bg);color:var(--muted)
+}
+.tag.easy{color:var(--success);background:rgba(24,166,106,.09)}
+.tag.medium{color:var(--warning);background:rgba(245,158,11,.1)}
+.tag.hard{color:var(--danger);background:rgba(239,68,68,.09)}
+.tag.topic{color:var(--blue);background:rgba(59,130,246,.09)}
+.question-info p{color:var(--muted);font-size:10px;margin-top:5px;line-height:1.55}
+.question-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.question-actions{display:flex;align-items:center;gap:7px}
+.small-btn{
+    width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--bg);
+    color:var(--muted);display:flex;align-items:center;justify-content:center;transition:.25s
+}
+.small-btn:hover,.small-btn.saved{color:var(--orange);border-color:var(--orange);background:rgba(255,107,0,.08)}
+.practice-btn{
+    height:36px;padding:0 13px;border:0;border-radius:9px;background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:#fff;font-size:10px;font-weight:700;transition:.25s
+}
+.practice-btn:hover{transform:translateY(-2px)}
+
+/* RIGHT SIDE */
+.right-column{display:flex;flex-direction:column;gap:17px}
+.daily-card{
+    background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:17px;padding:20px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow);animation:fadeUp .7s ease .3s both
+}
+.daily-card::after{content:"";position:absolute;width:150px;height:150px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:-65px;bottom:-75px}
+.small-label{color:#ffb07d;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.daily-card h3{font-size:17px;margin-top:8px;line-height:1.4}
+.daily-card p{color:#aebbd0;font-size:10px;line-height:1.6;margin-top:7px}
+.daily-actions{display:flex;gap:8px;margin-top:15px}
+.progress-wrap{margin-top:16px}
+.progress-top{display:flex;justify-content:space-between;font-size:9px;color:#aebbd0;margin-bottom:6px}
+.progress{height:7px;background:rgba(255,255,255,.12);border-radius:20px;overflow:hidden}
+.progress span{
+    display:block;height:100%;width:68%;border-radius:20px;
+    background:linear-gradient(90deg,var(--orange),var(--orange2));animation:progressGrow 1.2s ease
+}
+.side-card{
+    background:var(--card);border:1px solid var(--border);border-radius:17px;padding:18px;
+    box-shadow:var(--shadow);animation:fadeUp .7s ease .4s both
+}
+.side-card-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.side-card-title h4{font-size:13px;font-weight:800}
+.side-card-title span{color:var(--orange);font-size:9px;font-weight:700}
+.topic-item{
+    display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)
+}
+.topic-item:last-child{border-bottom:0;padding-bottom:0}
+.topic-icon{
+    width:34px;height:34px;border-radius:9px;background:rgba(255,107,0,.08);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:12px
+}
+.topic-info{flex:1}.topic-info strong{display:block;font-size:10px}
+.topic-info span{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+.topic-percent{font-size:9px;color:var(--muted);font-weight:700}
+
+/* EMPTY */
+.empty-state{
+    display:none;text-align:center;background:var(--card);border:1px dashed var(--border);
+    border-radius:16px;padding:45px 20px
+}
+.empty-state i{font-size:32px;color:var(--muted);margin-bottom:12px}
+.empty-state h4{font-size:14px;margin-bottom:5px}
+.empty-state p{color:var(--muted);font-size:10px}
+
+/* MODAL */
+.modal{
+    position:fixed;inset:0;background:rgba(4,12,25,.7);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;z-index:4000;padding:20px
+}
+.modal.show{display:flex}
+.modal-box{
+    width:100%;max-width:760px;max-height:90vh;overflow:auto;background:var(--card);
+    border:1px solid var(--border);border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,.3);
+    animation:modalIn .35s ease both
+}
+.modal-header{
+    padding:20px 22px;border-bottom:1px solid var(--border);display:flex;
+    align-items:center;justify-content:space-between;gap:15px
+}
+.modal-title{display:flex;align-items:center;gap:12px}
+.modal-number{
+    width:40px;height:40px;border-radius:11px;background:rgba(255,107,0,.1);
+    color:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800
+}
+.modal-title h3{font-size:16px}.modal-title p{color:var(--muted);font-size:9px;margin-top:3px}
+.close-modal{
+    width:35px;height:35px;border:0;border-radius:9px;background:var(--bg);color:var(--muted)
+}
+.modal-body{padding:22px}
+.question-text{font-size:13px;line-height:1.7;margin-bottom:17px}
+.options{display:grid;gap:9px}
+.option{
+    border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:11px;
+    padding:13px;text-align:left;font-size:11px;transition:.25s;display:flex;gap:10px;align-items:center
+}
+.option:hover{border-color:var(--orange);transform:translateX(3px)}
+.option.correct{border-color:var(--success);background:rgba(24,166,106,.08)}
+.option.wrong{border-color:var(--danger);background:rgba(239,68,68,.08)}
+.option-letter{
+    width:25px;height:25px;border-radius:7px;background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;flex-shrink:0
+}
+.example-box{
+    background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:15px;margin-top:18px
+}
+.example-box h4{font-size:11px;margin-bottom:9px}
+.example-row{display:grid;grid-template-columns:80px 1fr;gap:8px;margin:5px 0;font-size:10px}
+.example-row span:first-child{color:var(--muted);font-weight:700}
+.explanation{
+    display:none;margin-top:15px;border-left:3px solid var(--orange);padding:11px 13px;
+    background:rgba(255,107,0,.06);border-radius:0 9px 9px 0;font-size:10px;line-height:1.6
+}
+.modal-footer{
+    padding:17px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:9px
+}
+
+/* TOAST */
+.toast-container{position:fixed;right:25px;bottom:25px;z-index:5000;display:flex;flex-direction:column;gap:10px}
+.toast{
+    min-width:260px;max-width:350px;background:var(--card);border:1px solid var(--border);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);border-radius:12px;padding:13px 15px;
+    display:flex;align-items:center;gap:10px;animation:toastIn .4s ease both
+}
+.toast i{color:var(--success)}.toast span{font-size:11px;color:var(--text)}
+
+/* FOOTER */
+.footer{text-align:center;color:var(--muted);font-size:10px;padding:28px 0 10px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes progressGrow{from{width:0}to{width:68%}}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(15px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .category-grid{grid-template-columns:repeat(2,1fr)}
+    .practice-layout{grid-template-columns:1fr}
+    .right-column{display:grid;grid-template-columns:1fr 1fr}
+}
+@media(max-width:1000px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .mobile-menu{display:flex;align-items:center;justify-content:center}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;display:none}
+    .overlay.show{display:block}
+}
+@media(max-width:750px){
+    .content{padding:20px}
+    .topbar{padding:0 18px}
+    .page-title h1{font-size:17px}
+    .page-title p{display:none}
+    .aptitude-hero{padding:24px}
+    .hero-content h2{font-size:23px}
+    .filter-top{grid-template-columns:1fr}
+    .right-column{grid-template-columns:1fr}
+    .question-card{align-items:flex-start}
+    .question-actions{flex-direction:column}
+}
+@media(max-width:550px){
+    .content{padding:15px}
+    .topbar{height:68px}
+    .top-actions .icon-btn:nth-child(2){display:none}
+    .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .stat-card{padding:14px;gap:9px}
+    .stat-icon{width:36px;height:36px}
+    .stat-info strong{font-size:16px}
+    .category-grid{grid-template-columns:1fr}
+    .aptitude-hero{border-radius:17px;padding:20px}
+    .hero-content h2{font-size:21px}
+    .hero-content p{font-size:11px}
+    .hero-buttons{flex-direction:column}
+    .hero-buttons .btn{width:100%}
+    .question-card{flex-wrap:wrap}
+    .question-info{width:calc(100% - 55px)}
+    .question-actions{width:100%;flex-direction:row;justify-content:flex-end}
+    .practice-btn{flex:1}
+    .toast-container{left:15px;right:15px;bottom:15px}
+    .toast{min-width:0;width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+    <div class="loader-box">
+        <div class="loader-logo">SB</div>
+        <h3>SkillBridge</h3>
+        <p>Loading aptitude practice...</p>
+    </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+        <div class="logo-icon">SB</div>
+        <div class="logo-text">
+            <h2>SkillBridge</h2>
+            <span>LEARN • PRACTICE • GROW</span>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-title">Main Menu</div>
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+        <a href="study-material.html"><i class="fa-solid fa-book-open"></i><span>Study Material</span></a>
+        <a href="aptitude.html" class="active"><i class="fa-solid fa-brain"></i><span>Aptitude</span></a>
+        <a href="coding.html"><i class="fa-solid fa-code"></i><span>Coding Practice</span></a>
+        <a href="progress.html"><i class="fa-solid fa-chart-line"></i><span>My Progress</span></a>
+
+        <div class="nav-title">Account</div>
+        <a href="profile.html"><i class="fa-solid fa-user"></i><span>My Profile</span></a>
+        <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="mini-profile">
+            <div class="avatar">MP</div>
+            <div class="mini-profile-info">
+                <strong id="sideName">Mohana</strong>
+                <span>Full Stack Learner</span>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:#72829b;font-size:12px"></i>
+        </div>
+    </div>
+</aside>
+
+<main class="main">
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="mobile-menu" id="mobileMenu"><i class="fa-solid fa-bars"></i></button>
+            <div class="page-title">
+                <h1>Aptitude Practice</h1>
+                <p>Think faster. Solve smarter. Get interview ready.</p>
+            </div>
+        </div>
+        <div class="top-actions">
+            <button class="icon-btn" onclick="showToast('No new notifications')">
+                <i class="fa-regular fa-bell"></i><span class="notification-dot"></span>
+            </button>
+            <button class="icon-btn" onclick="toggleTheme()" id="themeButton">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button class="icon-btn" onclick="location.href='profile.html'">
+                <i class="fa-regular fa-user"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="content">
+
+        <section class="aptitude-hero">
+            <div class="hero-content">
+                <div class="hero-tag"><i class="fa-solid fa-brain"></i> APTITUDE ARENA</div>
+                <h2>Think. Practice. Master. 🧠</h2>
+                <p>
+                    Build strong quantitative, logical reasoning and verbal aptitude skills
+                    through focused questions, examples and instant practice.
+                    Prepare confidently for placement tests and technical interviews.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="startRandomQuestion()">
+                        <i class="fa-solid fa-play"></i> Start Practice
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToQuestions()">
+                        <i class="fa-solid fa-list-check"></i> Explore Questions
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="stat-info"><strong id="solvedStat">36</strong><span>Questions Solved</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div>
+                <div class="stat-info"><strong id="accuracyStat">84%</strong><span>Accuracy</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-stopwatch"></i></div>
+                <div class="stat-info"><strong>12m</strong><span>Avg. Practice Time</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-fire"></i></div>
+                <div class="stat-info"><strong>9</strong><span>Day Streak</span></div>
+            </div>
+        </section>
+
+        <div class="section-header">
+            <div class="section-heading">
+                <h3>Aptitude Categories</h3>
+                <p>Choose a topic and strengthen your fundamentals.</p>
+            </div>
+        </div>
+
+        <section class="category-grid">
+            <div class="category-card" onclick="selectTopic('quantitative')">
+                <div class="category-top">
+                    <div class="category-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <i class="fa-solid fa-arrow-right" style="color:var(--muted);font-size:11px"></i>
+                </div>
+                <h4>Quantitative Aptitude</h4>
+                <p>Numbers, percentages, ratios, averages, profit and time-based problems.</p>
+                <div class="category-bottom"><span>12 Questions</span><b>Start →</b></div>
+            </div>
+
+            <div class="category-card" onclick="selectTopic('reasoning')">
+                <div class="category-top">
+                    <div class="category-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <i class="fa-solid fa-arrow-right" style="color:var(--muted);font-size:11px"></i>
+                </div>
+                <h4>Logical Reasoning</h4>
+                <p>Patterns, series, coding-decoding, directions and analytical thinking.</p>
+                <div class="category-bottom"><span>10 Questions</span><b>Start →</b></div>
+            </div>
+
+            <div class="category-card" onclick="selectTopic('verbal')">
+                <div class="category-top">
+                    <div class="category-icon"><i class="fa-solid fa-language"></i></div>
+                    <i class="fa-solid fa-arrow-right" style="color:var(--muted);font-size:11px"></i>
+                </div>
+                <h4>Verbal Ability</h4>
+                <p>Grammar, vocabulary, sentence correction and reading-based questions.</p>
+                <div class="category-bottom"><span>8 Questions</span><b>Start →</b></div>
+            </div>
+
+            <div class="category-card" onclick="selectTopic('data')">
+                <div class="category-top">
+                    <div class="category-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                    <i class="fa-solid fa-arrow-right" style="color:var(--muted);font-size:11px"></i>
+                </div>
+                <h4>Data Interpretation</h4>
+                <p>Tables, charts, percentages and data-based calculation practice.</p>
+                <div class="category-bottom"><span>8 Questions</span><b>Start →</b></div>
+            </div>
+        </section>
+
+        <div class="section-header" id="questionSection">
+            <div class="section-heading">
+                <h3>Practice Questions</h3>
+                <p>Answer the question, view the example and check your explanation.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="clearFilters()">
+                <i class="fa-solid fa-rotate-left"></i> Reset Filters
+            </button>
+        </div>
+
+        <div class="practice-layout">
+            <div>
+                <div class="filter-panel">
+                    <div class="filter-top">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input id="searchInput" type="text" placeholder="Search aptitude questions..." oninput="filterQuestions()">
+                        </div>
+                        <select class="filter-select" id="difficultyFilter" onchange="filterQuestions()">
+                            <option value="all">All Difficulties</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <select class="filter-select" id="typeFilter" onchange="filterQuestions()">
+                            <option value="all">All Categories</option>
+                            <option value="quantitative">Quantitative</option>
+                            <option value="reasoning">Reasoning</option>
+                            <option value="verbal">Verbal</option>
+                            <option value="data">Data Interpretation</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-chips">
+                        <button class="chip active" data-topic="all" onclick="setChip(this,'all')">All Topics</button>
+                        <button class="chip" data-topic="quantitative" onclick="setChip(this,'quantitative')">Quantitative</button>
+                        <button class="chip" data-topic="reasoning" onclick="setChip(this,'reasoning')">Reasoning</button>
+                        <button class="chip" data-topic="verbal" onclick="setChip(this,'verbal')">Verbal</button>
+                        <button class="chip" data-topic="data" onclick="setChip(this,'data')">Data Interpretation</button>
+                    </div>
+                </div>
+
+                <div class="question-list" id="questionList">
+
+                    <div class="question-card" data-title="Percentage increase" data-difficulty="easy" data-topic="quantitative" data-id="1">
+                        <div class="question-number">01</div>
+                        <div class="question-info">
+                            <div class="question-title">
+                                <h4>Percentage Increase</h4><span class="tag easy">Easy</span>
+                            </div>
+                            <p>If a number increases from 80 to 100, what is the percentage increase?</p>
+                            <div class="question-meta">
+                                <span class="tag">Quantitative</span><span class="tag topic">Percentages</span><span class="tag">10 Points</span>
+                            </div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)" title="Save"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(1,'Percentage Increase','Easy','Quantitative','If a number increases from 80 to 100, what is the percentage increase?',['20%','25%','30%','15%'],1,'Percentage increase = (Increase ÷ Original) × 100. Here, (20 ÷ 80) × 100 = 25%.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Simple interest" data-difficulty="easy" data-topic="quantitative" data-id="2">
+                        <div class="question-number">02</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Simple Interest</h4><span class="tag easy">Easy</span></div>
+                            <p>Find the simple interest on ₹5,000 at 8% per annum for 2 years.</p>
+                            <div class="question-meta"><span class="tag">Quantitative</span><span class="tag topic">Interest</span><span class="tag">10 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(2,'Simple Interest','Easy','Quantitative','Find the simple interest on ₹5,000 at 8% per annum for 2 years.',['₹600','₹700','₹800','₹900'],2,'Simple Interest = (P × R × T) ÷ 100 = (5000 × 8 × 2) ÷ 100 = ₹800.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Number series" data-difficulty="medium" data-topic="reasoning" data-id="3">
+                        <div class="question-number">03</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Number Series</h4><span class="tag medium">Medium</span></div>
+                            <p>Find the next number: 2, 6, 12, 20, 30, ?</p>
+                            <div class="question-meta"><span class="tag">Reasoning</span><span class="tag topic">Series</span><span class="tag">15 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(3,'Number Series','Medium','Reasoning','Find the next number: 2, 6, 12, 20, 30, ?',['36','40','42','44'],3,'The differences are 4, 6, 8, 10, so the next difference is 12. Therefore, 30 + 12 = 42.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Coding decoding" data-difficulty="medium" data-topic="reasoning" data-id="4">
+                        <div class="question-number">04</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Coding-Decoding</h4><span class="tag medium">Medium</span></div>
+                            <p>If CAT is coded as DBU, how will DOG be coded using the same pattern?</p>
+                            <div class="question-meta"><span class="tag">Reasoning</span><span class="tag topic">Coding</span><span class="tag">15 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(4,'Coding-Decoding','Medium','Reasoning','If CAT is coded as DBU, how will DOG be coded using the same pattern?',['EPH','EOG','DPH','FOH'],1,'Each letter is shifted one position forward: D→E, O→P and G→H. Therefore DOG becomes EPH.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Synonym rapid" data-difficulty="easy" data-topic="verbal" data-id="5">
+                        <div class="question-number">05</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Vocabulary — Synonym</h4><span class="tag easy">Easy</span></div>
+                            <p>Choose the word closest in meaning to “Rapid”.</p>
+                            <div class="question-meta"><span class="tag">Verbal</span><span class="tag topic">Vocabulary</span><span class="tag">10 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(5,'Vocabulary — Synonym','Easy','Verbal','Choose the word closest in meaning to “Rapid”.',['Slow','Quick','Weak','Late'],2,'Rapid means very fast or quick. Therefore, Quick is the correct answer.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Sentence correction" data-difficulty="medium" data-topic="verbal" data-id="6">
+                        <div class="question-number">06</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Sentence Correction</h4><span class="tag medium">Medium</span></div>
+                            <p>Choose the grammatically correct sentence.</p>
+                            <div class="question-meta"><span class="tag">Verbal</span><span class="tag topic">Grammar</span><span class="tag">15 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(6,'Sentence Correction','Medium','Verbal','Choose the grammatically correct sentence.',['He don’t like coffee.','He doesn’t likes coffee.','He doesn’t like coffee.','He not like coffee.'],3,'With singular subject “He”, use “doesn’t” followed by the base verb “like”.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Data table percentage" data-difficulty="hard" data-topic="data" data-id="7">
+                        <div class="question-number">07</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Data Interpretation</h4><span class="tag hard">Hard</span></div>
+                            <p>A company sold 240 units in January and 300 units in February. What was the percentage increase?</p>
+                            <div class="question-meta"><span class="tag">Data Interpretation</span><span class="tag topic">Tables</span><span class="tag">20 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(7,'Data Interpretation','Hard','Data Interpretation','A company sold 240 units in January and 300 units in February. What was the percentage increase?',['20%','25%','30%','35%'],2,'Increase = 300 − 240 = 60. Percentage increase = (60 ÷ 240) × 100 = 25%.')">Practice</button>
+                        </div>
+                    </div>
+
+                    <div class="question-card" data-title="Time and work" data-difficulty="hard" data-topic="quantitative" data-id="8">
+                        <div class="question-number">08</div>
+                        <div class="question-info">
+                            <div class="question-title"><h4>Time &amp; Work</h4><span class="tag hard">Hard</span></div>
+                            <p>A can complete a job in 10 days and B in 15 days. How many days together?</p>
+                            <div class="question-meta"><span class="tag">Quantitative</span><span class="tag topic">Time &amp; Work</span><span class="tag">20 Points</span></div>
+                        </div>
+                        <div class="question-actions">
+                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
+                            <button class="practice-btn" onclick="openQuestion(8,'Time & Work','Hard','Quantitative','A can complete a job in 10 days and B in 15 days. How many days together?',['5 days','6 days','7 days','8 days'],2,'A’s rate is 1/10 and B’s rate is 1/15. Together = 1/10 + 1/15 = 1/6, so the work takes 6 days.')">Practice</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h4>No questions found</h4>
+                    <p>Try a different search term or reset the filters.</p>
+                </div>
+            </div>
+
+            <aside class="right-column">
+                <div class="daily-card">
+                    <div class="small-label">Daily Challenge</div>
+                    <h3>Keep your reasoning streak alive 🔥</h3>
+                    <p>Complete today’s aptitude challenge and keep improving your speed and accuracy.</p>
+                    <div class="daily-actions">
+                        <button class="btn btn-primary" onclick="startRandomQuestion()"><i class="fa-solid fa-bolt"></i> Challenge</button>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-top"><span>Today’s progress</span><b>68%</b></div>
+                        <div class="progress"><span></span></div>
+                    </div>
+                </div>
+
+                <div class="side-card">
+                    <div class="side-card-title"><h4>Topic Progress</h4><span>View all</span></div>
+
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div class="topic-info"><strong>Quantitative</strong><span>18 / 25 completed</span></div>
+                        <div class="topic-percent">72%</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                        <div class="topic-info"><strong>Reasoning</strong><span>14 / 20 completed</span></div>
+                        <div class="topic-percent">70%</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-language"></i></div>
+                        <div class="topic-info"><strong>Verbal</strong><span>12 / 18 completed</span></div>
+                        <div class="topic-percent">67%</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                        <div class="topic-info"><strong>Data Interpretation</strong><span>8 / 12 completed</span></div>
+                        <div class="topic-percent">66%</div>
+                    </div>
+                </div>
+
+                <div class="side-card">
+                    <div class="side-card-title"><h4>Quick Tips</h4><span><i class="fa-solid fa-lightbulb"></i></span></div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="topic-info"><strong>Manage time</strong><span>Skip and return to long questions.</span></div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div class="topic-info"><strong>Estimate first</strong><span>Use approximation to eliminate options.</span></div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon"><i class="fa-solid fa-repeat"></i></div>
+                        <div class="topic-info"><strong>Practice daily</strong><span>Consistency improves speed.</span></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <div class="footer">© 2026 SkillBridge • Learn. Practice. Grow.</div>
+    </div>
+</main>
+
+<!-- QUESTION MODAL -->
+<div class="modal" id="questionModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">
+                <div class="modal-number" id="modalNumber">01</div>
+                <div>
+                    <h3 id="modalTitle">Question</h3>
+                    <p id="modalMeta">Aptitude Practice</p>
+                </div>
+            </div>
+            <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="question-text" id="modalQuestion"></div>
+            <div class="options" id="options"></div>
+
+            <div class="example-box">
+                <h4><i class="fa-solid fa-flask"></i> Example / Working</h4>
+                <div class="example-row"><span>Topic</span><strong id="exampleTopic">Quantitative</strong></div>
+                <div class="example-row"><span>Method</span><strong>Apply the relevant aptitude formula or reasoning pattern.</strong></div>
+            </div>
+
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextRandomQuestion()">
+                <i class="fa-solid fa-arrow-right"></i> Next Question
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+let selectedTopic = "all";
+let currentQuestion = null;
+let solvedCount = 36;
+
+const questions = [
+    {id:1,title:"Percentage Increase",difficulty:"Easy",topic:"Quantitative",question:"If a number increases from 80 to 100, what is the percentage increase?",options:["20%","25%","30%","15%"],answer:1,explanation:"Percentage increase = (Increase ÷ Original) × 100. Here, (20 ÷ 80) × 100 = 25%."},
+    {id:2,title:"Simple Interest",difficulty:"Easy",topic:"Quantitative",question:"Find the simple interest on ₹5,000 at 8% per annum for 2 years.",options:["₹600","₹700","₹800","₹900"],answer:2,explanation:"Simple Interest = (P × R × T) ÷ 100 = (5000 × 8 × 2) ÷ 100 = ₹800."},
+    {id:3,title:"Number Series",difficulty:"Medium",topic:"Reasoning",question:"Find the next number: 2, 6, 12, 20, 30, ?",options:["36","40","42","44"],answer:2,explanation:"The differences are 4, 6, 8, 10, so the next difference is 12. Therefore, 30 + 12 = 42."},
+    {id:4,title:"Coding-Decoding",difficulty:"Medium",topic:"Reasoning",question:"If CAT is coded as DBU, how will DOG be coded using the same pattern?",options:["EPH","EOG","DPH","FOH"],answer:0,explanation:"Each letter is shifted one position forward: D→E, O→P and G→H. Therefore DOG becomes EPH."},
+    {id:5,title:"Vocabulary — Synonym",difficulty:"Easy",topic:"Verbal",question:"Choose the word closest in meaning to “Rapid”.",options:["Slow","Quick","Weak","Late"],answer:1,explanation:"Rapid means very fast or quick. Therefore, Quick is the correct answer."},
+    {id:6,title:"Sentence Correction",difficulty:"Medium",topic:"Verbal",question:"Choose the grammatically correct sentence.",options:["He don’t like coffee.","He doesn’t likes coffee.","He doesn’t like coffee.","He not like coffee."],answer:2,explanation:"With singular subject “He”, use “doesn’t” followed by the base verb “like”."},
+    {id:7,title:"Data Interpretation",difficulty:"Hard",topic:"Data Interpretation",question:"A company sold 240 units in January and 300 units in February. What was the percentage increase?",options:["20%","25%","30%","35%"],answer:1,explanation:"Increase = 300 − 240 = 60. Percentage increase = (60 ÷ 240) × 100 = 25%."},
+    {id:8,title:"Time & Work",difficulty:"Hard",topic:"Quantitative",question:"A can complete a job in 10 days and B in 15 days. How many days together?",options:["5 days","6 days","7 days","8 days"],answer:1,explanation:"A’s rate is 1/10 and B’s rate is 1/15. Together = 1/10 + 1/15 = 1/6, so the work takes 6 days."}
+];
+
+window.addEventListener("load",()=>{
+    setTimeout(()=>{
+        const loader=document.getElementById("loader");
+        loader.style.opacity="0";
+        setTimeout(()=>loader.style.display="none",500);
+    },700);
+    applySavedTheme();
+});
+
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+    const dark=document.body.classList.contains("dark");
+    localStorage.setItem("skillbridgeTheme",dark?"dark":"light");
+    updateThemeIcon();
+}
+function applySavedTheme(){
+    if(localStorage.getItem("skillbridgeTheme")==="dark") document.body.classList.add("dark");
+    updateThemeIcon();
+}
+function updateThemeIcon(){
+    const icon=document.querySelector("#themeButton i");
+    if(icon) icon.className=document.body.classList.contains("dark")?"fa-solid fa-sun":"fa-solid fa-moon";
+}
+
+document.getElementById("mobileMenu").addEventListener("click",()=>{
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show");
+});
+document.getElementById("overlay").addEventListener("click",()=>{
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+});
+
+function scrollToQuestions(){
+    document.getElementById("questionSection").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function setChip(button,topic){
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    button.classList.add("active");
+    selectedTopic=topic;
+    document.getElementById("typeFilter").value=topic==="all"?"all":topic;
+    filterQuestions();
+}
+function selectTopic(topic){
+    selectedTopic=topic;
+    document.getElementById("typeFilter").value=topic;
+    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.topic===topic));
+    scrollToQuestions();
+    filterQuestions();
+    showToast(topic==="all"?"Showing all topics":topic.charAt(0).toUpperCase()+topic.slice(1)+" questions");
+}
+
+function filterQuestions(){
+    const search=document.getElementById("searchInput").value.toLowerCase().trim();
+    const difficulty=document.getElementById("difficultyFilter").value;
+    const type=document.getElementById("typeFilter").value;
+    const cards=[...document.querySelectorAll(".question-card")];
+    let visible=0;
+
+    cards.forEach(card=>{
+        const title=card.dataset.title.toLowerCase();
+        const diff=card.dataset.difficulty;
+        const topic=card.dataset.topic;
+        const matchesSearch=!search || title.includes(search) || card.innerText.toLowerCase().includes(search);
+        const matchesDifficulty=difficulty==="all" || diff===difficulty;
+        const matchesType=type==="all" || topic===type;
+        const matchesChip=selectedTopic==="all" || topic===selectedTopic;
+        const show=matchesSearch && matchesDifficulty && matchesType && matchesChip;
+        card.style.display=show?"flex":"none";
+        if(show) visible++;
+    });
+    document.getElementById("emptyState").style.display=visible?"none":"block";
+}
+
+function clearFilters(){
+    selectedTopic="all";
+    document.getElementById("searchInput").value="";
+    document.getElementById("difficultyFilter").value="all";
+    document.getElementById("typeFilter").value="all";
+    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.topic==="all"));
+    filterQuestions();
+    showToast("Filters reset");
+}
+
+function toggleSave(button){
+    button.classList.toggle("saved");
+    const icon=button.querySelector("i");
+    const saved=button.classList.contains("saved");
+    icon.className=saved?"fa-solid fa-bookmark":"fa-regular fa-bookmark";
+    showToast(saved?"Question saved":"Question removed from saved");
+}
+
+function openQuestion(id,title,difficulty,topic,question,options,answer,explanation){
+    currentQuestion={id,title,difficulty,topic,question,options,answer,explanation};
+    document.getElementById("modalNumber").textContent=String(id).padStart(2,"0");
+    document.getElementById("modalTitle").textContent=title;
+    document.getElementById("modalMeta").textContent=difficulty+" • "+topic;
+    document.getElementById("modalQuestion").textContent=question;
+    document.getElementById("exampleTopic").textContent=topic;
+    document.getElementById("explanation").textContent="Explanation: "+explanation;
+    document.getElementById("explanation").style.display="none";
+
+    const optionsBox=document.getElementById("options");
+    optionsBox.innerHTML="";
+    options.forEach((option,index)=>{
+        const btn=document.createElement("button");
+        btn.className="option";
+        btn.innerHTML='<span class="option-letter">'+String.fromCharCode(65+index)+'</span><span>'+option+'</span>';
+        btn.onclick=()=>checkAnswer(index,btn);
+        optionsBox.appendChild(btn);
+    });
+    document.getElementById("questionModal").classList.add("show");
+    document.body.style.overflow="hidden";
+}
+
+function checkAnswer(index,button){
+    if(!currentQuestion)return;
+    document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+    const correct=index===currentQuestion.answer;
+    button.classList.add(correct?"correct":"wrong");
+    if(!correct) document.querySelectorAll(".option")[currentQuestion.answer].classList.add("correct");
+    document.getElementById("explanation").style.display="block";
+
+    if(correct){
+        solvedCount++;
+        document.getElementById("solvedStat").textContent=solvedCount;
+        showToast("Correct answer! Great work 🎯");
+    }else{
+        showToast("Not quite. Check the explanation.");
+    }
+}
+
+function closeModal(){
+    document.getElementById("questionModal").classList.remove("show");
+    document.body.style.overflow="";
+}
+document.getElementById("questionModal").addEventListener("click",(e)=>{
+    if(e.target.id==="questionModal") closeModal();
+});
+
+function startRandomQuestion(){
+    const q=questions[Math.floor(Math.random()*questions.length)];
+    openQuestion(q.id,q.title,q.difficulty,q.topic,q.question,q.options,q.answer,q.explanation);
+}
+function nextRandomQuestion(){
+    closeModal();
+    setTimeout(startRandomQuestion,180);
+}
+document.addEventListener("keydown",(e)=>{
+    if(e.key==="Escape") closeModal();
+});
+
+function showToast(message){
+    const box=document.getElementById("toastContainer");
+    const toast=document.createElement("div");
+    toast.className="toast";
+    toast.innerHTML='<i class="fa-solid fa-circle-check"></i><span>'+message+'</span>';
+    box.appendChild(toast);
+    setTimeout(()=>toast.remove(),2600);
+}
+</script>
+</body>
+</html>

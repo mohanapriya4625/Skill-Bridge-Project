@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time & Work | SkillBridge</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+    --navy:#12233f;
+    --navy2:#1b3154;
+    --bg:#f6f8fc;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#718096;
+    --border:#e6eaf0;
+    --success:#18a66a;
+    --danger:#ef4444;
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* ================= LOADER ================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:.5s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    width:75px;
+    height:75px;
+    border-radius:22px;
+    background:var(--orange);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:800;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.12)}
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:255px;
+    height:100vh;
+    background:var(--navy);
+    color:white;
+    z-index:1000;
+    padding:24px 16px;
+    transition:.3s ease;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 10px 30px;
+}
+
+.logo-box{
+    width:43px;
+    height:43px;
+    background:var(--orange);
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:18px;
+}
+
+.logo h2{
+    font-size:20px;
+}
+
+.logo span{
+    color:var(--orange);
+}
+
+.nav-title{
+    font-size:11px;
+    color:#8fa1bb;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin:12px 12px;
+}
+
+.nav-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:13px 14px;
+    margin:5px 0;
+    color:#c9d3e2;
+    text-decoration:none;
+    border-radius:12px;
+    transition:.25s;
+    font-size:14px;
+}
+
+.nav-link i{
+    width:20px;
+    text-align:center;
+}
+
+.nav-link:hover,
+.nav-link.active{
+    background:rgba(255,107,0,.15);
+    color:white;
+}
+
+.nav-link.active{
+    border-left:3px solid var(--orange);
+}
+
+.nav-link:hover i,
+.nav-link.active i{
+    color:var(--orange);
+}
+
+.sidebar-bottom{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:999;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    height:76px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-heading h1{
+    font-size:20px;
+    color:var(--navy);
+}
+
+.page-heading p{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.icon-btn:hover{
+    background:var(--orange);
+    color:white;
+    transform:translateY(-2px);
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-left:5px;
+    cursor:pointer;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+.profile-mini span{
+    font-size:13px;
+    font-weight:600;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    background:linear-gradient(120deg,var(--navy),#1c365d);
+    border-radius:24px;
+    padding:30px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    animation:fadeUp .7s ease;
+}
+
+.hero:before,
+.hero:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,107,0,.12);
+}
+
+.hero:before{
+    width:220px;
+    height:220px;
+    right:100px;
+    top:-100px;
+}
+
+.hero:after{
+    width:150px;
+    height:150px;
+    right:-30px;
+    bottom:-70px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,107,0,.17);
+    color:#ff9c5c;
+    padding:7px 12px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:13px;
+}
+
+.hero h2{
+    font-size:30px;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#b9c7da;
+    font-size:14px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.hero-progress{
+    width:170px;
+    position:relative;
+    z-index:2;
+}
+
+.progress-circle{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:conic-gradient(var(--orange) 65%,rgba(255,255,255,.12) 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.progress-circle:after{
+    content:"";
+    position:absolute;
+    width:94px;
+    height:94px;
+    border-radius:50%;
+    background:var(--navy);
+}
+
+.progress-circle span{
+    position:relative;
+    z-index:2;
+    font-size:22px;
+    font-weight:800;
+}
+
+/* ================= LAYOUT ================= */
+
+.learning-layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:24px;
+    margin-top:25px;
+}
+
+/* ================= TOPICS ================= */
+
+.topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    height:max-content;
+    position:sticky;
+    top:100px;
+}
+
+.topic-card h3{
+    color:var(--navy);
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.topic-search{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    margin-bottom:15px;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.topic-search:focus{
+    border-color:var(--orange);
+}
+
+.topic-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.topic{
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--muted);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.topic-number{
+    width:27px;
+    height:27px;
+    border-radius:8px;
+    background:#f0f3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:700;
+}
+
+.topic:hover{
+    background:#fff2e9;
+    color:var(--orange);
+}
+
+.topic.active{
+    background:var(--orange);
+    color:white;
+}
+
+.topic.active .topic-number{
+    background:rgba(255,255,255,.2);
+    color:white;
+}
+
+/* ================= LESSON ================= */
+
+.lesson{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    animation:fadeUp .6s ease;
+}
+
+.lesson-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.lesson-head small{
+    color:var(--orange);
+    font-weight:700;
+    font-size:12px;
+}
+
+.lesson-head h2{
+    color:var(--navy);
+    margin-top:5px;
+    font-size:25px;
+}
+
+.bookmark{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#fff3eb;
+    color:var(--orange);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.bookmark:hover{
+    transform:scale(1.08);
+}
+
+.bookmark.saved{
+    background:var(--orange);
+    color:white;
+}
+
+.lesson-text{
+    color:#566276;
+    line-height:1.8;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.key-box{
+    background:#fff7f1;
+    border-left:4px solid var(--orange);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.key-box h4{
+    color:var(--navy);
+    margin-bottom:9px;
+}
+
+.key-box ul{
+    padding-left:18px;
+    color:#566276;
+    line-height:1.8;
+    font-size:13px;
+}
+
+/* ================= CODE ================= */
+
+.code-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.code-title span{
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+}
+
+.copy-btn{
+    background:var(--navy);
+    color:white;
+    padding:7px 11px;
+    border-radius:8px;
+    font-size:11px;
+}
+
+.copy-btn:hover{
+    background:var(--orange);
+}
+
+pre{
+    background:#101827;
+    color:#e8eef8;
+    border-radius:14px;
+    padding:20px;
+    overflow:auto;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.output{
+    background:#f1f7f4;
+    border:1px solid #d8eee4;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.output strong{
+    color:var(--success);
+    font-size:13px;
+}
+
+.output p{
+    font-family:monospace;
+    margin-top:7px;
+    font-size:13px;
+}
+
+/* ================= PRACTICE ================= */
+
+.practice{
+    margin-top:25px;
+    padding:20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#fff8f3,#f8faff);
+    border:1px solid var(--border);
+}
+
+.practice h3{
+    color:var(--navy);
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.question{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:14px;
+    line-height:1.6;
+}
+
+.options{
+    display:grid;
+    gap:8px;
+}
+
+.option{
+    padding:11px 13px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+    text-align:left;
+    transition:.2s;
+    font-size:13px;
+}
+
+.option:hover{
+    border-color:var(--orange);
+    transform:translateX(4px);
+}
+
+.option.correct{
+    background:#eaf8f1;
+    border-color:var(--success);
+    color:var(--success);
+}
+
+.option.wrong{
+    background:#fff0f0;
+    border-color:var(--danger);
+    color:var(--danger);
+}
+
+/* ================= NAV BUTTONS ================= */
+
+.lesson-actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+}
+
+.action-btn{
+    padding:11px 17px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.prev-btn{
+    background:#eef1f6;
+    color:var(--navy);
+}
+
+.next-btn{
+    background:var(--orange);
+    color:white;
+}
+
+.complete-btn{
+    background:#eaf8f1;
+    color:var(--success);
+}
+
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:var(--navy);
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
+    z-index:9999;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+    --bg:#0d1524;
+    --card:#142033;
+    --text:#e8edf5;
+    --muted:#9aa9bd;
+    --border:#26354b;
+    --navy:#0b1526;
+}
+
+body.dark .page-heading h1,
+body.dark .lesson-head h2,
+body.dark .topic-card h3,
+body.dark .code-title span,
+body.dark .key-box h4,
+body.dark .practice h3{
+    color:#f1f5fb;
+}
+
+body.dark .topic-number{
+    background:#223149;
+}
+
+body.dark .key-box{
+    background:#241d18;
+}
+
+body.dark .key-box ul,
+body.dark .lesson-text{
+    color:#aebbd0;
+}
+
+body.dark .practice{
+    background:#172438;
+}
+
+body.dark .option{
+    background:#1a283c;
+    color:#d9e1ec;
+}
+
+body.dark .output{
+    background:#12251d;
+    border-color:#24553e;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .overlay.show{
+        display:block;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:flex;
+    }
+
+    .learning-layout{
+        grid-template-columns:1fr;
+    }
+
+    .topic-card{
+        position:relative;
+        top:auto;
+    }
+
+    .topic-list{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .topbar{
+        padding:0 15px;
+        height:68px;
+    }
+
+    .page-heading h1{
+        font-size:16px;
+    }
+
+    .page-heading p{
+        display:none;
+    }
+
+    .profile-mini span{
+        display:none;
+    }
+
+    .content{
+        padding:16px;
+    }
+
+    .hero{
+        padding:22px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .hero h2{
+        font-size:24px;
+    }
+
+    .hero-progress{
+        align-self:center;
+    }
+
+    .learning-layout{
+        gap:15px;
+    }
+
+    .lesson{
+        padding:20px;
+    }
+
+    .lesson-head h2{
+        font-size:21px;
+    }
+
+    .lesson-actions{
+        flex-wrap:wrap;
+    }
+
+    .action-btn{
+        flex:1;
+        justify-content:center;
+    }
+
+    .topic-list{
+        grid-template-columns:1fr;
+    }
+
+    pre{
+        font-size:11px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *:before,
+    *:after{
+        animation:none!important;
+        transition:none!important;
+        scroll-behavior:auto!important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <div class="loader-logo">SB</div>
+</div>
+
+<!-- MOBILE OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logo-box">SB</div>
+        <h2>Skill<span>Bridge</span></h2>
+    </div>
+
+    <div class="nav-title">Main Menu</div>
+
+    <a href="dashboard.html" class="nav-link">
+        <i class="fa-solid fa-chart-pie"></i>
+        Dashboard
+    </a>
+
+    <a href="study-material.html" class="nav-link active">
+        <i class="fa-solid fa-book-open"></i>
+        Study Materials
+    </a>
+
+    <a href="aptitude.html" class="nav-link">
+        <i class="fa-solid fa-brain"></i>
+        Aptitude Tests
+    </a>
+
+    <a href="coding.html" class="nav-link">
+        <i class="fa-solid fa-code"></i>
+        Coding Practice
+    </a>
+
+    <a href="progress.html" class="nav-link">
+        <i class="fa-solid fa-chart-line"></i>
+        My Progress
+    </a>
+
+    <div class="nav-title">Account</div>
+
+    <a href="profile.html" class="nav-link">
+        <i class="fa-solid fa-user"></i>
+        My Profile
+    </a>
+
+    <a href="settings.html" class="nav-link">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+    </a>
+
+    <div class="sidebar-bottom">
+        <a href="login.html" class="nav-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+    </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="top-actions">
+
+            <button class="icon-btn mobile-menu" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-heading">
+                <h1>Time & Work</h1>
+                <p>Study Materials / Aptitude / Time & Work</p>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <button class="icon-btn" id="themeBtn" title="Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fa-regular fa-bell"></i>
+            </button>
+
+            <div class="profile-mini" onclick="goProfile()">
+                <div class="avatar">MP</div>
+                <span>Mohana</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <section class="content">
+
+        <!-- HERO -->
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    Quantitative Aptitude
+                </div>
+
+                <h2>Master Time & Work ⏱️</h2>
+
+                <p>
+                    Learn Time & Work from the basics to SSC CGL-level problem solving.
+                    Master work units, efficiency, LCM methods, combined work,
+                    pipes & cisterns, wages and fast shortcut techniques.
+                </p>
+
+            </div>
+
+            <div class="hero-progress">
+
+                <div class="progress-circle">
+                    <span>65%</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- LEARNING -->
+        <div class="learning-layout">
+
+            <!-- TOPICS -->
+            <div class="topic-card">
+
+                <h3>Time & Work Topics</h3>
+
+                <input
+                    type="text"
+                    class="topic-search"
+                    id="topicSearch"
+                    placeholder="Search topic..."
+                >
+
+                <div class="topic-list" id="topicList"></div>
+
+            </div>
+
+            <!-- LESSON -->
+            <div class="lesson" id="lesson">
+
+                <div class="lesson-head">
+
+                    <div>
+                        <small id="topicCount">TOPIC 1 OF 12</small>
+                        <h2 id="lessonTitle">Java Basics</h2>
+                    </div>
+
+                    <button class="bookmark" id="bookmarkBtn">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+                <div id="lessonContent"></div>
+
+                <!-- PRACTICE -->
+                <div class="practice">
+
+                    <h3>
+                        <i class="fa-solid fa-circle-question"></i>
+                        Quick Practice
+                    </h3>
+
+                    <div class="question" id="question">
+                        What is the main method used as the starting point of a Java program?
+                    </div>
+
+                    <div class="options" id="options"></div>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="lesson-actions">
+
+                    <button class="action-btn prev-btn" onclick="previousTopic()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Previous
+                    </button>
+
+                    <button class="action-btn complete-btn" onclick="markComplete()">
+                        <i class="fa-solid fa-check"></i>
+                        Mark Complete
+                    </button>
+
+                    <button class="action-btn next-btn" onclick="nextTopic()">
+                        Next
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ================= TOPIC DATA ================= */
+
+const topicData = [
+{
+ title:"Basic Work Concept", icon:"fa-briefcase",
+ description:`Time & Work problems are based on the relationship between the amount of work, the time required and the rate of work. If a person completes a job in D days, their one-day work is 1/D of the total work.`,
+ points:["Total work is treated as 1 unit or a convenient LCM value.","One-day work = Total Work ÷ Number of Days.","Time = Work ÷ Rate.","Work = Rate × Time."],
+ code:`A can complete a work in 10 days.\nOne-day work = 1 / 10\n\nSo, in 5 days:\nWork done = 5 × 1/10 = 1/2`,
+ output:`A completes 1/2 of the work in 5 days.`,
+ question:"If A completes a work in 10 days, what part of the work does A complete in 2 days?",
+ options:["1/2","1/5","1/10","1/20"], answer:1
+},
+{
+ title:"Efficiency", icon:"fa-gauge-high",
+ description:`Efficiency tells us how much work a person can complete in a fixed amount of time. For the same work, efficiency and time are inversely proportional: higher efficiency means less time.`,
+ points:["Efficiency ∝ 1 / Time for the same work.","If A takes 10 days and B takes 20 days, A is twice as efficient as B.","Efficiency ratio = Time of B : Time of A.","Use efficiency ratios to solve combined-work questions quickly."],
+ code:`A takes 10 days.\nB takes 20 days.\n\nEfficiency of A : B\n= 20 : 10\n= 2 : 1`,
+ output:`A is 2 times as efficient as B.`,
+ question:"A completes a job in 10 days and B in 20 days. What is their efficiency ratio A:B?",
+ options:["1:2","2:1","10:20","20:30"], answer:1
+},
+{
+ title:"Work Units", icon:"fa-cubes",
+ description:`Using work units avoids fractions and makes calculations faster. A common method is to take the LCM of the individual completion times as the total work.`,
+ points:["Choose total work as the LCM of given days.","Daily work = Total Work ÷ Days.","Combined daily work is the sum of individual daily work.","Remaining work = Total Work − Completed Work."],
+ code:`A = 12 days\nB = 18 days\nLCM(12,18) = 36 units\n\nA's 1-day work = 36/12 = 3 units\nB's 1-day work = 36/18 = 2 units`,
+ output:`Together they complete 5 units per day.`,
+ question:"If total work is 36 units and A takes 12 days, A's one-day work is?",
+ options:["2 units","3 units","4 units","6 units"], answer:1
+},
+{
+ title:"LCM Method", icon:"fa-calculator",
+ description:`The LCM method is one of the fastest techniques for competitive-exam Time & Work questions. Take the LCM of the given times as total work, then convert each person's rate into units per day.`,
+ points:["Find LCM of completion times.","Treat LCM as total work.","Calculate each person's daily work.","Divide total work by combined daily work for the required time."],
+ code:`A = 12 days, B = 18 days\nTotal work = LCM(12,18) = 36\nA = 3 units/day\nB = 2 units/day\nTogether = 5 units/day\nTime = 36/5 = 7.2 days`,
+ output:`A and B together finish in 7.2 days.`,
+ question:"A takes 12 days and B takes 18 days. Their combined time is?",
+ options:["6 days","7.2 days","8 days","9 days"], answer:1
+},
+{
+ title:"Men & Days", icon:"fa-users",
+ description:`When all workers have equal efficiency, the amount of work is proportional to the number of workers and the number of days. This gives the basic relation Men × Days = Constant for the same work.`,
+ points:["More workers generally reduce the required days.","For equal efficiency: M1 × D1 = M2 × D2.","Convert hours/days consistently before calculating.","Use inverse proportion when workers change."],
+ code:`8 men complete a work in 15 days.\nFor 12 men:\n8 × 15 = 12 × D\nD = 120/12\nD = 10 days`,
+ output:`12 men complete the same work in 10 days.`,
+ question:"8 men finish a job in 15 days. How many days will 12 men take?",
+ options:["8","10","12","15"], answer:1
+},
+{
+ title:"Men-Women Problems", icon:"fa-people-group",
+ description:`When workers have different efficiencies, first convert them into an equivalent efficiency ratio. Then solve the problem using total daily work instead of directly comparing headcounts.`,
+ points:["Different worker types may have different efficiencies.","Convert one worker type into equivalent workers of another type.","Use efficiency ratios before applying men-days.","Keep the same work unit throughout the calculation."],
+ code:`1 man = 2 women\nSo, 4 men = 8 women\n\nIf 8 women finish the work in 12 days,\n4 men also finish it in 12 days.`,
+ output:`4 men have the same efficiency as 8 women.`,
+ question:"If 1 man does the work of 2 women, 4 men equal how many women?",
+ options:["4","6","8","10"], answer:2
+},
+{
+ title:"Pipes & Cisterns", icon:"fa-faucet-drip",
+ description:`Pipes & Cisterns follow the same logic as Time & Work. An inlet adds work or water, while an outlet removes it. Their rates are combined algebraically.`,
+ points:["Filling pipe rate is positive.","Emptying pipe rate is negative.","Net rate = Sum of filling rates − Sum of emptying rates.","Time = Total tank capacity ÷ Net rate."],
+ code:`Pipe A fills in 6 hours.\nPipe B fills in 12 hours.\nTogether rate = 1/6 + 1/12\n= 3/12 = 1/4\n\nTime = 4 hours`,
+ output:`The tank fills in 4 hours.`,
+ question:"A pipe fills a tank in 6 hours and another in 12 hours. Together they take?",
+ options:["3 hours","4 hours","6 hours","9 hours"], answer:1
+},
+{
+ title:"Combined Work", icon:"fa-handshake",
+ description:`For combined work, add the individual work rates. If A completes 1/x work per day and B completes 1/y work per day, together their daily rate is 1/x + 1/y.`,
+ points:["Convert each person's time into daily work.","Add daily work rates.","Time for complete work = 1 ÷ combined rate.","For three workers, add all three rates."],
+ code:`A = 10 days\nB = 15 days\nTogether:\n1/10 + 1/15\n= 3/30 + 2/30\n= 5/30 = 1/6\n\nTime = 6 days`,
+ output:`A and B together complete the work in 6 days.`,
+ question:"A takes 10 days and B takes 15 days. Together they take?",
+ options:["5 days","6 days","7 days","8 days"], answer:1
+},
+{
+ title:"Alternate Days", icon:"fa-repeat",
+ description:`In alternate-day questions, calculate the work completed during each person's working day and repeat the cycle. Pay special attention to who starts and to the remaining work.`,
+ points:["Identify the starting worker.","Calculate one-day work of each person.","Find work completed in one full two-day cycle.","Handle the final remaining work separately."],
+ code:`A = 10 days → 1/10 per day\nB = 20 days → 1/20 per day\n\n2-day work = 1/10 + 1/20 = 3/20\nRepeat the cycle and check the remainder.`,
+ output:`The 2-day cycle completes 3/20 of the work.`,
+ question:"In alternate-day work, what must be checked before the final step?",
+ options:["Only total days","Remaining work","Only A's rate","Only B's rate"], answer:1
+},
+{
+ title:"Wages & Work", icon:"fa-money-bill-wave",
+ description:`Wages are generally distributed according to the amount of work done. If workers have different efficiencies or working days, calculate each worker's contribution first.`,
+ points:["Wages ∝ work done when payment is proportional to work.","Work done = Efficiency × Time.","Find each worker's work ratio before dividing wages.","Total wages are divided according to contribution."],
+ code:`A's work : B's work = 2 : 3\nTotal wages = ₹5000\n\nA = 5000 × 2/5 = ₹2000\nB = 5000 × 3/5 = ₹3000`,
+ output:`A gets ₹2000 and B gets ₹3000.`,
+ question:"If A:B work ratio is 2:3 and total wages are ₹5000, B's share is?",
+ options:["₹2000","₹2500","₹3000","₹3500"], answer:2
+},
+{
+ title:"Shortcut Methods", icon:"fa-bolt",
+ description:`Competitive exams reward quick rate calculations. Use LCM, efficiency ratios, and fraction simplification instead of long calculations whenever possible.`,
+ points:["Use LCM as total work.","Use reciprocal times for work rates.","For same work, efficiency ratio is inverse of time ratio.","Cancel factors before multiplication to save time."],
+ code:`A = 8 days, B = 12 days\nEfficiency A:B = 12:8 = 3:2\n\nTotal work = LCM(8,12)=24\nA = 3 units/day\nB = 2 units/day\nTogether = 5 units/day`,
+ output:`Efficiency ratio A:B = 3:2.`,
+ question:"If A takes 8 days and B takes 12 days, A:B efficiency ratio is?",
+ options:["2:3","3:2","8:12","4:5"], answer:1
+},
+{
+ title:"Practice Set", icon:"fa-pen-to-square",
+ description:`Use this final practice topic to revise the complete Time & Work toolkit. Focus on rate conversion, LCM, combined work, efficiency, pipes and wages before attempting a timed test.`,
+ points:["Step 1: Identify the type of question.","Step 2: Convert time into work rate.","Step 3: Choose LCM or fraction method.","Step 4: Calculate and verify the answer."],
+ code:`Quick Revision:\n1. Work = Rate × Time\n2. Rate = Work ÷ Time\n3. Time = Work ÷ Rate\n4. Same work → Efficiency ∝ 1/Time\n5. Combined rate = Sum of individual rates`,
+ output:`Ready for SSC-style Time & Work practice!`,
+ question:"Which formula is correct for basic work calculation?",
+ options:["Work = Rate × Time","Work = Rate ÷ Time","Work = Time ÷ Rate","Work = Rate + Time"], answer:0
+}
+];
+
+let currentTopic = 0;
+let bookmarked = false;
+
+/* ================= INITIALIZE ================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+    },700);
+
+    loadTopics();
+    selectTopic(0);
+    loadTheme();
+
+});
+
+/* ================= TOPIC LIST ================= */
+
+function loadTopics(){
+
+    const list = document.getElementById("topicList");
+
+    list.innerHTML = "";
+
+    topicData.forEach((topic,index)=>{
+
+        const div = document.createElement("div");
+
+        div.className = "topic";
+
+        div.innerHTML = `
+            <span class="topic-number">${String(index+1).padStart(2,"0")}</span>
+            <span>${topic.title}</span>
+        `;
+
+        div.onclick = () => selectTopic(index);
+
+        list.appendChild(div);
+
+    });
+
+}
+
+/* ================= SELECT TOPIC ================= */
+
+function selectTopic(index){
+
+    currentTopic = index;
+
+    const topic = topicData[index];
+
+    document.querySelectorAll(".topic").forEach((item,i)=>{
+
+        item.classList.toggle("active",i===index);
+
+    });
+
+    document.getElementById("topicCount").textContent =
+        `TOPIC ${index+1} OF ${topicData.length}`;
+
+    document.getElementById("lessonTitle").textContent =
+        topic.title;
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        <p class="lesson-text">
+            ${topic.description}
+        </p>
+
+        <div class="key-box">
+
+            <h4>
+                <i class="fa-solid fa-lightbulb"></i>
+                Key Points
+            </h4>
+
+            <ul>
+                ${topic.points.map(point=>`<li>${point}</li>`).join("")}
+            </ul>
+
+        </div>
+
+        <div class="code-title">
+
+            <span>
+                <i class="fa-solid fa-code"></i>
+                Example Code
+            </span>
+
+            <button class="copy-btn" onclick="copyCode()">
+                <i class="fa-regular fa-copy"></i>
+                Copy Code
+            </button>
+
+        </div>
+
+        <pre id="codeBlock"><code>${escapeHtml(topic.code)}</code></pre>
+
+        <div class="output">
+
+            <strong>
+                <i class="fa-solid fa-terminal"></i>
+                Expected Output
+            </strong>
+
+            <p>${escapeHtml(topic.output)}</p>
+
+        </div>
+
+    `;
+
+    loadQuestion();
+
+    bookmarked = false;
+
+    document.getElementById("bookmarkBtn").classList.remove("saved");
+
+    document.getElementById("bookmarkBtn").innerHTML =
+        `<i class="fa-regular fa-bookmark"></i>`;
+
+    document.getElementById("lesson").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHtml(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+}
+
+/* ================= COPY CODE ================= */
+
+function copyCode(){
+
+    const code = topicData[currentTopic].code;
+
+    navigator.clipboard.writeText(code)
+        .then(()=>showToast("Code copied successfully! 📋"))
+        .catch(()=>showToast("Unable to copy code"));
+
+}
+
+/* ================= BOOKMARK ================= */
+
+document.getElementById("bookmarkBtn").addEventListener("click",function(){
+
+    bookmarked = !bookmarked;
+
+    this.classList.toggle("saved",bookmarked);
+
+    this.innerHTML = bookmarked
+        ? `<i class="fa-solid fa-bookmark"></i>`
+        : `<i class="fa-regular fa-bookmark"></i>`;
+
+    showToast(
+        bookmarked
+        ? "Topic bookmarked 🔖"
+        : "Bookmark removed"
+    );
+
+});
+
+/* ================= PRACTICE ================= */
+
+function loadQuestion(){
+
+    const topic = topicData[currentTopic];
+
+    document.getElementById("question").textContent =
+        topic.question;
+
+    const options = document.getElementById("options");
+
+    options.innerHTML = "";
+
+    topic.options.forEach((option,index)=>{
+
+        const btn = document.createElement("button");
+
+        btn.className = "option";
+
+        btn.textContent = option;
+
+        btn.onclick = () => checkAnswer(btn,index);
+
+        options.appendChild(btn);
+
+    });
+
+}
+
+function checkAnswer(button,index){
+
+    const topic = topicData[currentTopic];
+
+    const buttons = document.querySelectorAll(".option");
+
+    buttons.forEach(btn => btn.disabled = true);
+
+    if(index === topic.answer){
+
+        button.classList.add("correct");
+
+        showToast("Correct answer! 🎉");
+
+    }else{
+
+        button.classList.add("wrong");
+
+        buttons[topic.answer].classList.add("correct");
+
+        showToast("Not quite! Check the correct answer 💡");
+
+    }
+
+}
+
+/* ================= COMPLETE ================= */
+
+function markComplete(){
+
+    const topic = topicData[currentTopic];
+
+    showToast(`${topic.title} completed! ✅`);
+
+}
+
+/* ================= NEXT ================= */
+
+function nextTopic(){
+
+    if(currentTopic < topicData.length - 1){
+
+        selectTopic(currentTopic + 1);
+
+    }else{
+
+        showToast("🎉 You completed all Time & Work topics!");
+
+    }
+
+}
+
+/* ================= PREVIOUS ================= */
+
+function previousTopic(){
+
+    if(currentTopic > 0){
+
+        selectTopic(currentTopic - 1);
+
+    }else{
+
+        showToast("You are already at the first topic");
+
+    }
+
+}
+
+/* ================= SEARCH ================= */
+
+document.getElementById("topicSearch").addEventListener("input",function(){
+
+    const value = this.value.toLowerCase();
+
+    document.querySelectorAll(".topic").forEach((item,index)=>{
+
+        const title = topicData[index].title.toLowerCase();
+
+        item.style.display =
+            title.includes(value) ? "flex" : "none";
+
+    });
+
+});
+
+/* ================= MOBILE MENU ================= */
+
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const menuBtn = document.getElementById("menuBtn");
+
+menuBtn.addEventListener("click",()=>{
+
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+
+});
+
+overlay.addEventListener("click",closeSidebar);
+
+function closeSidebar(){
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+}
+
+/* ================= THEME ================= */
+
+document.getElementById("themeBtn").addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+
+    localStorage.setItem("skillbridge-theme",dark ? "dark" : "light");
+
+    document.getElementById("themeBtn").innerHTML = dark
+        ? `<i class="fa-solid fa-sun"></i>`
+        : `<i class="fa-solid fa-moon"></i>`;
+
+});
+
+function loadTheme(){
+
+    const theme = localStorage.getItem("skillbridge-theme");
+
+    if(theme === "dark"){
+
+        document.body.classList.add("dark");
+
+        document.getElementById("themeBtn").innerHTML =
+            `<i class="fa-solid fa-sun"></i>`;
+
+    }
+
+}
+
+/* ================= NOTIFICATION ================= */
+
+document.getElementById("notificationBtn").addEventListener("click",()=>{
+
+    showToast("No new notifications 🔔");
+
+});
+
+/* ================= PROFILE ================= */
+
+function goProfile(){
+
+    window.location.href = "profile.html";
+
+}
+
+/* ================= TOAST ================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+/* ================= ESC KEY ================= */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Escape"){
+
+        closeSidebar();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

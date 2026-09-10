@@ -1,0 +1,2952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quantitative Aptitude | SkillBridge</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* =====================================================
+           ROOT
+        ===================================================== */
+
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #e85d00;
+            --primary-light: #fff1e6;
+
+            --navy: #12233f;
+            --navy-2: #1d365b;
+
+            --bg: #f5f7fb;
+            --card: #ffffff;
+
+            --text: #172033;
+            --muted: #7b8497;
+
+            --border: #e7eaf0;
+
+            --success: #20b26b;
+            --success-light: #e9f9f1;
+
+            --danger: #ef4444;
+
+            --shadow: 0 10px 30px rgba(18, 35, 63, 0.08);
+            --shadow-hover: 0 18px 40px rgba(18, 35, 63, 0.14);
+
+            --sidebar-width: 260px;
+
+            --transition: all 0.3s ease;
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark {
+
+            --bg: #0d1625;
+            --card: #162235;
+
+            --text: #f3f6fb;
+            --muted: #9ba8bb;
+
+            --border: #29374b;
+
+            --primary-light: #3a281d;
+
+            --navy: #09111e;
+            --navy-2: #14243c;
+
+            --shadow: 0 10px 30px rgba(0,0,0,0.25);
+            --shadow-hover: 0 18px 40px rgba(0,0,0,0.35);
+        }
+
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =====================================================
+           LOADER
+        ===================================================== */
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: 0.5s ease;
+        }
+
+        .loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            width: 75px;
+            height: 75px;
+            background: var(--primary);
+            color: white;
+            border-radius: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+            font-weight: 800;
+
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 15px rgba(255,107,0,0.15);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: var(--sidebar-width);
+            height: 100vh;
+
+            background: var(--navy);
+            color: white;
+
+            padding: 25px 15px;
+
+            z-index: 1000;
+
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 0 10px 30px;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+
+            background: var(--primary);
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        .nav-title {
+            color: #8996a9;
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            padding: 10px 15px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 5px 0;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            color: #aeb9ca;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: var(--transition);
+        }
+
+        .nav-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-menu a:hover {
+            color: white;
+            background: rgba(255,107,0,0.15);
+            transform: translateX(4px);
+        }
+
+        .nav-menu a.active {
+            color: white;
+            background: var(--primary);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 78px;
+
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 900;
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mobile-menu {
+            display: none;
+
+            width: 40px;
+            height: 40px;
+
+            border: none;
+
+            background: var(--primary-light);
+            color: var(--primary);
+
+            border-radius: 12px;
+        }
+
+        .heading h1 {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .heading p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search {
+            position: relative;
+        }
+
+        .search input {
+            width: 230px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            background: var(--bg);
+            color: var(--text);
+
+            border-radius: 12px;
+
+            padding: 0 40px 0 15px;
+
+            outline: none;
+
+            transition: var(--transition);
+        }
+
+        .search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
+        }
+
+        .search i {
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--muted);
+        }
+
+
+        /* =====================================================
+           ICON BUTTON
+        ===================================================== */
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            background: var(--card);
+            color: var(--text);
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           PROFILE
+        ===================================================== */
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 4px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .profile:hover {
+            background: var(--bg);
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #ff6b00,
+                #ff9c52
+            );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .profile-info span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            padding: 30px 35px 60px;
+        }
+
+
+        /* =====================================================
+           BREADCRUMB
+        ===================================================== */
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           COURSE HERO
+        ===================================================== */
+
+        .course-hero {
+            background: linear-gradient(
+                135deg,
+                #12233f,
+                #24456f
+            );
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+
+            position: relative;
+            overflow: hidden;
+
+            animation: fadeUp 0.6s ease;
+        }
+
+        .course-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            background: rgba(255,107,0,0.15);
+
+            right: -70px;
+            top: -80px;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+
+            max-width: 650px;
+        }
+
+        .course-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            background: rgba(255,255,255,0.12);
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        .hero-left h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .hero-left p {
+            color: #cbd6e6;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .hero-right {
+            position: relative;
+            z-index: 2;
+
+            min-width: 150px;
+
+            text-align: center;
+        }
+
+        .course-progress {
+            width: 115px;
+            height: 115px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    var(--primary) 0deg 270deg,
+                    rgba(255,255,255,0.15) 270deg 360deg
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .course-progress::after {
+            content: "";
+
+            position: absolute;
+
+            width: 88px;
+            height: 88px;
+
+            background: #172d4e;
+
+            border-radius: 50%;
+        }
+
+        .course-progress strong {
+            position: relative;
+            z-index: 2;
+
+            font-size: 21px;
+        }
+
+        .hero-right small {
+            display: block;
+            margin-top: 10px;
+            color: #cbd6e6;
+        }
+
+
+        /* =====================================================
+           COURSE LAYOUT
+        ===================================================== */
+
+        .course-layout {
+            display: grid;
+
+            grid-template-columns: 290px 1fr;
+
+            gap: 22px;
+
+            margin-top: 25px;
+        }
+
+
+        /* =====================================================
+           TOPIC SIDEBAR
+        ===================================================== */
+
+        .topics-panel {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            height: fit-content;
+
+            position: sticky;
+            top: 100px;
+
+            animation: fadeUp 0.7s ease;
+        }
+
+        .topics-panel h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .topics-panel > p {
+            color: var(--muted);
+            font-size: 10px;
+            margin-bottom: 17px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            margin-bottom: 7px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .topic-item:hover {
+            background: var(--primary-light);
+        }
+
+        .topic-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .topic-icon {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 9px;
+
+            background: var(--bg);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--primary);
+
+            font-size: 12px;
+        }
+
+        .topic-item.active .topic-icon {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .topic-text {
+            flex: 1;
+        }
+
+        .topic-text strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .topic-text span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+        .topic-item.active .topic-text span {
+            color: #dce5f1;
+        }
+
+        .topic-check {
+            color: var(--success);
+            font-size: 12px;
+        }
+
+        .topic-item.active .topic-check {
+            color: white;
+        }
+
+
+        /* =====================================================
+           LEARNING CONTENT
+        ===================================================== */
+
+        .learning-area {
+            min-width: 0;
+        }
+
+        .content-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+        .lesson-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lesson-number {
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .lesson-header h2 {
+            font-size: 23px;
+        }
+
+        .lesson-header p {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 6px;
+        }
+
+        .bookmark {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            border: 1px solid var(--border);
+
+            background: transparent;
+
+            color: var(--muted);
+
+            transition: var(--transition);
+        }
+
+        .bookmark:hover,
+        .bookmark.saved {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+
+        /* =====================================================
+           LESSON BODY
+        ===================================================== */
+
+        .lesson-body {
+            padding-top: 25px;
+        }
+
+        .lesson-body h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-body p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            margin-bottom: 17px;
+        }
+
+        .concept-box {
+            background: var(--primary-light);
+
+            border-left: 4px solid var(--primary);
+
+            padding: 17px;
+
+            border-radius: 10px;
+
+            margin: 20px 0;
+        }
+
+        .concept-box strong {
+            display: block;
+
+            color: var(--primary);
+
+            font-size: 12px;
+
+            margin-bottom: 7px;
+        }
+
+        .concept-box p {
+            color: var(--text);
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           EXAMPLE
+        ===================================================== */
+
+        .example-card {
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            margin-top: 20px;
+        }
+
+        .example-title {
+            background: var(--navy);
+
+            color: white;
+
+            padding: 12px 15px;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .example-body {
+            padding: 17px;
+        }
+
+        .question {
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 12px;
+        }
+
+        .solution {
+            background: var(--bg);
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            line-height: 1.9;
+        }
+
+        .answer {
+            display: inline-block;
+
+            margin-top: 10px;
+
+            background: var(--success-light);
+
+            color: var(--success);
+
+            padding: 7px 10px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           KEY FORMULA
+        ===================================================== */
+
+        .formula {
+            background: var(--navy);
+
+            color: white;
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+            margin-top: 20px;
+        }
+
+        .formula-title {
+            color: #aebbd0;
+
+            font-size: 10px;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formula-text {
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PRACTICE
+        ===================================================== */
+
+        .practice {
+            margin-top: 25px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .practice h3 {
+            margin-bottom: 6px;
+        }
+
+        .practice > p {
+            font-size: 11px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 12px 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            margin: 8px 0;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            transition: var(--transition);
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .option input {
+            accent-color: var(--primary);
+        }
+
+        .practice-result {
+            display: none;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 12px;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .practice-result.show {
+            display: block;
+        }
+
+        .practice-result.correct {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .practice-result.wrong {
+            background: #fff0f0;
+            color: var(--danger);
+        }
+
+        body.dark .practice-result.wrong {
+            background: #351c21;
+        }
+
+
+        /* =====================================================
+           LESSON ACTIONS
+        ===================================================== */
+
+        .lesson-actions {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .action-btn {
+            border: 1px solid var(--border);
+
+            background: transparent;
+
+            color: var(--text);
+
+            padding: 11px 16px;
+
+            border-radius: 10px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .complete-btn {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            background: var(--navy);
+            color: white;
+
+            padding: 14px 18px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 12px;
+
+            box-shadow: var(--shadow-hover);
+
+            transform: translateY(100px);
+
+            opacity: 0;
+
+            transition: 0.4s ease;
+
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--primary);
+        }
+
+
+        /* =====================================================
+           OVERLAY
+        ===================================================== */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0,0,0,0.5);
+
+            z-index: 950;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: var(--transition);
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .course-layout {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .search input {
+                width: 180px;
+            }
+
+        }
+
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 25px 20px 50px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .search {
+                display: none;
+            }
+
+            .course-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .topics-panel {
+                position: static;
+            }
+
+            .topic-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+            }
+
+            .topic-item {
+                margin: 0;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topbar {
+                height: 70px;
+            }
+
+            .heading h1 {
+                font-size: 16px;
+            }
+
+            .heading p {
+                display: none;
+            }
+
+            .top-actions {
+                gap: 6px;
+            }
+
+            .icon-btn,
+            .avatar,
+            .mobile-menu {
+                width: 38px;
+                height: 38px;
+            }
+
+            .content {
+                padding: 18px 14px 40px;
+            }
+
+            .course-hero {
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 23px;
+
+                border-radius: 20px;
+            }
+
+            .hero-left h2 {
+                font-size: 22px;
+            }
+
+            .hero-left p {
+                font-size: 11px;
+            }
+
+            .hero-right {
+                align-self: center;
+            }
+
+            .topic-list {
+                grid-template-columns: 1fr;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .lesson-header h2 {
+                font-size: 20px;
+            }
+
+            .lesson-body p {
+                font-size: 12px;
+            }
+
+            .lesson-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                justify-content: center;
+            }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .course-progress {
+                width: 100px;
+                height: 100px;
+            }
+
+            .course-progress::after {
+                width: 76px;
+                height: 76px;
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader" id="loader">
+    <div class="loader-logo">
+        SB
+    </div>
+</div>
+
+
+<!-- MOBILE OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            SB
+        </div>
+
+        <h2>
+            Skill<span>Bridge</span>
+        </h2>
+
+    </div>
+
+
+    <div class="nav-title">
+        Main Menu
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="study-material.html" class="active">
+                <i class="fa-solid fa-book-open"></i>
+                Study Materials
+            </a>
+        </li>
+
+        <li>
+            <a href="aptitude.html">
+                <i class="fa-solid fa-brain"></i>
+                Aptitude Tests
+            </a>
+        </li>
+
+        <li>
+            <a href="coding.html">
+                <i class="fa-solid fa-code"></i>
+                Coding Practice
+            </a>
+        </li>
+
+        <li>
+            <a href="progress.html">
+                <i class="fa-solid fa-chart-line"></i>
+                My Progress
+            </a>
+        </li>
+
+    </ul>
+
+
+    <div class="nav-title">
+        Account
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logoutUser(event)">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
+    <header class="topbar">
+
+        <div class="top-left">
+
+            <button
+                class="mobile-menu"
+                id="menuBtn"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+
+            <div class="heading">
+
+                <h1>
+                    Quantitative Aptitude
+                </h1>
+
+                <p>
+                    Master the concepts and solve faster
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+
+            <!-- SEARCH -->
+
+            <div class="search">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search topics..."
+                >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+
+            <!-- DARK MODE -->
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Dark Mode"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+
+            <!-- NOTIFICATION -->
+
+            <button
+                class="icon-btn"
+                onclick="showToast('You have new learning updates 🔔')"
+            >
+                <i class="fa-regular fa-bell"></i>
+            </button>
+
+
+            <!-- PROFILE -->
+
+            <div
+                class="profile"
+                onclick="goToProfile()"
+                title="Open Profile"
+            >
+
+                <div class="avatar">
+                    MP
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Mohana
+                    </strong>
+
+                    <span>
+                        Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="breadcrumb">
+
+            <span>
+                Study Materials
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span>
+                Quantitative Aptitude
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+             COURSE HERO
+        ================================================== -->
+
+        <div class="course-hero">
+
+            <div class="hero-left">
+
+                <div class="course-tag">
+
+                    <i class="fa-solid fa-calculator"></i>
+
+                    Quantitative Aptitude
+
+                </div>
+
+
+                <h2>
+                    Build Strong Mathematical Skills 🚀
+                </h2>
+
+
+                <p>
+                    Learn important quantitative aptitude
+                    concepts with simple explanations,
+                    formulas, solved examples and practice
+                    questions designed for competitive exams
+                    and placement preparation.
+                </p>
+
+            </div>
+
+
+            <div class="hero-right">
+
+                <div class="course-progress">
+
+                    <strong>
+                        75%
+                    </strong>
+
+                </div>
+
+                <small>
+                    Course Progress
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             COURSE LAYOUT
+        ================================================== -->
+
+        <div class="course-layout">
+
+
+            <!-- =================================================
+                 TOPICS
+            ================================================== -->
+
+            <aside class="topics-panel">
+
+                <h3>
+                    Course Topics
+                </h3>
+
+                <p>
+                    8 topics • 4 hours
+                </p>
+
+
+                <div class="topic-list">
+
+
+                    <div
+                        class="topic-item active"
+                        data-topic="percentages"
+                        onclick="selectTopic(this, 'Percentages')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-percent"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Percentages
+                            </strong>
+
+                            <span>
+                                45 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        data-topic="profit"
+                        onclick="selectTopic(this, 'Profit & Loss')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Profit & Loss
+                            </strong>
+
+                            <span>
+                                35 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Ratio & Proportion')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Ratio & Proportion
+                            </strong>
+
+                            <span>
+                                30 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Simple Interest')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Simple Interest
+                            </strong>
+
+                            <span>
+                                25 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Compound Interest')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Compound Interest
+                            </strong>
+
+                            <span>
+                                30 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Time & Work')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Time & Work
+                            </strong>
+
+                            <span>
+                                40 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Average')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Average
+                            </strong>
+
+                            <span>
+                                20 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this, 'Number System')"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-hashtag"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Number System
+                            </strong>
+
+                            <span>
+                                35 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- =================================================
+                 LEARNING AREA
+            ================================================== -->
+
+            <div class="learning-area">
+
+                <div class="content-card">
+
+
+                    <!-- LESSON HEADER -->
+
+                    <div class="lesson-header">
+
+                        <div>
+
+                            <div class="lesson-number">
+                                LESSON 01
+                            </div>
+
+                            <h2 id="lessonTitle">
+                                Percentages
+                            </h2>
+
+                            <p>
+                                Learn the basics and master
+                                percentage calculations.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="bookmark"
+                            id="bookmarkBtn"
+                            onclick="toggleBookmark()"
+                            title="Bookmark"
+                        >
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+
+                    </div>
+
+
+                    <!-- LESSON BODY -->
+
+                    <div class="lesson-body"
+                         id="lessonContent">
+
+
+                        <h3>
+                            What is Percentage?
+                        </h3>
+
+
+                        <p>
+                            Percentage means "per hundred".
+                            It is used to represent a number
+                            as a fraction of 100.
+                        </p>
+
+
+                        <div class="concept-box">
+
+                            <strong>
+                                💡 Simple Concept
+                            </strong>
+
+                            <p>
+                                If you score 80 marks out of
+                                100, your percentage is 80%.
+                                If you score 40 out of 50,
+                                convert it into a percentage
+                                using the formula below.
+                            </p>
+
+                        </div>
+
+
+                        <h3>
+                            Basic Formula
+                        </h3>
+
+
+                        <div class="formula">
+
+                            <div class="formula-title">
+                                Percentage Formula
+                            </div>
+
+                            <div class="formula-text">
+                                Percentage = (Obtained Value ÷ Total Value) × 100
+                            </div>
+
+                        </div>
+
+
+                        <!-- EXAMPLE -->
+
+                        <div class="example-card">
+
+                            <div class="example-title">
+
+                                <i class="fa-solid fa-lightbulb"></i>
+
+                                Solved Example
+
+                            </div>
+
+
+                            <div class="example-body">
+
+                                <div class="question">
+
+                                    Example:
+                                    72 is what percentage of 240?
+
+                                </div>
+
+
+                                <div class="solution">
+
+                                    Percentage
+
+                                    =
+                                    (72 ÷ 240) × 100
+
+                                    <br><br>
+
+                                    =
+                                    0.3 × 100
+
+                                    <br><br>
+
+                                    =
+                                    30%
+
+                                    <br>
+
+                                    <span class="answer">
+                                        Answer: 30%
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SECOND EXAMPLE -->
+
+                        <div class="example-card">
+
+                            <div class="example-title">
+
+                                <i class="fa-solid fa-bolt"></i>
+
+                                Quick Example
+
+                            </div>
+
+
+                            <div class="example-body">
+
+                                <div class="question">
+
+                                    Find 20% of ₹1000.
+
+                                </div>
+
+
+                                <div class="solution">
+
+                                    20% of 1000
+
+                                    <br>
+
+                                    =
+                                    (20 ÷ 100) × 1000
+
+                                    <br>
+
+                                    =
+                                    200
+
+                                    <br>
+
+                                    <span class="answer">
+                                        Answer: ₹200
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRACTICE -->
+
+                        <div class="practice">
+
+                            <h3>
+                                Quick Practice 🧠
+                            </h3>
+
+                            <p>
+                                Select the correct answer.
+                            </p>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="question"
+                                    value="20"
+                                >
+
+                                20%
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="question"
+                                    value="30"
+                                >
+
+                                30%
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="question"
+                                    value="40"
+                                >
+
+                                40%
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="question"
+                                    value="50"
+                                >
+
+                                50%
+
+                            </label>
+
+
+                            <button
+                                class="action-btn complete-btn"
+                                onclick="checkAnswer()"
+                                style="margin-top:10px;"
+                            >
+
+                                Check Answer
+
+                            </button>
+
+
+                            <div
+                                class="practice-result"
+                                id="practiceResult"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="lesson-actions">
+
+                        <button
+                            class="action-btn"
+                            onclick="previousTopic()"
+                        >
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Previous
+
+                        </button>
+
+
+                        <button
+                            class="action-btn complete-btn"
+                            onclick="markComplete()"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Mark as Complete
+
+                        </button>
+
+
+                        <button
+                            class="action-btn"
+                            onclick="nextTopic()"
+                        >
+
+                            Next
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Success
+    </span>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       LOADER
+    ===================================================== */
+
+    window.addEventListener("load", () => {
+
+        setTimeout(() => {
+
+            document
+                .getElementById("loader")
+                .classList.add("hide");
+
+        }, 700);
+
+    });
+
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("overlay");
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+
+    menuBtn.addEventListener("click", () => {
+
+        sidebar.classList.toggle("open");
+
+        overlay.classList.toggle("show");
+
+    });
+
+
+    overlay.addEventListener("click", () => {
+
+        sidebar.classList.remove("open");
+
+        overlay.classList.remove("show");
+
+    });
+
+
+    /* =====================================================
+       DARK MODE
+    ===================================================== */
+
+    const themeBtn =
+        document.getElementById("themeBtn");
+
+
+    const savedTheme =
+        localStorage.getItem("skillbridge-theme");
+
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark");
+
+        themeBtn.innerHTML =
+            '<i class="fa-solid fa-sun"></i>';
+
+    }
+
+
+    themeBtn.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark");
+
+
+        const isDark =
+            document.body.classList.contains("dark");
+
+
+        localStorage.setItem(
+            "skillbridge-theme",
+            isDark ? "dark" : "light"
+        );
+
+
+        themeBtn.innerHTML = isDark
+
+            ? '<i class="fa-solid fa-sun"></i>'
+
+            : '<i class="fa-solid fa-moon"></i>';
+
+
+        showToast(
+            isDark
+                ? "Dark mode enabled 🌙"
+                : "Light mode enabled ☀️"
+        );
+
+    });
+
+
+    /* =====================================================
+       PROFILE
+    ===================================================== */
+
+    function goToProfile() {
+
+        window.location.href =
+            "profile.html";
+
+    }
+
+
+    /* =====================================================
+       BOOKMARK
+    ===================================================== */
+
+    function toggleBookmark() {
+
+        const button =
+            document.getElementById("bookmarkBtn");
+
+
+        button.classList.toggle("saved");
+
+
+        const saved =
+            button.classList.contains("saved");
+
+
+        button.innerHTML = saved
+
+            ? '<i class="fa-solid fa-bookmark"></i>'
+
+            : '<i class="fa-regular fa-bookmark"></i>';
+
+
+        showToast(
+            saved
+                ? "Lesson bookmarked 🔖"
+                : "Bookmark removed"
+        );
+
+    }
+
+
+    /* =====================================================
+       TOPIC SELECTION
+    ===================================================== */
+
+    function selectTopic(element, topic) {
+
+        document
+            .querySelectorAll(".topic-item")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        element.classList.add("active");
+
+
+        document.getElementById("lessonTitle")
+            .textContent = topic;
+
+
+        document.getElementById("practiceResult")
+            .classList.remove("show");
+
+
+        showToast(
+            topic + " selected 📚"
+        );
+
+
+        /*
+         * Main demo content stays visible.
+         * Each topic can later have its own
+         * detailed lesson content.
+         */
+
+        if (topic !== "Percentages") {
+
+            document.getElementById("lessonContent")
+                .innerHTML = `
+
+                    <h3>
+                        ${topic}
+                    </h3>
+
+                    <p>
+                        This learning module contains
+                        important concepts, formulas,
+                        shortcuts, solved examples and
+                        practice questions for ${topic}.
+                    </p>
+
+                    <div class="concept-box">
+
+                        <strong>
+                            📚 Learning Module
+                        </strong>
+
+                        <p>
+                            Study the important concepts
+                            carefully and practice questions
+                            regularly to improve your speed
+                            and accuracy.
+                        </p>
+
+                    </div>
+
+                    <h3>
+                        What You Will Learn
+                    </h3>
+
+                    <div class="formula">
+
+                        <div class="formula-title">
+                            Module Focus
+                        </div>
+
+                        <div class="formula-text">
+                            Concepts → Formulas → Examples → Practice
+                        </div>
+
+                    </div>
+
+                    <div class="example-card">
+
+                        <div class="example-title">
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                            Practice Preparation
+
+                        </div>
+
+                        <div class="example-body">
+
+                            <div class="question">
+                                Prepare yourself with
+                                ${topic} concepts and
+                                solve questions step by step.
+                            </div>
+
+                            <div class="solution">
+
+                                <strong>
+                                    Tip:
+                                </strong>
+
+                                Understand the formula first,
+                                then solve 5–10 practice
+                                questions to improve speed.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CHECK ANSWER
+    ===================================================== */
+
+    function checkAnswer() {
+
+        const selected =
+            document.querySelector(
+                'input[name="question"]:checked'
+            );
+
+
+        const result =
+            document.getElementById(
+                "practiceResult"
+            );
+
+
+        if (!selected) {
+
+            result.textContent =
+                "Please select an answer first.";
+
+            result.className =
+                "practice-result show wrong";
+
+            return;
+
+        }
+
+
+        if (selected.value === "30") {
+
+            result.textContent =
+                "🎉 Correct! 72 is 30% of 240.";
+
+            result.className =
+                "practice-result show correct";
+
+
+            showToast(
+                "Correct answer! 🎉"
+            );
+
+        } else {
+
+            result.textContent =
+                "❌ Not correct. Try again!";
+
+            result.className =
+                "practice-result show wrong";
+
+
+            showToast(
+                "Try again 💪"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MARK COMPLETE
+    ===================================================== */
+
+    function markComplete() {
+
+        const activeTopic =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        if (activeTopic) {
+
+            activeTopic.classList.add(
+                "completed"
+            );
+
+
+            const check =
+                activeTopic.querySelector(
+                    ".topic-check"
+                );
+
+
+            check.innerHTML =
+                '<i class="fa-solid fa-circle-check"></i>';
+
+
+            check.style.color =
+                "var(--success)";
+
+        }
+
+
+        showToast(
+            "Lesson marked as completed ✅"
+        );
+
+    }
+
+
+    /* =====================================================
+       TOPIC NAVIGATION
+    ===================================================== */
+
+    function getTopics() {
+
+        return Array.from(
+            document.querySelectorAll(
+                ".topic-item"
+            )
+        );
+
+    }
+
+
+    function nextTopic() {
+
+        const topics =
+            getTopics();
+
+
+        const active =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        const currentIndex =
+            topics.indexOf(active);
+
+
+        if (
+            currentIndex <
+            topics.length - 1
+        ) {
+
+            const next =
+                topics[currentIndex + 1];
+
+
+            const topicName =
+                next.querySelector(
+                    ".topic-text strong"
+                ).textContent;
+
+
+            selectTopic(
+                next,
+                topicName
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        } else {
+
+            showToast(
+                "🎉 You completed all topics!"
+            );
+
+        }
+
+    }
+
+
+    function previousTopic() {
+
+        const topics =
+            getTopics();
+
+
+        const active =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        const currentIndex =
+            topics.indexOf(active);
+
+
+        if (currentIndex > 0) {
+
+            const previous =
+                topics[currentIndex - 1];
+
+
+            const topicName =
+                previous.querySelector(
+                    ".topic-text strong"
+                ).textContent;
+
+
+            selectTopic(
+                previous,
+                topicName
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        } else {
+
+            showToast(
+                "This is the first topic."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SEARCH TOPICS
+    ===================================================== */
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            const value =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            document
+                .querySelectorAll(".topic-item")
+                .forEach(item => {
+
+                    const text =
+                        item.innerText
+                            .toLowerCase();
+
+
+                    item.style.display =
+                        text.includes(value)
+                            ? "flex"
+                            : "none";
+
+                });
+
+        }
+    );
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    let toastTimer;
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        const messageElement =
+            document.getElementById(
+                "toastMessage"
+            );
+
+
+        messageElement.textContent =
+            message;
+
+
+        toast.classList.add("show");
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer = setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2500);
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    function logoutUser(event) {
+
+        event.preventDefault();
+
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to logout?"
+            );
+
+
+        if (confirmation) {
+
+            showToast(
+                "Logging out..."
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "login.html";
+
+            }, 900);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                sidebar.classList.remove(
+                    "open"
+                );
+
+                overlay.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Register | SkillBridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+ --orange:#ff7a18;--orange2:#ff9a44;--navy:#101a2d;--navy2:#17233b;
+ --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#72809a;--line:#e4e9f1;
+ --green:#22a06b;--red:#e45b62;--shadow:0 18px 50px rgba(16,26,45,.12)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+.page{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr}
+.left{background:linear-gradient(145deg,var(--navy),#1c3152);color:#fff;position:relative;overflow:hidden;padding:42px 7%;display:flex;flex-direction:column;justify-content:center}
+.left:before,.left:after{content:"";position:absolute;border-radius:50%;background:#ff7a1818}
+.left:before{width:520px;height:520px;right:-260px;top:-210px}
+.left:after{width:360px;height:360px;left:-220px;bottom:-180px}
+.brand{position:absolute;top:35px;left:7%;display:flex;align-items:center;gap:11px}
+.logo{width:43px;height:43px;border-radius:12px;background:linear-gradient(135deg,var(--orange),var(--orange2));display:grid;place-items:center;font-weight:800;box-shadow:0 12px 30px #ff7a1835}
+.brand strong{font-size:18px}.brand span{display:block;color:#9eabc0;font-size:8px;letter-spacing:1px;margin-top:3px}
+.left-content{position:relative;z-index:1;max-width:540px}
+.tag{display:inline-flex;align-items:center;gap:8px;color:#ffb174;font-size:9px;font-weight:800;letter-spacing:1.3px;margin-bottom:15px}
+.left h1{font-size:38px;line-height:1.18;margin-bottom:14px}
+.left h1 b{color:#ff9147}.left p{color:#b8c3d4;font-size:12px;line-height:1.8;max-width:490px}
+.features{margin-top:28px;display:grid;gap:12px}
+.feature{display:flex;align-items:center;gap:11px;color:#dce3ed;font-size:10px}
+.feature i{width:31px;height:31px;border-radius:9px;background:#ffffff0d;color:#ff9a44;display:grid;place-items:center}
+.quote{margin-top:30px;border-left:2px solid var(--orange);padding-left:13px;color:#9facbf;font-size:9px;line-height:1.7}
+.right{display:flex;align-items:center;justify-content:center;padding:35px;background:var(--bg)}
+.card{width:min(480px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:31px;box-shadow:var(--shadow);animation:up .65s ease}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.card-head{text-align:center;margin-bottom:24px}.card-head .mini-logo{width:43px;height:43px;border-radius:12px;background:#fff0e5;color:var(--orange);display:grid;place-items:center;margin:0 auto 12px;font-size:17px}
+.card-head h2{font-size:23px}.card-head p{font-size:10px;color:var(--muted);margin-top:6px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{margin-bottom:13px}.field label{display:block;font-size:9px;font-weight:700;margin-bottom:6px}.input-wrap{position:relative}.input-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#91a0b5}.input-wrap input{width:100%;height:43px;border:1px solid var(--line);border-radius:10px;background:#fafbfd;padding:0 12px 0 34px;outline:0;font-size:11px;color:var(--text);transition:.2s}.input-wrap input:focus{border-color:var(--orange);box-shadow:0 0 0 3px #ff7a1812;background:#fff}.input-wrap .eye{left:auto;right:12px;cursor:pointer}
+.password-strength{margin-top:7px;display:flex;align-items:center;gap:6px}.strength-bars{display:flex;gap:3px;flex:1}.strength-bars span{height:3px;flex:1;border-radius:4px;background:#e8edf3}.strength-text{font-size:8px;color:var(--muted);min-width:38px;text-align:right}
+.check{display:flex;align-items:flex-start;gap:8px;margin:4px 0 17px;font-size:9px;color:var(--muted);line-height:1.5}.check input{margin-top:2px;accent-color:var(--orange)}.check a{color:var(--orange);font-weight:700}
+.submit{width:100%;height:45px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-size:11px;font-weight:800;box-shadow:0 9px 20px #ff7a1830;transition:.25s}.submit:hover{transform:translateY(-2px);box-shadow:0 13px 25px #ff7a1840}.submit:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.divider{display:flex;align-items:center;gap:9px;margin:19px 0;color:#a1adbe;font-size:8px}.divider:before,.divider:after{content:"";height:1px;background:var(--line);flex:1}
+.login{text-align:center;font-size:10px;color:var(--muted)}.login a{color:var(--orange);font-weight:800}
+.error{font-size:8px;color:var(--red);margin-top:5px;display:none}.field.invalid input{border-color:#e45b62}.field.invalid .error{display:block}
+.success{display:none;text-align:center;padding:18px 0}.success-icon{width:55px;height:55px;border-radius:50%;background:#eaf8f2;color:var(--green);display:grid;place-items:center;margin:auto;font-size:22px}.success h3{margin-top:13px;font-size:18px}.success p{font-size:10px;color:var(--muted);line-height:1.6;margin:7px 0 17px}.back{display:inline-block;padding:10px 15px;border-radius:9px;background:var(--orange);color:#fff;font-size:10px;font-weight:700}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--navy);color:#fff;padding:12px 15px;border-radius:10px;font-size:10px;box-shadow:var(--shadow);animation:toast .3s ease;z-index:10}@keyframes toast{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:850px){.page{grid-template-columns:1fr}.left{display:none}.right{min-height:100vh;padding:20px}.card{box-shadow:0 12px 35px rgba(16,26,45,.1)}}
+@media(max-width:500px){.right{padding:12px}.card{padding:22px 18px;border-radius:16px}.form-row{grid-template-columns:1fr}.card-head h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="page">
+<section class="left">
+  <div class="brand"><div class="logo">SB</div><div><strong>SkillBridge</strong><span>LEARN • PRACTICE • GROW</span></div></div>
+  <div class="left-content">
+    <div class="tag"><i class="fa-solid fa-sparkles"></i> START YOUR JOURNEY</div>
+    <h1>Build skills.<br><b>Shape your future.</b></h1>
+    <p>Create your SkillBridge account and get access to coding practice, aptitude training, study materials and progress tracking — all in one learning space.</p>
+    <div class="features">
+      <div class="feature"><i class="fa-solid fa-code"></i><span>Practice coding problems and strengthen your logic.</span></div>
+      <div class="feature"><i class="fa-solid fa-brain"></i><span>Improve aptitude and interview preparation skills.</span></div>
+      <div class="feature"><i class="fa-solid fa-chart-line"></i><span>Track your learning progress and achievements.</span></div>
+    </div>
+    <div class="quote">“Small progress every day becomes a powerful skill over time.”</div>
+  </div>
+</section>
+
+<section class="right">
+<div class="card">
+  <div id="registerView">
+    <div class="card-head">
+      <div class="mini-logo"><i class="fa-solid fa-user-plus"></i></div>
+      <h2>Create your account</h2>
+      <p>Join SkillBridge and start learning today.</p>
+    </div>
+
+    <form id="registerForm" novalidate>
+      <div class="form-row">
+        <div class="field" id="firstField"><label for="firstName">First Name</label><div class="input-wrap"><i class="fa-regular fa-user"></i><input id="firstName" type="text" placeholder="First name" autocomplete="given-name"></div><div class="error">Enter your first name.</div></div>
+        <div class="field" id="lastField"><label for="lastName">Last Name</label><div class="input-wrap"><i class="fa-regular fa-user"></i><input id="lastName" type="text" placeholder="Last name" autocomplete="family-name"></div><div class="error">Enter your last name.</div></div>
+      </div>
+      <div class="field" id="emailField"><label for="email">Email Address</label><div class="input-wrap"><i class="fa-regular fa-envelope"></i><input id="email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="error">Enter a valid email address.</div></div>
+      <div class="field" id="passwordField"><label for="password">Password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="password" type="password" placeholder="Create a password" autocomplete="new-password"><i class="fa-regular fa-eye eye" onclick="togglePassword('password',this)"></i></div><div class="password-strength"><div class="strength-bars"><span></span><span></span><span></span><span></span></div><div class="strength-text" id="strengthText">Weak</div></div><div class="error">Password must be at least 8 characters.</div></div>
+      <div class="field" id="confirmField"><label for="confirm">Confirm Password</label><div class="input-wrap"><i class="fa-solid fa-shield-halved"></i><input id="confirm" type="password" placeholder="Re-enter password" autocomplete="new-password"><i class="fa-regular fa-eye eye" onclick="togglePassword('confirm',this)"></i></div><div class="error">Passwords do not match.</div></div>
+      <label class="check"><input id="terms" type="checkbox"><span>I agree to the <a href="#" onclick="toast('Terms page is coming soon');return false">Terms of Service</a> and <a href="#" onclick="toast('Privacy page is coming soon');return false">Privacy Policy</a>.</span></label>
+      <button class="submit" id="submitBtn" type="submit"><i class="fa-solid fa-user-plus"></i> Create Account</button>
+    </form>
+    <div class="divider">OR</div>
+    <div class="login">Already have an account? <a href="login.html">Sign in</a></div>
+  </div>
+
+  <div class="success" id="successView">
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h3>Account created!</h3>
+    <p>Your SkillBridge registration was completed successfully. You can continue to the learning dashboard.</p>
+    <a class="back" href="dashboard.html"><i class="fa-solid fa-arrow-right"></i> Go to Dashboard</a>
+  </div>
+</div>
+</section>
+</div>
+
+<script>
+const form=document.getElementById('registerForm');
+const password=document.getElementById('password');
+const bars=document.querySelectorAll('.strength-bars span');
+const strengthText=document.getElementById('strengthText');
+
+function togglePassword(id,icon){
+  const input=document.getElementById(id);
+  input.type=input.type==='password'?'text':'password';
+  icon.className=input.type==='text'?'fa-regular fa-eye-slash eye':'fa-regular fa-eye eye';
+}
+password.addEventListener('input',()=>{
+  const v=password.value;
+  let score=0;
+  if(v.length>=8)score++;
+  if(/[A-Z]/.test(v)&&/[a-z]/.test(v))score++;
+  if(/\d/.test(v))score++;
+  if(/[^A-Za-z0-9]/.test(v))score++;
+  bars.forEach((b,i)=>b.style.background=i<score?(score<=1?'#e45b62':score===2?'#ff9a44':'#22a06b'):'#e8edf3');
+  strengthText.textContent=score<=1?'Weak':score===2?'Fair':score===3?'Good':'Strong';
+});
+function invalid(id,on){document.getElementById(id).classList.toggle('invalid',on)}
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const first=document.getElementById('firstName').value.trim();
+  const last=document.getElementById('lastName').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const pass=password.value;
+  const confirm=document.getElementById('confirm').value;
+  const terms=document.getElementById('terms').checked;
+  let ok=true;
+  invalid('firstField',!first); if(!first)ok=false;
+  invalid('lastField',!last); if(!last)ok=false;
+  invalid('emailField',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))ok=false;
+  invalid('passwordField',pass.length<8); if(pass.length<8)ok=false;
+  invalid('confirmField',confirm!==pass||!confirm); if(confirm!==pass||!confirm)ok=false;
+  if(!terms){toast('Please accept the Terms of Service and Privacy Policy.');ok=false}
+  if(!ok){toast('Please check the highlighted fields.');return}
+  const btn=document.getElementById('submitBtn');btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+  setTimeout(()=>{document.getElementById('registerView').style.display='none';document.getElementById('successView').style.display='block'},850);
+});
+function toast(msg){
+  const old=document.querySelector('.toast');if(old)old.remove();
+  const t=document.createElement('div');t.className='toast';t.innerHTML='<i class="fa-solid fa-circle-info" style="color:#ff9a44;margin-right:7px"></i>'+msg;document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2800);
+}
+</script>
+</body>
+</html>

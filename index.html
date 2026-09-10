@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillBridge | Placement Preparation Portal</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* =========================
+           GLOBAL
+        ========================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #e85d00;
+            --secondary: #1d3557;
+            --dark: #12233f;
+            --text: #52627a;
+            --light: #f7f9fc;
+            --white: #ffffff;
+            --border: #e7ebf2;
+            --success: #20b486;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* =========================
+           LOADING SCREEN
+        ========================== */
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: .6s ease;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            font-size: 28px;
+            font-weight: 800;
+            animation: pulse 1.2s infinite;
+        }
+
+        .loader p {
+            margin-top: 15px;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            background: rgba(255,255,255,.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: .3s ease;
+        }
+
+        .nav-wrapper {
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #ff7b00, #ff4d00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(255,107,0,.25);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            transition: .3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -7px;
+            background: var(--primary);
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 18px rgba(255,107,0,.2);
+        }
+
+        .nav-btn::after {
+            display: none;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 100vh;
+            padding-top: 75px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 25%, rgba(255,107,0,.12), transparent 25%),
+                linear-gradient(135deg, #fff 50%, #fff7f1);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,107,0,.12);
+            right: -100px;
+            top: 100px;
+            animation: rotateCircle 15s linear infinite;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .hero-content {
+            animation: slideLeft 1s ease;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff0e6;
+            color: var(--primary);
+            padding: 9px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .badge i {
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            border: none;
+            padding: 15px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: .3s ease;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 12px 25px rgba(255,107,0,.25);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-4px);
+            background: var(--primary-dark);
+            box-shadow: 0 18px 30px rgba(255,107,0,.3);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: var(--secondary);
+            border: 1px solid var(--border);
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-note {
+            margin-top: 25px;
+            color: #8190a5;
+            font-size: 13px;
+        }
+
+        .hero-note i {
+            color: var(--success);
+            margin-right: 5px;
+        }
+
+        /* =========================
+           HERO VISUAL
+        ========================== */
+
+        .hero-visual {
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideRight 1s ease;
+        }
+
+        .dashboard-card {
+            width: 430px;
+            background: rgba(255,255,255,.96);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 30px 70px rgba(30,50,80,.12);
+            transform: rotate(2deg);
+            position: relative;
+            z-index: 2;
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        .dash-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .dash-title {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .dash-user {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #fff0e6;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-box {
+            background: #f7f9fc;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .progress-heading {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .progress-heading span:last-child {
+            color: var(--primary);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e9edf3;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 72%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff8a00, #ff5700);
+            border-radius: 20px;
+            animation: progressLoad 2s ease;
+        }
+
+        .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 12px;
+        }
+
+        .mini-card {
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: white;
+        }
+
+        .mini-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff3eb;
+            color: var(--primary);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mini-card h4 {
+            font-size: 19px;
+        }
+
+        .mini-card p {
+            font-size: 11px;
+            color: #8794a8;
+            margin-top: 3px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 45px rgba(30,50,80,.13);
+            border-radius: 15px;
+            padding: 15px 18px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .floating-card i {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff1e8;
+            color: var(--primary);
+            border-radius: 11px;
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .floating-card small {
+            color: #8a96a8;
+        }
+
+        .float-one {
+            top: 40px;
+            right: 0;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .float-two {
+            bottom: 45px;
+            left: 0;
+            animation: floating 3.5s ease-in-out infinite reverse;
+        }
+
+        /* =========================
+           STATS
+        ========================== */
+
+        .stats {
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            text-align: center;
+        }
+
+        .stat {
+            padding: 10px;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat h3 {
+            font-size: 27px;
+            margin-bottom: 4px;
+        }
+
+        .stat p {
+            color: #8793a6;
+            font-size: 13px;
+        }
+
+        /* =========================
+           SECTION COMMON
+        ========================== */
+
+        section {
+            padding: 95px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--primary);
+            background: #fff0e6;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 13px;
+        }
+
+        .section-header h2 {
+            font-size: 38px;
+            margin-bottom: 14px;
+        }
+
+        .section-header p {
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FEATURES
+        ========================== */
+
+        .features {
+            background: var(--light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 28px;
+            border-radius: 18px;
+            transition: .35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #fff4ed;
+            right: -45px;
+            top: -45px;
+            transition: .4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(30,50,80,.1);
+            border-color: #ffd7bd;
+        }
+
+        .feature-card:hover::before {
+            transform: scale(2.5);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            background: #fff0e6;
+            color: var(--primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            margin-top: 18px;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            gap: 7px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+           WHY SKILLBRIDGE
+        ========================== */
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .why-image {
+            min-height: 420px;
+            background: linear-gradient(145deg,#fff5ed,#fff);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circle-big {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 35px solid #ffe2cf;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-big i {
+            font-size: 75px;
+            color: var(--primary);
+        }
+
+        .check-card {
+            position: absolute;
+            background: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(30,50,80,.12);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .check-card i {
+            color: var(--success);
+        }
+
+        .check-one {
+            top: 60px;
+            right: 25px;
+        }
+
+        .check-two {
+            bottom: 60px;
+            left: 25px;
+        }
+
+        .why-content h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .why-content > p {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .why-list {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .why-list-item {
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+        }
+
+        .why-list-item i {
+            color: var(--success);
+            margin-top: 3px;
+        }
+
+        .why-list-item div strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .why-list-item div span {
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        /* =========================
+           HOW IT WORKS
+        ========================== */
+
+        .how {
+            background: var(--light);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 25px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 58px;
+            height: 58px;
+            margin: auto auto 20px;
+            background: white;
+            border: 2px solid #ffe1cd;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .step h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           CTA
+        ========================== */
+
+        .cta {
+            padding: 70px 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(120deg,#ff6b00,#ff8500);
+            border-radius: 25px;
+            padding: 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(255,107,0,.22);
+        }
+
+        .cta-box::before,
+        .cta-box::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.2);
+        }
+
+        .cta-box::before {
+            left: -80px;
+            top: -80px;
+        }
+
+        .cta-box::after {
+            right: -70px;
+            bottom: -80px;
+        }
+
+        .cta-box h2 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-box p {
+            opacity: .9;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 14px 25px;
+            border-radius: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: .3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #101f36;
+            color: white;
+            padding: 60px 0 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 45px;
+        }
+
+        .footer-brand p {
+            color: #9ba8ba;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 15px;
+            max-width: 300px;
+        }
+
+        .footer-title {
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: #9ba8ba;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .3s;
+        }
+
+        .socials a:hover {
+            background: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 22px;
+            text-align: center;
+            color: #8391a5;
+            font-size: 12px;
+        }
+
+        /* =========================
+           SCROLL REVEAL
+        ========================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================== */
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes floating {
+            0%,100% {
+                transform: translateY(0) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(2deg);
+            }
+        }
+
+        @keyframes rotateCircle {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes progressLoad {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 72%;
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 1000px) {
+
+            .hero-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 450px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2,1fr);
+                gap: 40px;
+            }
+
+            .why-image {
+                max-width: 600px;
+                margin: auto;
+            }
+
+            .why-content {
+                text-align: center;
+            }
+
+            .why-list {
+                text-align: left;
+                max-width: 550px;
+                margin: auto;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: 68px;
+            }
+
+            .nav-wrapper {
+                height: 68px;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 68px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                box-shadow: 0 15px 25px rgba(30,50,80,.08);
+                transition: .4s ease;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                padding: 10px 20px 20px;
+            }
+
+            .nav-links a {
+                padding: 15px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-btn {
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 68px;
+                min-height: auto;
+                padding-bottom: 70px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-visual {
+                min-height: 390px;
+            }
+
+            .dashboard-card {
+                width: 92%;
+            }
+
+            .float-one {
+                right: -5px;
+                top: 20px;
+            }
+
+            .float-two {
+                left: -5px;
+                bottom: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2,1fr);
+                gap: 20px;
+            }
+
+            .stat {
+                border-right: none;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .section-header h2,
+            .why-content h2 {
+                font-size: 30px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 45px 20px;
+            }
+
+            .cta-box h2 {
+                font-size: 28px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .hero h1 {
+                font-size: 37px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .dashboard-card {
+                padding: 15px;
+            }
+
+            .floating-card {
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .floating-card i {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         LOADER
+    ========================== -->
+
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                SB
+            </div>
+            <p>Loading SkillBridge...</p>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="container nav-wrapper">
+
+            <a href="#home" class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                Skill<span>Bridge</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="#home">Home</a>
+
+                <a href="#features">
+                    Preparation
+                </a>
+
+                <a href="#why">
+                    Why SkillBridge
+                </a>
+
+                <a href="#how">
+                    How It Works
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+                <a href="login.html" class="nav-btn">
+                    Login
+                </a>
+
+            </nav>
+
+            <div class="menu-btn" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container hero-grid">
+
+                <div class="hero-content">
+
+                    <div class="badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Smart Placement Preparation
+                    </div>
+
+                    <h1>
+                        Prepare Today.
+                        <span>Succeed Tomorrow.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        SkillBridge is a placement preparation portal designed
+                        to help students learn through structured study materials,
+                        aptitude tests, coding practice and progress tracking.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#features" class="primary-btn">
+                            Start Preparation
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                        <a href="#how" class="secondary-btn">
+                            <i class="fa-solid fa-play"></i>
+                            Explore Platform
+                        </a>
+
+                    </div>
+
+                    <div class="hero-note">
+                        <i class="fa-solid fa-check"></i>
+                        Learn • Practice • Track • Improve
+                    </div>
+
+                </div>
+
+
+                <!-- Dashboard Preview -->
+
+                <div class="hero-visual">
+
+                    <div class="floating-card float-one">
+
+                        <i class="fa-solid fa-trophy"></i>
+
+                        <div>
+                            <strong>Great Progress!</strong>
+                            <small>Keep learning</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <div class="dash-top">
+
+                            <div class="dash-title">
+                                Student Dashboard
+                            </div>
+
+                            <div class="dash-user">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-box">
+
+                            <div class="progress-heading">
+                                <span>Overall Preparation</span>
+                                <span>72%</span>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="mini-cards">
+
+                            <div class="mini-card">
+
+                                <div class="mini-icon">
+                                    <i class="fa-solid fa-book"></i>
+                                </div>
+
+                                <h4>24</h4>
+                                <p>Materials</p>
+
+                            </div>
+
+
+                            <div class="mini-card">
+
+                                <div class="mini-icon">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+
+                                <h4>18</h4>
+                                <p>Tests Completed</p>
+
+                            </div>
+
+
+                            <div class="mini-card">
+
+                                <div class="mini-icon">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+
+                                <h4>32</h4>
+                                <p>Coding Problems</p>
+
+                            </div>
+
+
+                            <div class="mini-card">
+
+                                <div class="mini-icon">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+
+                                <h4>86%</h4>
+                                <p>Performance</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card float-two">
+
+                        <i class="fa-solid fa-chart-simple"></i>
+
+                        <div>
+                            <strong>Performance</strong>
+                            <small>Improving steadily</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             STATS
+        ========================== -->
+
+        <div class="stats">
+
+            <div class="container stats-grid">
+
+                <div class="stat">
+                    <h3>4+</h3>
+                    <p>Learning Areas</p>
+                </div>
+
+                <div class="stat">
+                    <h3>100+</h3>
+                    <p>Practice Questions</p>
+                </div>
+
+                <div class="stat">
+                    <h3>24/7</h3>
+                    <p>Learning Access</p>
+                </div>
+
+                <div class="stat">
+                    <h3>1</h3>
+                    <p>Smart Platform</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             FEATURES
+        ========================== -->
+
+        <section class="features" id="features">
+
+            <div class="container">
+
+                <div class="section-header reveal">
+
+                    <div class="section-tag">
+                        What We Offer
+                    </div>
+
+                    <h2>
+                        Everything You Need
+                        To Prepare
+                    </h2>
+
+                    <p>
+                        SkillBridge brings important placement preparation
+                        activities together in one structured platform.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <!-- Study Materials -->
+
+                    <div class="feature-card reveal">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+
+                        <h3>Study Materials</h3>
+
+                        <p>
+                            Access organized learning resources and study
+                            materials to strengthen your placement preparation.
+                        </p>
+
+                        <a href="#start" class="feature-link">
+                            Explore Materials
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Aptitude -->
+
+                    <div class="feature-card reveal">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+
+                        <h3>Aptitude Tests</h3>
+
+                        <p>
+                            Practice aptitude questions and tests to improve
+                            your speed, accuracy and problem-solving ability.
+                        </p>
+
+                        <a href="#start" class="feature-link">
+                            Take a Test
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Coding -->
+
+                    <div class="feature-card reveal">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+
+                        <h3>Coding Practice</h3>
+
+                        <p>
+                            Strengthen programming skills through structured
+                            coding practice and problem-solving activities.
+                        </p>
+
+                        <a href="#start" class="feature-link">
+                            Start Coding
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Progress -->
+
+                    <div class="feature-card reveal">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <h3>Progress Tracking</h3>
+
+                        <p>
+                            Monitor your preparation journey and understand
+                            your performance through progress tracking.
+                        </p>
+
+                        <a href="#start" class="feature-link">
+                            View Progress
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WHY SKILLBRIDGE
+        ========================== -->
+
+        <section id="why">
+
+            <div class="container why-grid">
+
+                <div class="why-image reveal">
+
+                    <div class="circle-big">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <div class="check-card check-one">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Structured Learning
+                    </div>
+
+                    <div class="check-card check-two">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Track Your Progress
+                    </div>
+
+                </div>
+
+
+                <div class="why-content reveal">
+
+                    <div class="section-tag">
+                        Why SkillBridge?
+                    </div>
+
+                    <h2>
+                        One Platform.
+                        Complete Preparation.
+                    </h2>
+
+                    <p>
+                        SkillBridge helps students prepare for campus placement
+                        through a simple and structured learning experience.
+                        Instead of managing preparation activities separately,
+                        students can use one platform to learn, practice and
+                        monitor their progress.
+                    </p>
+
+
+                    <div class="why-list">
+
+                        <div class="why-list-item">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <div>
+                                <strong>Structured Preparation</strong>
+                                <span>
+                                    Organize your preparation with dedicated
+                                    learning and practice areas.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="why-list-item">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <div>
+                                <strong>Practice Regularly</strong>
+                                <span>
+                                    Improve your aptitude and coding skills
+                                    through regular practice.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="why-list-item">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <div>
+                                <strong>Monitor Performance</strong>
+                                <span>
+                                    Track your learning progress and identify
+                                    areas that need improvement.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="why-list-item">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <div>
+                                <strong>Placement Focused</strong>
+                                <span>
+                                    Build consistent preparation habits for
+                                    campus placement opportunities.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================== -->
+
+        <section class="how" id="how">
+
+            <div class="container">
+
+                <div class="section-header reveal">
+
+                    <div class="section-tag">
+                        Simple Process
+                    </div>
+
+                    <h2>
+                        How SkillBridge Works
+                    </h2>
+
+                    <p>
+                        Follow a simple learning cycle to make your placement
+                        preparation more organized.
+                    </p>
+
+                </div>
+
+
+                <div class="steps">
+
+                    <div class="step reveal">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <h3>Learn</h3>
+
+                        <p>
+                            Explore study materials and build your concepts.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step reveal">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <h3>Practice</h3>
+
+                        <p>
+                            Attempt aptitude tests and coding practice.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step reveal">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <h3>Track</h3>
+
+                        <p>
+                            Monitor your completed activities and progress.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step reveal">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <h3>Improve</h3>
+
+                        <p>
+                            Identify weak areas and continue improving.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+
+        <section class="cta" id="start">
+
+            <div class="container">
+
+                <div class="cta-box reveal">
+
+                    <h2>
+                        Ready to Start Your Preparation?
+                    </h2>
+
+                    <p>
+                        Begin your journey with SkillBridge and prepare
+                        smarter, practice consistently and track your progress.
+                    </p>
+
+                    <button class="cta-btn" onclick="startPreparation()">
+                        Start Preparation
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer id="contact">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+
+                    <a href="#home" class="logo">
+                        <div class="logo-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        Skill<span>Bridge</span>
+                    </a>
+
+                    <p>
+                        A placement preparation portal designed to help
+                        students learn, practice and track their progress.
+                    </p>
+
+                    <div class="socials">
+
+                        <a href="javascript:void(0)">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+
+                        <a href="javascript:void(0)">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+
+                        <a href="javascript:void(0)">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="footer-title">
+                        Platform
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="#features">
+                            Study Materials
+                        </a>
+
+                        <a href="#features">
+                            Aptitude Tests
+                        </a>
+
+                        <a href="#features">
+                            Coding Practice
+                        </a>
+
+                        <a href="#features">
+                            Progress Tracking
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="footer-title">
+                        Quick Links
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="#home">
+                            Home
+                        </a>
+
+                        <a href="#why">
+                            About
+                        </a>
+
+                        <a href="#how">
+                            How It Works
+                        </a>
+
+                        <a href="#contact">
+                            Contact
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="footer-title">
+                        Support
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="javascript:void(0)">
+                            Help Center
+                        </a>
+
+                        <a href="javascript:void(0)">
+                            Privacy Policy
+                        </a>
+
+                        <a href="javascript:void(0)">
+                            Terms
+                        </a>
+
+                        <a href="mailto:support@skillbridge.com">
+                            Email Support
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 SkillBridge. All Rights Reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           LOADER
+        ========================== */
+
+        window.addEventListener("load", function() {
+
+            setTimeout(function() {
+
+                document.getElementById("loader").style.opacity = "0";
+
+                setTimeout(function() {
+                    document.getElementById("loader").style.display = "none";
+                }, 500);
+
+            }, 700);
+
+        });
+
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", function() {
+
+            navLinks.classList.toggle("active");
+
+            const icon = menuBtn.querySelector("i");
+
+            if (navLinks.classList.contains("active")) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+            } else {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+
+        });
+
+
+        /* =========================
+           CLOSE MOBILE MENU
+        ========================== */
+
+        document.querySelectorAll(".nav-links a").forEach(function(link) {
+
+            link.addEventListener("click", function() {
+
+                navLinks.classList.remove("active");
+
+                const icon = menuBtn.querySelector("i");
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            });
+
+        });
+
+
+        /* =========================
+           SCROLL REVEAL
+        ========================== */
+
+        const revealElements = document.querySelectorAll(".reveal");
+
+        function revealOnScroll() {
+
+            revealElements.forEach(function(element) {
+
+                const windowHeight = window.innerHeight;
+
+                const elementTop =
+                    element.getBoundingClientRect().top;
+
+                const visiblePoint = 100;
+
+                if (elementTop < windowHeight - visiblePoint) {
+
+                    element.classList.add("active");
+
+                }
+
+            });
+
+        }
+
+        window.addEventListener("scroll", revealOnScroll);
+
+        revealOnScroll();
+
+
+        /* =========================
+           NAVBAR SHADOW
+        ========================== */
+
+        window.addEventListener("scroll", function() {
+
+            const navbar = document.querySelector(".navbar");
+
+            if (window.scrollY > 30) {
+
+                navbar.style.boxShadow =
+                    "0 8px 25px rgba(30,50,80,.08)";
+
+            } else {
+
+                navbar.style.boxShadow = "none";
+
+            }
+
+        });
+
+
+        /* =========================
+           START PREPARATION
+        ========================== */
+
+        function startPreparation() {
+
+            alert(
+                "Welcome to SkillBridge! 🚀\n\n" +
+                "Your placement preparation journey starts here."
+            );
+
+        }
+
+
+        /* =========================
+           BUTTON RIPPLE EFFECT
+        ========================== */
+
+        document.querySelectorAll(
+            ".primary-btn, .secondary-btn, .cta-btn"
+        ).forEach(function(button) {
+
+            button.addEventListener("click", function() {
+
+                this.style.transform = "scale(.97)";
+
+                setTimeout(() => {
+
+                    this.style.transform = "";
+
+                }, 150);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

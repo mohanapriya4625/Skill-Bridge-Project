@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Coding Progress | SkillBridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+ --orange:#ff7a18;--orange2:#ff9a44;--navy:#101a2d;--navy2:#17233b;
+ --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#72809a;--line:#e7ebf2;
+ --green:#22a06b;--blue:#3978f6;--purple:#7957d5;--red:#e45b62;
+ --shadow:0 12px 35px rgba(16,26,45,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px}
+button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;color:inherit}
+#loader{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:.5s}
+.loader-box{text-align:center;color:white;animation:pulse 1.2s infinite alternate}
+.loader-logo,.logo-icon{display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-weight:800}
+.loader-logo{width:64px;height:64px;border-radius:18px;margin:auto;font-size:23px;box-shadow:0 12px 30px #ff7a1840}
+.loader-box h3{margin-top:14px;font-size:18px}.loader-box p{margin-top:5px;color:#aeb9cc;font-size:11px}
+@keyframes pulse{to{transform:translateY(-5px)}}
+.sidebar{position:fixed;left:0;top:0;width:245px;height:100vh;background:var(--navy);color:#fff;padding:22px 15px;z-index:100;display:flex;flex-direction:column}
+.logo-area{display:flex;align-items:center;gap:11px;padding:3px 8px 24px}
+.logo-icon{width:42px;height:42px;border-radius:12px;font-size:15px;flex:none}
+.logo-text h2{font-size:17px}.logo-text span{font-size:8px;color:#9eabc0;letter-spacing:1px}
+.nav{overflow:auto}.nav-title{color:#66758d;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:15px 12px 7px}
+.nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;color:#aeb8c9;margin:3px 0;transition:.25s}
+.nav a i{width:17px;text-align:center}.nav a:hover,.nav a.active{background:#ffffff12;color:#fff}.nav a.active{box-shadow:inset 3px 0 var(--orange);color:#fff}
+.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff10;padding-top:14px}
+.mini-profile{display:flex;align-items:center;gap:9px;padding:7px}.avatar{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#263652;color:#fff;font-weight:700;font-size:10px}
+.mini-profile-info{flex:1}.mini-profile-info strong{display:block;font-size:11px}.mini-profile-info span{display:block;color:#71809a;font-size:9px;margin-top:3px}
+.main{margin-left:245px;min-height:100vh}.topbar{height:76px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
+.topbar-left{display:flex;align-items:center;gap:15px}.page-title h1{font-size:20px}.page-title p{font-size:10px;color:var(--muted);margin-top:4px}
+.top-actions{display:flex;gap:8px}.icon-btn,.mobile-menu{width:38px;height:38px;border-radius:10px;background:#f4f6fa;color:#59677d;position:relative;transition:.2s}.icon-btn:hover{transform:translateY(-2px);color:var(--orange)}
+.notification-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--orange);right:8px;top:8px}.mobile-menu{display:none}
+.content{padding:26px 30px 40px;max-width:1450px;margin:auto}
+.hero{background:linear-gradient(135deg,#101a2d 0%,#182a49 62%,#20365b 100%);border-radius:20px;padding:28px 30px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#ff7a1818}.hero:before{width:300px;height:300px;right:-100px;top:-160px}.hero:after{width:220px;height:220px;right:170px;bottom:-170px}
+.hero-content{position:relative;z-index:1;max-width:700px}.tag{display:inline-flex;gap:7px;align-items:center;color:#ffb174;font-size:9px;font-weight:800;letter-spacing:1.2px;margin-bottom:10px}
+.hero h2{font-size:27px;line-height:1.25}.hero p{color:#b6c1d2;line-height:1.7;font-size:11px;max-width:650px;margin:10px 0 18px}
+.hero-actions{display:flex;gap:9px}.btn{padding:10px 15px;border-radius:9px;font-size:10px;font-weight:700;transition:.25s}.btn-primary{background:var(--orange);color:#fff}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px #ff7a1840}.btn-light{background:#ffffff12;color:#fff;border:1px solid #ffffff1c}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin:25px 0 12px}.section-title h3{font-size:15px}.section-title p{font-size:10px;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.stat-card,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 22px rgba(16,26,45,.045)}
+.stat-card{padding:17px;display:flex;align-items:center;gap:12px;transition:.25s}.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.stat-icon{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:15px}.orange{background:#fff0e5;color:var(--orange)}.green{background:#eaf8f2;color:var(--green)}.blue{background:#eaf1ff;color:var(--blue)}.purple{background:#f0ebff;color:var(--purple)}
+.stat-info span{display:block;color:var(--muted);font-size:9px}.stat-info strong{display:block;font-size:19px;margin-top:3px}.up{color:var(--green);font-size:9px;margin-left:4px}
+.grid{display:grid;grid-template-columns:1.65fr 1fr;gap:16px}.card{padding:19px}.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.card-head h4{font-size:13px}.card-head span{font-size:9px;color:var(--muted)}
+.progress-row{margin:15px 0}.progress-top{display:flex;justify-content:space-between;margin-bottom:7px;font-size:10px}.progress-top span:last-child{font-weight:700}.bar{height:8px;background:#edf0f5;border-radius:20px;overflow:hidden}.fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--orange),var(--orange2));width:0;animation:grow 1.2s ease forwards}.fill.green-fill{background:linear-gradient(90deg,#20a56b,#63c997)}.fill.blue-fill{background:linear-gradient(90deg,#3978f6,#74a1ff)}@keyframes grow{to{width:var(--w)}}
+.chart{height:205px;display:flex;align-items:end;gap:10px;padding:12px 5px 0}.day{height:100%;flex:1;display:flex;align-items:end;justify-content:center;gap:5px;position:relative}.barcol{width:42%;border-radius:6px 6px 2px 2px;background:#e8edf5;transition:.3s;min-height:8px}.barcol.active{background:linear-gradient(180deg,var(--orange2),var(--orange));box-shadow:0 8px 18px #ff7a1825}.day:hover .barcol{transform:scaleY(1.03)}.day-label{position:absolute;bottom:-18px;font-size:8px;color:var(--muted)}
+.chart-wrap{padding-bottom:25px}
+.skill{display:flex;align-items:center;gap:10px;margin:14px 0}.skill-icon{width:34px;height:34px;border-radius:9px;background:#f2f5fa;display:grid;place-items:center}.skill-main{flex:1}.skill-main strong{font-size:10px}.skill-main small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+.badge{font-size:8px;font-weight:700;padding:4px 7px;border-radius:20px;background:#eaf8f2;color:var(--green)}
+.activity{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.activity:last-child{border-bottom:0}.activity-icon{width:32px;height:32px;border-radius:9px;background:#fff1e7;color:var(--orange);display:grid;place-items:center;flex:none}.activity strong{font-size:10px}.activity p{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.5}
+.calendar{display:grid;grid-template-columns:repeat(14,1fr);gap:5px;margin-top:12px}.cell{aspect-ratio:1;border-radius:3px;background:#edf0f5}.cell.l1{background:#ffd9bd}.cell.l2{background:#ffb47c}.cell.l3{background:#ff9147}.cell.l4{background:#ff7a18}.legend{display:flex;gap:5px;align-items:center;justify-content:flex-end;margin-top:10px;color:var(--muted);font-size:8px}.legend i{width:9px;height:9px;border-radius:2px;background:#edf0f5}.legend i:nth-child(2){background:#ffd9bd}.legend i:nth-child(3){background:#ffb47c}.legend i:nth-child(4){background:#ff9147}.legend i:nth-child(5){background:#ff7a18}
+.achievement{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:11px;margin-top:9px;background:#fafbfd}.medal{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff0e5;color:var(--orange);font-size:15px}.achievement strong{font-size:10px}.achievement p{font-size:8px;color:var(--muted);margin-top:3px}
+.toast-container{position:fixed;right:20px;bottom:20px;z-index:500}.toast{background:var(--navy);color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);font-size:10px;animation:toastIn .3s ease}.toast i{color:#ff9a44;margin-right:7px}@keyframes toastIn{from{transform:translateY(15px);opacity:0}to{transform:none;opacity:1}}
+.dark{--bg:#0b1220;--card:#121c2e;--text:#eef3fb;--muted:#8997ad;--line:#243149}.dark .topbar{background:#0e1728dd}.dark .stat-card,.dark .card{box-shadow:none}.dark .bar,.dark .cell{background:#202c42}.dark .skill-icon,.dark .achievement{background:#172238}
+@media(max-width:1000px){.sidebar{width:215px}.main{margin-left:215px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.content{padding:22px}}
+@media(max-width:700px){.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:none}.main{margin-left:0}.mobile-menu{display:block}.topbar{padding:0 15px}.content{padding:15px}.hero{padding:22px}.hero h2{font-size:22px}.stats{grid-template-columns:1fr 1fr}.top-actions .icon-btn:nth-child(2){display:none}}
+@media(max-width:500px){.stats{gap:9px}.stat-card{padding:12px}.stat-info strong{font-size:16px}.hero-actions{flex-direction:column}.btn{width:100%}.chart{gap:4px;height:175px}.calendar{gap:3px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-logo">SB</div><h3>SkillBridge</h3><p>Loading your coding progress...</p></div></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo-area"><div class="logo-icon">SB</div><div class="logo-text"><h2>SkillBridge</h2><span>LEARN • PRACTICE • GROW</span></div></div>
+  <nav class="nav">
+    <div class="nav-title">Main Menu</div>
+    <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+    <a href="study-material.html"><i class="fa-solid fa-book-open"></i><span>Study Material</span></a>
+    <a href="aptitude.html"><i class="fa-solid fa-brain"></i><span>Aptitude</span></a>
+    <a href="coding.html"><i class="fa-solid fa-code"></i><span>Coding Practice</span></a>
+    <a href="coding progress.html" class="active"><i class="fa-solid fa-chart-line"></i><span>Coding Progress</span></a>
+    <div class="nav-title">Account</div>
+    <a href="profile.html"><i class="fa-solid fa-user"></i><span>My Profile</span></a>
+    <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+    </nav>
+  <div class="sidebar-bottom"><div class="mini-profile"><div class="avatar">MP</div><div class="mini-profile-info"><strong>Mohana</strong><span>Full Stack Learner</span></div><i class="fa-solid fa-ellipsis" style="color:#72829b"></i></div></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="topbar-left"><button class="mobile-menu" onclick="toggleSide()"><i class="fa-solid fa-bars"></i></button><div class="page-title"><h1>Coding Progress</h1><p>Track your coding journey, consistency and growth.</p></div></div>
+  <div class="top-actions"><button class="icon-btn" onclick="toast('No new notifications')"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button><button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button><button class="icon-btn" onclick="location.href='profile.html'"><i class="fa-regular fa-user"></i></button></div>
+</header>
+
+<div class="content">
+<section class="hero">
+  <div class="hero-content">
+    <div class="tag"><i class="fa-solid fa-chart-line"></i> CODING PROGRESS</div>
+    <h2>Keep building. Keep improving. 🚀</h2>
+    <p>Your coding dashboard shows how consistently you practice, which skills are growing, and where you can focus next. Every solved problem is a step forward.</p>
+    <div class="hero-actions"><button class="btn btn-primary" onclick="location.href='coding.html'"><i class="fa-solid fa-code"></i> Continue Coding</button><button class="btn btn-light" onclick="toast('Weekly report opened')"><i class="fa-solid fa-file-lines"></i> View Weekly Report</button></div>
+  </div>
+</section>
+
+<div class="section-title"><div><h3>Performance Overview</h3><p>A quick snapshot of your coding activity.</p></div><span style="font-size:9px;color:var(--muted)">This month</span></div>
+<section class="stats">
+  <div class="stat-card"><div class="stat-icon orange"><i class="fa-solid fa-code"></i></div><div class="stat-info"><span>Problems Solved</span><strong>128 <em class="up">+18%</em></strong></div></div>
+  <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div><div class="stat-info"><span>Accuracy</span><strong>84% <em class="up">+6%</em></strong></div></div>
+  <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-clock"></i></div><div class="stat-info"><span>Practice Hours</span><strong>32.5h <em class="up">+12%</em></strong></div></div>
+  <div class="stat-card"><div class="stat-icon purple"><i class="fa-solid fa-fire"></i></div><div class="stat-info"><span>Day Streak</span><strong>14 days <em class="up">Best 21</em></strong></div></div>
+</section>
+
+<div class="section-title"><div><h3>Progress Details</h3><p>Understand your strengths and next targets.</p></div></div>
+<section class="grid">
+  <div>
+    <div class="card chart-wrap">
+      <div class="card-head"><h4>Weekly Coding Activity</h4><span>Problems solved</span></div>
+      <div class="chart" id="chart">
+        <div class="day"><div class="barcol" style="height:34%"></div><span class="day-label">Mon</span></div>
+        <div class="day"><div class="barcol" style="height:52%"></div><span class="day-label">Tue</span></div>
+        <div class="day"><div class="barcol active" style="height:72%"></div><span class="day-label">Wed</span></div>
+        <div class="day"><div class="barcol" style="height:43%"></div><span class="day-label">Thu</span></div>
+        <div class="day"><div class="barcol active" style="height:86%"></div><span class="day-label">Fri</span></div>
+        <div class="day"><div class="barcol" style="height:61%"></div><span class="day-label">Sat</span></div>
+        <div class="day"><div class="barcol active" style="height:92%"></div><span class="day-label">Sun</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><h4>Skill Progress</h4><span>Current level</span></div>
+      <div class="progress-row"><div class="progress-top"><span>JavaScript</span><span>88%</span></div><div class="bar"><div class="fill" style="--w:88%"></div></div></div>
+      <div class="progress-row"><div class="progress-top"><span>Python</span><span>76%</span></div><div class="bar"><div class="fill blue-fill" style="--w:76%"></div></div></div>
+      <div class="progress-row"><div class="progress-top"><span>DSA</span><span>69%</span></div><div class="bar"><div class="fill green-fill" style="--w:69%"></div></div></div>
+      <div class="progress-row"><div class="progress-top"><span>SQL</span><span>62%</span></div><div class="bar"><div class="fill" style="--w:62%"></div></div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-head"><h4>Language Breakdown</h4><span>Problems solved</span></div>
+      <div class="skill"><div class="skill-icon"><i class="fa-brands fa-js" style="color:#d69d00"></i></div><div class="skill-main"><strong>JavaScript</strong><small>52 problems</small></div><span class="badge">41%</span></div>
+      <div class="skill"><div class="skill-icon"><i class="fa-brands fa-python" style="color:#3978f6"></i></div><div class="skill-main"><strong>Python</strong><small>39 problems</small></div><span class="badge">30%</span></div>
+      <div class="skill"><div class="skill-icon"><i class="fa-solid fa-database" style="color:#7957d5"></i></div><div class="skill-main"><strong>SQL</strong><small>21 problems</small></div><span class="badge">16%</span></div>
+      <div class="skill"><div class="skill-icon"><i class="fa-solid fa-code" style="color:#e45b62"></i></div><div class="skill-main"><strong>C++</strong><small>16 problems</small></div><span class="badge">13%</span></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><h4>Recent Activity</h4><span>View all</span></div>
+      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-check"></i></div><div><strong>Two Sum</strong><p>Solved in JavaScript • 8 min ago</p></div></div>
+      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-check"></i></div><div><strong>Reverse a String</strong><p>Solved in Python • Yesterday</p></div></div>
+      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-trophy"></i></div><div><strong>7-day streak achieved</strong><p>Consistency milestone unlocked</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-title"><div><h3>Practice Consistency</h3><p>Your recent coding activity calendar.</p></div></div>
+<section class="card">
+  <div class="card-head"><h4>Last 8 Weeks</h4><span>More practice = stronger consistency</span></div>
+  <div class="calendar" id="calendar"></div>
+  <div class="legend"><span>Less</span><i></i><i></i><i></i><i></i><span>More</span></div>
+</section>
+
+<div class="section-title"><div><h3>Achievements</h3><p>Milestones earned from your coding practice.</p></div></div>
+<section class="grid">
+  <div class="card">
+    <div class="achievement"><div class="medal"><i class="fa-solid fa-fire"></i></div><div><strong>Consistency Starter</strong><p>Completed coding practice for 7 consecutive days.</p></div></div>
+    <div class="achievement"><div class="medal"><i class="fa-solid fa-code"></i></div><div><strong>Problem Solver</strong><p>Solved more than 100 coding problems.</p></div></div>
+    <div class="achievement"><div class="medal"><i class="fa-solid fa-bolt"></i></div><div><strong>Fast Learner</strong><p>Improved average solving time this month.</p></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h4>Next Target</h4><span>128 / 150</span></div>
+    <div class="progress-row"><div class="progress-top"><span>Reach 150 solved problems</span><span>85%</span></div><div class="bar"><div class="fill" style="--w:85%"></div></div></div>
+    <p style="font-size:9px;color:var(--muted);line-height:1.7;margin-top:15px">Solve 22 more problems to unlock your next milestone. Keep your streak active and focus on DSA this week.</p>
+    <button class="btn btn-primary" style="margin-top:14px" onclick="location.href='coding.html'"><i class="fa-solid fa-arrow-right"></i> Practice Now</button>
+  </div>
+</section>
+</div>
+</main>
+
+<div class="toast-container" id="toastBox"></div>
+<script>
+window.addEventListener('load',()=>setTimeout(()=>{document.getElementById('loader').style.opacity='0';setTimeout(()=>document.getElementById('loader').remove(),500)},650));
+function toast(msg){const box=document.getElementById('toastBox');const el=document.createElement('div');el.className='toast';el.innerHTML='<i class="fa-solid fa-circle-check"></i>'+msg;box.appendChild(el);setTimeout(()=>el.remove(),2500)}
+function toggleSide(){document.getElementById('sidebar').classList.toggle('open')}
+function toggleTheme(){document.body.classList.toggle('dark');const on=document.body.classList.contains('dark');localStorage.setItem('codingProgressTheme',on?'dark':'light');document.getElementById('themeIcon').className=on?'fa-solid fa-sun':'fa-solid fa-moon';toast(on?'Dark mode enabled':'Light mode enabled')}
+if(localStorage.getItem('codingProgressTheme')==='dark'){document.body.classList.add('dark');document.getElementById('themeIcon').className='fa-solid fa-sun'}
+const cal=document.getElementById('calendar');
+for(let i=0;i<112;i++){const c=document.createElement('span');c.className='cell';const r=Math.random();if(r>.78)c.classList.add('l4');else if(r>.62)c.classList.add('l3');else if(r>.45)c.classList.add('l2');else if(r>.31)c.classList.add('l1');cal.appendChild(c)}
+</script>
+</body>
+</html>

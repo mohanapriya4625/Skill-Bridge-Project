@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySQL Database | SkillBridge</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+    --navy:#12233f;
+    --navy2:#1b3154;
+    --bg:#f6f8fc;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#718096;
+    --border:#e6eaf0;
+    --success:#18a66a;
+    --danger:#ef4444;
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* ================= LOADER ================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:.5s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    width:75px;
+    height:75px;
+    border-radius:22px;
+    background:var(--orange);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:800;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.12)}
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:255px;
+    height:100vh;
+    background:var(--navy);
+    color:white;
+    z-index:1000;
+    padding:24px 16px;
+    transition:.3s ease;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 10px 30px;
+}
+
+.logo-box{
+    width:43px;
+    height:43px;
+    background:var(--orange);
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:18px;
+}
+
+.logo h2{
+    font-size:20px;
+}
+
+.logo span{
+    color:var(--orange);
+}
+
+.nav-title{
+    font-size:11px;
+    color:#8fa1bb;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin:12px 12px;
+}
+
+.nav-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:13px 14px;
+    margin:5px 0;
+    color:#c9d3e2;
+    text-decoration:none;
+    border-radius:12px;
+    transition:.25s;
+    font-size:14px;
+}
+
+.nav-link i{
+    width:20px;
+    text-align:center;
+}
+
+.nav-link:hover,
+.nav-link.active{
+    background:rgba(255,107,0,.15);
+    color:white;
+}
+
+.nav-link.active{
+    border-left:3px solid var(--orange);
+}
+
+.nav-link:hover i,
+.nav-link.active i{
+    color:var(--orange);
+}
+
+.sidebar-bottom{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:999;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    height:76px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-heading h1{
+    font-size:20px;
+    color:var(--navy);
+}
+
+.page-heading p{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.icon-btn:hover{
+    background:var(--orange);
+    color:white;
+    transform:translateY(-2px);
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-left:5px;
+    cursor:pointer;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+.profile-mini span{
+    font-size:13px;
+    font-weight:600;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    background:linear-gradient(120deg,var(--navy),#1c365d);
+    border-radius:24px;
+    padding:30px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    animation:fadeUp .7s ease;
+}
+
+.hero:before,
+.hero:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,107,0,.12);
+}
+
+.hero:before{
+    width:220px;
+    height:220px;
+    right:100px;
+    top:-100px;
+}
+
+.hero:after{
+    width:150px;
+    height:150px;
+    right:-30px;
+    bottom:-70px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,107,0,.17);
+    color:#ff9c5c;
+    padding:7px 12px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:13px;
+}
+
+.hero h2{
+    font-size:30px;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#b9c7da;
+    font-size:14px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.hero-progress{
+    width:170px;
+    position:relative;
+    z-index:2;
+}
+
+.progress-circle{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:conic-gradient(var(--orange) 70%,rgba(255,255,255,.12) 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.progress-circle:after{
+    content:"";
+    position:absolute;
+    width:94px;
+    height:94px;
+    border-radius:50%;
+    background:var(--navy);
+}
+
+.progress-circle span{
+    position:relative;
+    z-index:2;
+    font-size:22px;
+    font-weight:800;
+}
+
+/* ================= LAYOUT ================= */
+
+.learning-layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:24px;
+    margin-top:25px;
+}
+
+/* ================= TOPICS ================= */
+
+.topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    height:max-content;
+    position:sticky;
+    top:100px;
+}
+
+.topic-card h3{
+    color:var(--navy);
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.topic-search{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    margin-bottom:15px;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.topic-search:focus{
+    border-color:var(--orange);
+}
+
+.topic-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.topic{
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--muted);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.topic-number{
+    width:27px;
+    height:27px;
+    border-radius:8px;
+    background:#f0f3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:700;
+}
+
+.topic:hover{
+    background:#fff2e9;
+    color:var(--orange);
+}
+
+.topic.active{
+    background:var(--orange);
+    color:white;
+}
+
+.topic.active .topic-number{
+    background:rgba(255,255,255,.2);
+    color:white;
+}
+
+/* ================= LESSON ================= */
+
+.lesson{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    animation:fadeUp .6s ease;
+}
+
+.lesson-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.lesson-head small{
+    color:var(--orange);
+    font-weight:700;
+    font-size:12px;
+}
+
+.lesson-head h2{
+    color:var(--navy);
+    margin-top:5px;
+    font-size:25px;
+}
+
+.bookmark{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#fff3eb;
+    color:var(--orange);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.bookmark:hover{
+    transform:scale(1.08);
+}
+
+.bookmark.saved{
+    background:var(--orange);
+    color:white;
+}
+
+.lesson-text{
+    color:#566276;
+    line-height:1.8;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.key-box{
+    background:#fff7f1;
+    border-left:4px solid var(--orange);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.key-box h4{
+    color:var(--navy);
+    margin-bottom:9px;
+}
+
+.key-box ul{
+    padding-left:18px;
+    color:#566276;
+    line-height:1.8;
+    font-size:13px;
+}
+
+/* ================= CODE ================= */
+
+.code-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.code-title span{
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+}
+
+.copy-btn{
+    background:var(--navy);
+    color:white;
+    padding:7px 11px;
+    border-radius:8px;
+    font-size:11px;
+}
+
+.copy-btn:hover{
+    background:var(--orange);
+}
+
+pre{
+    background:#101827;
+    color:#e8eef8;
+    border-radius:14px;
+    padding:20px;
+    overflow:auto;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.output{
+    background:#f1f7f4;
+    border:1px solid #d8eee4;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.output strong{
+    color:var(--success);
+    font-size:13px;
+}
+
+.output p{
+    font-family:monospace;
+    margin-top:7px;
+    font-size:13px;
+}
+
+/* ================= PRACTICE ================= */
+
+.practice{
+    margin-top:25px;
+    padding:20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#fff8f3,#f8faff);
+    border:1px solid var(--border);
+}
+
+.practice h3{
+    color:var(--navy);
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.question{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:14px;
+    line-height:1.6;
+}
+
+.options{
+    display:grid;
+    gap:8px;
+}
+
+.option{
+    padding:11px 13px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+    text-align:left;
+    transition:.2s;
+    font-size:13px;
+}
+
+.option:hover{
+    border-color:var(--orange);
+    transform:translateX(4px);
+}
+
+.option.correct{
+    background:#eaf8f1;
+    border-color:var(--success);
+    color:var(--success);
+}
+
+.option.wrong{
+    background:#fff0f0;
+    border-color:var(--danger);
+    color:var(--danger);
+}
+
+/* ================= NAV BUTTONS ================= */
+
+.lesson-actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+}
+
+.action-btn{
+    padding:11px 17px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.prev-btn{
+    background:#eef1f6;
+    color:var(--navy);
+}
+
+.next-btn{
+    background:var(--orange);
+    color:white;
+}
+
+.complete-btn{
+    background:#eaf8f1;
+    color:var(--success);
+}
+
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:var(--navy);
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
+    z-index:9999;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+    --bg:#0d1524;
+    --card:#142033;
+    --text:#e8edf5;
+    --muted:#9aa9bd;
+    --border:#26354b;
+    --navy:#0b1526;
+}
+
+body.dark .page-heading h1,
+body.dark .lesson-head h2,
+body.dark .topic-card h3,
+body.dark .code-title span,
+body.dark .key-box h4,
+body.dark .practice h3{
+    color:#f1f5fb;
+}
+
+body.dark .topic-number{
+    background:#223149;
+}
+
+body.dark .key-box{
+    background:#241d18;
+}
+
+body.dark .key-box ul,
+body.dark .lesson-text{
+    color:#aebbd0;
+}
+
+body.dark .practice{
+    background:#172438;
+}
+
+body.dark .option{
+    background:#1a283c;
+    color:#d9e1ec;
+}
+
+body.dark .output{
+    background:#12251d;
+    border-color:#24553e;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .overlay.show{
+        display:block;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:flex;
+    }
+
+    .learning-layout{
+        grid-template-columns:1fr;
+    }
+
+    .topic-card{
+        position:relative;
+        top:auto;
+    }
+
+    .topic-list{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .topbar{
+        padding:0 15px;
+        height:68px;
+    }
+
+    .page-heading h1{
+        font-size:16px;
+    }
+
+    .page-heading p{
+        display:none;
+    }
+
+    .profile-mini span{
+        display:none;
+    }
+
+    .content{
+        padding:16px;
+    }
+
+    .hero{
+        padding:22px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .hero h2{
+        font-size:24px;
+    }
+
+    .hero-progress{
+        align-self:center;
+    }
+
+    .learning-layout{
+        gap:15px;
+    }
+
+    .lesson{
+        padding:20px;
+    }
+
+    .lesson-head h2{
+        font-size:21px;
+    }
+
+    .lesson-actions{
+        flex-wrap:wrap;
+    }
+
+    .action-btn{
+        flex:1;
+        justify-content:center;
+    }
+
+    .topic-list{
+        grid-template-columns:1fr;
+    }
+
+    pre{
+        font-size:11px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *:before,
+    *:after{
+        animation:none!important;
+        transition:none!important;
+        scroll-behavior:auto!important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="loader" id="loader"><div class="loader-logo">SB</div></div>
+<div class="overlay" id="overlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><div class="logo-box">SB</div><h2>Skill<span>Bridge</span></h2></div>
+  <div class="nav-title">Main Menu</div>
+  <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
+  <a href="study-material.html" class="nav-link active"><i class="fa-solid fa-book-open"></i>Study Materials</a>
+  <a href="aptitude.html" class="nav-link"><i class="fa-solid fa-brain"></i>Aptitude Tests</a>
+  <a href="coding.html" class="nav-link"><i class="fa-solid fa-code"></i>Coding Practice</a>
+  <a href="progress.html" class="nav-link"><i class="fa-solid fa-chart-line"></i>My Progress</a>
+  <div class="nav-title">Account</div>
+  <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i>My Profile</a>
+  <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i>Settings</a>
+  <div class="sidebar-bottom"><a href="login.html" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div class="top-actions"><button class="icon-btn mobile-menu" id="menuBtn"><i class="fa-solid fa-bars"></i></button><div class="page-heading"><h1>MySQL Database</h1><p>Study Materials / Database / MySQL</p></div></div>
+  <div class="top-actions"><button class="icon-btn" id="themeBtn" title="Dark Mode"><i class="fa-solid fa-moon"></i></button><button class="icon-btn" id="notificationBtn"><i class="fa-regular fa-bell"></i></button><div class="profile-mini" onclick="goProfile()"><div class="avatar">MP</div><span>Mohana</span></div></div>
+</header>
+<section class="content">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge"><i class="fa-solid fa-database"></i> Database Course</div>
+      <h2>Master MySQL 🐬</h2>
+      <p>Learn MySQL from database fundamentals to practical SQL. Build tables, insert and retrieve data, use constraints, joins, aggregate functions, subqueries, transactions and indexes with clear examples.</p>
+    </div>
+    <div class="hero-progress"><div class="progress-circle"><span>75%</span></div></div>
+  </div>
+
+  <div class="learning-layout">
+    <div class="topic-card">
+      <h3>MySQL Topics</h3>
+      <input type="text" class="topic-search" id="topicSearch" placeholder="Search topic...">
+      <div class="topic-list" id="topicList"></div>
+    </div>
+    <div class="lesson" id="lesson">
+      <div class="lesson-head"><div><small id="topicCount">TOPIC 1 OF 15</small><h2 id="lessonTitle">MySQL Basics</h2></div><button class="bookmark" id="bookmarkBtn"><i class="fa-regular fa-bookmark"></i></button></div>
+      <div id="lessonContent"></div>
+      <div class="practice"><h3><i class="fa-solid fa-circle-question"></i> Quick Practice</h3><div class="question" id="question"></div><div class="options" id="options"></div></div>
+      <div class="lesson-actions"><button class="action-btn prev-btn" onclick="previousTopic()"><i class="fa-solid fa-arrow-left"></i>Previous</button><button class="action-btn complete-btn" onclick="markComplete()"><i class="fa-solid fa-check"></i>Mark Complete</button><button class="action-btn next-btn" onclick="nextTopic()">Next<i class="fa-solid fa-arrow-right"></i></button></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const topicData = [
+{title:'MySQL Basics',icon:'fa-database',description:'MySQL is a relational database management system used to store, organize and retrieve structured data. SQL is the language used to work with the database.',points:['MySQL stores data in tables.','A database can contain multiple tables.','SQL is used to create and manipulate data.','Rows represent records and columns represent attributes.'],code:`CREATE DATABASE skillbridge;\nUSE skillbridge;\n\nCREATE TABLE students (\n    id INT PRIMARY KEY,\n    name VARCHAR(50),\n    marks INT\n);`,output:'Database and students table created successfully.',question:'Which SQL command selects a database?',options:['OPEN','USE','SELECT DB','CONNECT'],answer:1},
+{title:'CREATE DATABASE & TABLE',icon:'fa-table',description:'DDL commands define the structure of database objects. CREATE DATABASE creates a database and CREATE TABLE creates a table inside it.',points:['CREATE DATABASE creates a database.','USE selects the active database.','CREATE TABLE defines columns and data types.','Every column should have an appropriate data type.'],code:`CREATE DATABASE college;\nUSE college;\n\nCREATE TABLE students (\n    id INT,\n    name VARCHAR(100),\n    department VARCHAR(50),\n    marks INT\n);`,output:'college database selected and students table created.',question:'Which command creates a new table?',options:['MAKE TABLE','CREATE TABLE','NEW TABLE','ADD TABLE'],answer:1},
+{title:'Data Types',icon:'fa-list-check',description:'Data types tell MySQL what kind of value a column can store. Choosing suitable types improves correctness and storage efficiency.',points:['INT stores whole numbers.','DECIMAL is useful for precise numeric values.','VARCHAR stores variable-length text.','DATE stores calendar dates.','BOOLEAN is commonly represented using a numeric type in MySQL.'],code:`CREATE TABLE employees (\n    id INT,\n    name VARCHAR(100),\n    salary DECIMAL(10,2),\n    joining_date DATE\n);`,output:'employees table created with suitable data types.',question:'Which type is commonly used for variable-length text?',options:['INT','DATE','VARCHAR','DECIMAL'],answer:2},
+{title:'INSERT Statement',icon:'fa-plus',description:'INSERT adds new records to a table. You can specify the target columns and provide values in the same order.',points:['INSERT INTO adds rows.','Column names can be specified explicitly.','Text values use quotes.','Multiple rows can be inserted in one statement.'],code:`INSERT INTO students (id, name, marks)\nVALUES\n(1, 'Mohana', 88),\n(2, 'Priya', 92),\n(3, 'Kavi', 81);`,output:'3 student records inserted.',question:'Which command is used to add records?',options:['ADD','INSERT','PUT','CREATE'],answer:1},
+{title:'SELECT & WHERE',icon:'fa-magnifying-glass',description:'SELECT retrieves data. WHERE filters rows so that only records satisfying a condition are returned.',points:['SELECT chooses columns.','* selects all columns.','WHERE filters records.','Comparison operators include =, >, <, >= and <=.'],code:`SELECT name, marks\nFROM students\nWHERE marks >= 85;`,output:`Mohana  88\nPriya   92`,question:'Which clause filters rows?',options:['FILTER','WHERE','HAVING ONLY','CHECK'],answer:1},
+{title:'UPDATE Statement',icon:'fa-pen-to-square',description:'UPDATE changes existing records. Always use a suitable WHERE condition when only selected rows should be changed.',points:['UPDATE modifies existing rows.','SET assigns new values.','WHERE limits the affected rows.','Without WHERE, all matching table rows can be updated.'],code:`UPDATE students\nSET marks = 95\nWHERE id = 2;`,output:'Student with id 2 updated successfully.',question:'Which keyword assigns a new value in UPDATE?',options:['CHANGE','SET','VALUE','MODIFY'],answer:1},
+{title:'DELETE Statement',icon:'fa-trash',description:'DELETE removes records from a table. A WHERE condition can restrict deletion to selected rows.',points:['DELETE removes rows.','WHERE selects the rows to delete.','Without WHERE, all rows can be deleted.','DELETE does not remove the table structure.'],code:`DELETE FROM students\nWHERE id = 3;`,output:'Student with id 3 deleted.',question:'Which statement removes selected records?',options:['REMOVE','DROP','DELETE','CLEAR'],answer:2},
+{title:'Constraints',icon:'fa-shield-halved',description:'Constraints enforce rules on table data and help maintain data integrity.',points:['PRIMARY KEY uniquely identifies a row.','NOT NULL prevents missing values.','UNIQUE prevents duplicate values.','DEFAULT supplies a value when one is not provided.','CHECK can enforce a condition.'],code:`CREATE TABLE users (\n    id INT PRIMARY KEY,\n    email VARCHAR(100) UNIQUE,\n    name VARCHAR(50) NOT NULL,\n    age INT CHECK (age >= 18)\n);`,output:'users table created with integrity constraints.',question:'Which constraint uniquely identifies each row?',options:['UNIQUE','PRIMARY KEY','CHECK','DEFAULT'],answer:1},
+{title:'ORDER BY & LIMIT',icon:'fa-arrow-down-wide-short',description:'ORDER BY sorts query results and LIMIT restricts how many rows are returned. These are useful for rankings and top-result queries.',points:['ASC sorts ascending.','DESC sorts descending.','ORDER BY can use one or more columns.','LIMIT restricts returned rows.'],code:`SELECT name, marks\nFROM students\nORDER BY marks DESC\nLIMIT 3;`,output:'Top 3 students returned in descending marks order.',question:'Which keyword sorts results from highest to lowest?',options:['ASC','DESC','SORT','DOWN'],answer:1},
+{title:'Aggregate Functions',icon:'fa-chart-column',description:'Aggregate functions calculate a single result from multiple rows. They are commonly used for reports and analysis.',points:['COUNT() counts rows or values.','SUM() adds numeric values.','AVG() calculates the average.','MAX() returns the largest value.','MIN() returns the smallest value.'],code:`SELECT\n    COUNT(*) AS total_students,\n    AVG(marks) AS average_marks,\n    MAX(marks) AS highest_marks\nFROM students;`,output:'A summary containing total, average and highest marks is returned.',question:'Which function calculates the average?',options:['SUM()','COUNT()','AVG()','MEAN()'],answer:2},
+{title:'GROUP BY & HAVING',icon:'fa-layer-group',description:'GROUP BY combines rows with the same value into groups. HAVING filters grouped results after aggregate calculations.',points:['GROUP BY creates groups.','Aggregate functions work naturally with groups.','HAVING filters groups.','WHERE filters rows before grouping.'],code:`SELECT department, COUNT(*) AS total\nFROM students\nGROUP BY department\nHAVING COUNT(*) >= 2;`,output:'Departments containing at least 2 students are displayed.',question:'Which clause filters grouped results?',options:['WHERE','HAVING','GROUP','FILTER'],answer:1},
+{title:'Joins',icon:'fa-link',description:'Joins combine related data from multiple tables. A common relationship uses a foreign key in one table referencing a primary key in another.',points:['INNER JOIN returns matching rows.','LEFT JOIN keeps all rows from the left table.','ON specifies the matching condition.','Joins reduce unnecessary duplicate data across tables.'],code:`SELECT s.name, d.dept_name\nFROM students s\nINNER JOIN departments d\nON s.dept_id = d.id;`,output:'Student names are shown with their department names.',question:'Which keyword defines the join matching condition?',options:['ON','MATCH','WITH','USING ONLY'],answer:0},
+{title:'Subqueries',icon:'fa-code-branch',description:'A subquery is a query nested inside another query. It can be used to compare a value with a calculated or retrieved result.',points:['A subquery is enclosed within parentheses.','It can appear in WHERE or other clauses.','It can return a single value or multiple values.','Subqueries help solve multi-step queries.'],code:`SELECT name, marks\nFROM students\nWHERE marks > (\n    SELECT AVG(marks)\n    FROM students\n);`,output:'Students scoring above the average are returned.',question:'What is a query inside another query called?',options:['Nested query','Subquery','Inner command','Child SQL'],answer:1},
+{title:'Views',icon:'fa-eye',description:'A view is a virtual table based on a SELECT query. Views can simplify frequently used queries and present selected data.',points:['CREATE VIEW defines a view.','A view stores the query definition.','SELECT can read from a view like a table.','Views can hide unnecessary columns from users.'],code:`CREATE VIEW top_students AS\nSELECT id, name, marks\nFROM students\nWHERE marks >= 90;\n\nSELECT * FROM top_students;`,output:'top_students view created and queried.',question:'A view is best described as:',options:['A physical server','A virtual table','A backup file','A programming loop'],answer:1},
+{title:'Transactions',icon:'fa-arrows-rotate',description:'Transactions group related database operations into a logical unit. COMMIT saves changes and ROLLBACK cancels uncommitted changes.',points:['START TRANSACTION begins a transaction.','COMMIT permanently saves changes.','ROLLBACK reverses uncommitted changes.','Transactions are important for consistent updates.'],code:`START TRANSACTION;\n\nUPDATE accounts\nSET balance = balance - 500\nWHERE id = 1;\n\nCOMMIT;`,output:'Transaction completed and changes committed.',question:'Which command permanently saves a transaction?',options:['SAVE','COMMIT','APPLY','PUSH'],answer:1},
+{title:'Indexes & Mini Project',icon:'fa-bolt',description:'Indexes can improve lookup performance on suitable columns. For practice, combine tables, constraints, CRUD operations and queries into a Student Management System.',points:['Indexes speed up selected searches.','Avoid unnecessary indexes because they add maintenance cost.','Primary keys are indexed by MySQL.','Mini project tables can include students, departments, courses and results.'],code:`CREATE INDEX idx_student_name\nON students(name);\n\n-- Mini Project Tables\nstudents\ndepartments\ncourses\nresults`,output:'Index created; use the mini-project tables to practise complete SQL workflows.',question:'What is a major purpose of an index?',options:['Delete records','Improve suitable search performance','Create a database','Replace SQL'],answer:1}
+];
+let currentTopic=0, bookmarked=false;
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hide'),650);loadTopics();selectTopic(0);loadTheme();});
+function loadTopics(){const list=document.getElementById('topicList');list.innerHTML='';topicData.forEach((topic,index)=>{const div=document.createElement('div');div.className='topic';div.innerHTML=`<span class="topic-number">${String(index+1).padStart(2,'0')}</span><span>${topic.title}</span>`;div.onclick=()=>selectTopic(index);list.appendChild(div);});}
+function selectTopic(index){currentTopic=index;const topic=topicData[index];document.querySelectorAll('.topic').forEach((item,i)=>item.classList.toggle('active',i===index));document.getElementById('topicCount').textContent=`TOPIC ${index+1} OF ${topicData.length}`;document.getElementById('lessonTitle').textContent=topic.title;document.getElementById('lessonContent').innerHTML=`<p class="lesson-text">${topic.description}</p><div class="key-box"><h4><i class="fa-solid fa-lightbulb"></i> Key Points</h4><ul>${topic.points.map(p=>`<li>${p}</li>`).join('')}</ul></div><div class="code-title"><span><i class="fa-solid fa-code"></i> SQL Example</span><button class="copy-btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy SQL</button></div><pre id="codeBlock"><code>${escapeHtml(topic.code)}</code></pre><div class="output"><strong><i class="fa-solid fa-terminal"></i> Expected Result</strong><p>${escapeHtml(topic.output)}</p></div>`;loadQuestion();bookmarked=false;document.getElementById('bookmarkBtn').classList.remove('saved');document.getElementById('bookmarkBtn').innerHTML='<i class="fa-regular fa-bookmark"></i>';if(index>0)document.getElementById('lesson').scrollIntoView({behavior:'smooth',block:'start'});}
+function escapeHtml(text){return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function copyCode(){navigator.clipboard.writeText(topicData[currentTopic].code).then(()=>showToast('SQL copied successfully! 📋')).catch(()=>showToast('Unable to copy SQL'));}
+document.getElementById('bookmarkBtn').addEventListener('click',function(){bookmarked=!bookmarked;this.classList.toggle('saved',bookmarked);this.innerHTML=bookmarked?'<i class="fa-solid fa-bookmark"></i>':'<i class="fa-regular fa-bookmark"></i>';showToast(bookmarked?'Topic bookmarked 🔖':'Bookmark removed');});
+function loadQuestion(){const t=topicData[currentTopic];document.getElementById('question').textContent=t.question;const options=document.getElementById('options');options.innerHTML='';t.options.forEach((o,i)=>{const b=document.createElement('button');b.className='option';b.textContent=o;b.onclick=()=>checkAnswer(b,i);options.appendChild(b);});}
+function checkAnswer(button,index){const t=topicData[currentTopic],buttons=document.querySelectorAll('.option');buttons.forEach(b=>b.disabled=true);if(index===t.answer){button.classList.add('correct');showToast('Correct answer! 🎉');}else{button.classList.add('wrong');buttons[t.answer].classList.add('correct');showToast('Not quite! Check the correct answer 💡');}}
+function markComplete(){showToast(`${topicData[currentTopic].title} completed! ✅`);}
+function nextTopic(){if(currentTopic<topicData.length-1)selectTopic(currentTopic+1);else showToast('🎉 You completed all MySQL topics!');}
+function previousTopic(){if(currentTopic>0)selectTopic(currentTopic-1);else showToast('You are already at the first topic');}
+document.getElementById('topicSearch').addEventListener('input',function(){const v=this.value.toLowerCase();document.querySelectorAll('.topic').forEach((item,i)=>item.style.display=topicData[i].title.toLowerCase().includes(v)?'flex':'none');});
+const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay');document.getElementById('menuBtn').addEventListener('click',()=>{sidebar.classList.add('open');overlay.classList.add('show');});overlay.addEventListener('click',closeSidebar);function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remove('show');}
+document.getElementById('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');localStorage.setItem('skillbridge-theme',dark?'dark':'light');document.getElementById('themeBtn').innerHTML=dark?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';});
+function loadTheme(){if(localStorage.getItem('skillbridge-theme')==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').innerHTML='<i class="fa-solid fa-sun"></i>';}}
+document.getElementById('notificationBtn').addEventListener('click',()=>showToast('No new notifications 🔔'));function goProfile(){window.location.href='profile.html';}let toastTimer;function showToast(message){const toast=document.getElementById('toast');toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2500);}document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar();});
+</script>
+</body>
+</html>

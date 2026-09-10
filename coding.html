@@ -1,0 +1,5093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Coding Practice | SkillBridge</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+
+    --navy:#12233f;
+    --navy2:#1b3154;
+
+    --bg:#f6f8fc;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#718096;
+
+    --border:#e6eaf0;
+
+    --success:#18a66a;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+    --purple:#8b5cf6;
+
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+
+    --sidebar-width:255px;
+    --topbar-height:76px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark{
+
+    --bg:#0d1728;
+    --card:#142238;
+
+    --text:#f4f7fb;
+    --muted:#9eabc0;
+
+    --border:#263751;
+
+    --navy:#091527;
+    --navy2:#12233c;
+
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#loader{
+
+    position:fixed;
+    inset:0;
+
+    background:var(--navy);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:9999;
+
+    transition:.5s ease;
+}
+
+.loader-box{
+
+    text-align:center;
+    color:white;
+
+    animation:loaderFloat 1.5s ease infinite alternate;
+}
+
+.loader-logo{
+
+    width:72px;
+    height:72px;
+
+    margin:auto;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+    font-weight:800;
+
+    box-shadow:
+        0 0 0 10px rgba(255,107,0,.1);
+}
+
+.loader-box h3{
+    margin-top:18px;
+    font-size:18px;
+}
+
+.loader-box p{
+    margin-top:6px;
+    color:#aebbd0;
+    font-size:13px;
+}
+
+@keyframes loaderFloat{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-8px);
+    }
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:var(--sidebar-width);
+    height:100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--navy),
+            #0d1b30
+        );
+
+    color:white;
+
+    z-index:1000;
+
+    display:flex;
+    flex-direction:column;
+
+    transition:.35s ease;
+}
+
+
+/* LOGO */
+
+.logo-area{
+
+    height:90px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 22px;
+
+    gap:12px;
+}
+
+.logo-icon{
+
+    width:43px;
+    height:43px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+    font-size:17px;
+
+    box-shadow:
+        0 8px 20px rgba(255,107,0,.25);
+}
+
+.logo-text h2{
+
+    font-size:19px;
+    font-weight:800;
+}
+
+.logo-text span{
+
+    display:block;
+
+    font-size:10px;
+
+    color:#91a1ba;
+
+    margin-top:2px;
+}
+
+
+/* NAV */
+
+.nav{
+
+    padding:10px 14px;
+
+    flex:1;
+
+    overflow-y:auto;
+}
+
+.nav-title{
+
+    color:#687a96;
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.4px;
+
+    padding:15px 12px 8px;
+
+    font-weight:700;
+}
+
+.nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:12px 13px;
+
+    margin:4px 0;
+
+    border-radius:10px;
+
+    color:#b9c5d8;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    transition:.25s ease;
+}
+
+.nav a i{
+
+    width:20px;
+
+    text-align:center;
+
+    font-size:15px;
+}
+
+.nav a:hover{
+
+    color:white;
+
+    background:rgba(255,255,255,.07);
+
+    transform:translateX(4px);
+}
+
+.nav a.active{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,107,0,.22),
+            rgba(255,107,0,.07)
+        );
+
+    border-left:3px solid var(--orange);
+}
+
+.nav a.active i{
+
+    color:var(--orange);
+}
+
+
+/* SIDEBAR PROFILE */
+
+.sidebar-bottom{
+
+    padding:15px;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+}
+
+.mini-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    transition:.25s;
+}
+
+.mini-profile:hover{
+
+    background:rgba(255,255,255,.06);
+}
+
+.avatar{
+
+    width:39px;
+    height:39px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+    font-size:13px;
+}
+
+.mini-profile-info{
+
+    flex:1;
+
+    min-width:0;
+}
+
+.mini-profile-info strong{
+
+    display:block;
+
+    font-size:12px;
+
+    color:white;
+}
+
+.mini-profile-info span{
+
+    display:block;
+
+    color:#8393aa;
+
+    font-size:10px;
+
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:900;
+
+    display:none;
+}
+
+.overlay.show{
+    display:block;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    margin-left:var(--sidebar-width);
+
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+
+    height:var(--topbar-height);
+
+    background:var(--card);
+
+    border-bottom:
+        1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:500;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    backdrop-filter:blur(15px);
+}
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+.mobile-menu{
+
+    display:none;
+
+    width:40px;
+    height:40px;
+
+    border:1px solid var(--border);
+
+    background:var(--card);
+
+    border-radius:10px;
+
+    color:var(--text);
+}
+
+.page-title h1{
+
+    font-size:20px;
+
+    font-weight:800;
+}
+
+.page-title p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-top:3px;
+}
+
+.top-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.icon-btn{
+
+    width:39px;
+    height:39px;
+
+    border-radius:10px;
+
+    border:1px solid var(--border);
+
+    background:var(--card);
+
+    color:var(--muted);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    transition:.25s;
+
+    position:relative;
+}
+
+.icon-btn:hover{
+
+    color:var(--orange);
+
+    border-color:
+        rgba(255,107,0,.4);
+
+    transform:translateY(-2px);
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    top:8px;
+    right:8px;
+
+    width:6px;
+    height:6px;
+
+    background:var(--orange);
+
+    border-radius:50%;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+
+    padding:30px;
+
+    max-width:1350px;
+
+    margin:auto;
+}
+
+
+/* =========================================================
+   CODING HERO
+========================================================= */
+
+.coding-hero{
+
+    background:
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255,107,0,.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 20% 100%,
+            rgba(59,130,246,.14),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--navy2)
+        );
+
+    color:white;
+
+    border-radius:22px;
+
+    padding:30px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeUp .7s ease both;
+}
+
+.coding-hero::before{
+
+    content:"</>";
+
+    position:absolute;
+
+    right:50px;
+    top:15px;
+
+    font-size:120px;
+
+    font-weight:800;
+
+    color:rgba(255,255,255,.035);
+
+    transform:rotate(-8deg);
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:800px;
+}
+
+.hero-tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    background:
+        rgba(255,107,0,.15);
+
+    color:#ffb07d;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    margin-bottom:13px;
+}
+
+.hero-content h2{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+}
+
+.hero-content p{
+
+    color:#b7c4d8;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    max-width:700px;
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+
+    border:0;
+
+    border-radius:10px;
+
+    padding:11px 16px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    transition:.25s;
+}
+
+.btn-primary{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    color:white;
+
+    box-shadow:
+        0 8px 18px rgba(255,107,0,.2);
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(255,107,0,.28);
+}
+
+.btn-secondary{
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+}
+
+.btn-secondary:hover{
+
+    border-color:var(--orange);
+
+    color:var(--orange);
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.stat-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    box-shadow:var(--shadow);
+
+    transition:.3s;
+
+    animation:fadeUp .7s ease both;
+}
+
+.stat-card:nth-child(2){
+    animation-delay:.08s;
+}
+
+.stat-card:nth-child(3){
+    animation-delay:.16s;
+}
+
+.stat-card:nth-child(4){
+    animation-delay:.24s;
+}
+
+.stat-card:hover{
+
+    transform:translateY(-5px);
+}
+
+.stat-icon{
+
+    width:44px;
+    height:44px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,107,0,.1);
+
+    color:var(--orange);
+
+    flex-shrink:0;
+}
+
+.stat-icon.green{
+
+    color:var(--success);
+
+    background:
+        rgba(24,166,106,.1);
+}
+
+.stat-icon.blue{
+
+    color:var(--blue);
+
+    background:
+        rgba(59,130,246,.1);
+}
+
+.stat-icon.purple{
+
+    color:var(--purple);
+
+    background:
+        rgba(139,92,246,.1);
+}
+
+.stat-info strong{
+
+    display:block;
+
+    font-size:20px;
+
+    font-weight:800;
+}
+
+.stat-info span{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:3px;
+
+    display:block;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:15px;
+}
+
+.section-heading h3{
+
+    font-size:18px;
+
+    font-weight:800;
+}
+
+.section-heading p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-top:4px;
+}
+
+
+/* =========================================================
+   FILTER PANEL
+========================================================= */
+
+.filter-panel{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:17px;
+
+    margin-bottom:20px;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeUp .7s ease .2s both;
+}
+
+.filter-top{
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr 1fr;
+
+    gap:10px;
+
+    margin-bottom:12px;
+}
+
+.search-box{
+
+    position:relative;
+}
+
+.search-box i{
+
+    position:absolute;
+
+    left:13px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.search-box input{
+
+    width:100%;
+
+    height:42px;
+
+    border:1px solid var(--border);
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    border-radius:10px;
+
+    padding:
+        0 13px 0 37px;
+
+    outline:none;
+
+    font-size:11px;
+
+    transition:.25s;
+}
+
+.search-box input:focus{
+
+    border-color:var(--orange);
+
+    box-shadow:
+        0 0 0 3px rgba(255,107,0,.08);
+}
+
+.filter-select{
+
+    height:42px;
+
+    border:1px solid var(--border);
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    border-radius:10px;
+
+    padding:0 12px;
+
+    outline:none;
+
+    font-size:11px;
+}
+
+.filter-select:focus{
+
+    border-color:var(--orange);
+}
+
+.filter-chips{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+}
+
+.chip{
+
+    border:1px solid var(--border);
+
+    background:var(--bg);
+
+    color:var(--muted);
+
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.chip:hover{
+
+    color:var(--orange);
+
+    border-color:var(--orange);
+}
+
+.chip.active{
+
+    color:white;
+
+    border-color:var(--orange);
+
+    background:var(--orange);
+}
+
+
+/* =========================================================
+   CODING LAYOUT
+========================================================= */
+
+.coding-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr) 300px;
+
+    gap:22px;
+}
+
+
+/* =========================================================
+   PROBLEM LIST
+========================================================= */
+
+.problem-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+}
+
+.problem-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    transition:.3s;
+
+    animation:fadeUp .5s ease both;
+}
+
+.problem-card:hover{
+
+    transform:translateX(4px);
+
+    border-color:
+        rgba(255,107,0,.35);
+
+    box-shadow:var(--shadow);
+}
+
+.problem-number{
+
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    background:
+        rgba(255,107,0,.08);
+
+    color:var(--orange);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    flex-shrink:0;
+}
+
+.problem-info{
+
+    flex:1;
+
+    min-width:0;
+}
+
+.problem-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+.problem-title h4{
+
+    font-size:13px;
+
+    font-weight:750;
+}
+
+.problem-info p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:5px;
+
+    line-height:1.5;
+}
+
+.problem-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:9px;
+}
+
+.tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:700;
+
+    background:var(--bg);
+
+    color:var(--muted);
+}
+
+.tag.easy{
+
+    color:var(--success);
+
+    background:
+        rgba(24,166,106,.09);
+}
+
+.tag.medium{
+
+    color:var(--warning);
+
+    background:
+        rgba(245,158,11,.1);
+}
+
+.tag.hard{
+
+    color:var(--danger);
+
+    background:
+        rgba(239,68,68,.09);
+}
+
+.tag.language{
+
+    color:var(--blue);
+
+    background:
+        rgba(59,130,246,.09);
+}
+
+.problem-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+}
+
+.small-btn{
+
+    width:36px;
+    height:36px;
+
+    border-radius:9px;
+
+    border:1px solid var(--border);
+
+    background:var(--bg);
+
+    color:var(--muted);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    transition:.25s;
+}
+
+.small-btn:hover{
+
+    color:var(--orange);
+
+    border-color:var(--orange);
+}
+
+.small-btn.bookmarked{
+
+    color:var(--orange);
+
+    border-color:var(--orange);
+
+    background:
+        rgba(255,107,0,.08);
+}
+
+.solve-btn{
+
+    height:36px;
+
+    padding:0 13px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.solve-btn:hover{
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state{
+
+    background:var(--card);
+
+    border:1px dashed var(--border);
+
+    border-radius:16px;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    display:none;
+}
+
+.empty-state i{
+
+    font-size:32px;
+
+    color:var(--muted);
+
+    margin-bottom:12px;
+}
+
+.empty-state h4{
+
+    font-size:14px;
+
+    margin-bottom:5px;
+}
+
+.empty-state p{
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.right-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:17px;
+}
+
+
+/* DAILY CHALLENGE */
+
+.challenge-card{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--navy2)
+        );
+
+    color:white;
+
+    border-radius:17px;
+
+    padding:20px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeUp .7s ease .3s both;
+}
+
+.challenge-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    right:-65px;
+    bottom:-75px;
+}
+
+.challenge-card .small-label{
+
+    color:#ffb07d;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.challenge-card h3{
+
+    font-size:17px;
+
+    margin-top:8px;
+
+    line-height:1.4;
+}
+
+.challenge-card p{
+
+    color:#aebbd0;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    margin-top:7px;
+}
+
+.challenge-progress{
+
+    margin-top:16px;
+}
+
+.challenge-progress-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:9px;
+
+    color:#aebbd0;
+
+    margin-bottom:6px;
+}
+
+.progress{
+
+    height:7px;
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.progress span{
+
+    display:block;
+
+    height:100%;
+
+    width:65%;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    animation:progressGrow 1.2s ease;
+}
+
+@keyframes progressGrow{
+
+    from{
+        width:0;
+    }
+
+    to{
+        width:65%;
+    }
+}
+
+
+/* TOPICS */
+
+.side-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeUp .7s ease .4s both;
+}
+
+.side-card-title{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+}
+
+.side-card-title h4{
+
+    font-size:13px;
+
+    font-weight:800;
+}
+
+.side-card-title span{
+
+    color:var(--orange);
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+.topic-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.topic-item:last-child{
+
+    border-bottom:0;
+
+    padding-bottom:0;
+}
+
+.topic-icon{
+
+    width:34px;
+    height:34px;
+
+    border-radius:9px;
+
+    background:
+        rgba(255,107,0,.08);
+
+    color:var(--orange);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+}
+
+.topic-info{
+
+    flex:1;
+}
+
+.topic-info strong{
+
+    display:block;
+
+    font-size:10px;
+}
+
+.topic-info span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:3px;
+}
+
+.topic-percent{
+
+    font-size:9px;
+
+    color:var(--muted);
+
+    font-weight:700;
+}
+
+
+/* RECENT */
+
+.recent-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.recent-item:last-child{
+
+    border-bottom:0;
+
+    padding-bottom:0;
+}
+
+.recent-icon{
+
+    width:33px;
+    height:33px;
+
+    border-radius:9px;
+
+    background:
+        rgba(59,130,246,.08);
+
+    color:var(--blue);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+}
+
+.recent-info{
+
+    flex:1;
+}
+
+.recent-info strong{
+
+    display:block;
+
+    font-size:10px;
+}
+
+.recent-info span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(4,12,25,.7);
+
+    backdrop-filter:blur(6px);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:4000;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+
+    width:100%;
+
+    max-width:850px;
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.3);
+
+    animation:modalIn .35s ease both;
+}
+
+.modal-header{
+
+    padding:20px 22px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.modal-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.modal-number{
+
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    background:
+        rgba(255,107,0,.1);
+
+    color:var(--orange);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+}
+
+.modal-title h3{
+
+    font-size:16px;
+}
+
+.modal-title p{
+
+    color:var(--muted);
+
+    font-size:9px;
+
+    margin-top:3px;
+}
+
+.close-modal{
+
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:var(--bg);
+
+    color:var(--muted);
+}
+
+.modal-body{
+
+    padding:22px;
+}
+
+.problem-description{
+
+    color:var(--text);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin-bottom:18px;
+}
+
+.example-box{
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:18px;
+}
+
+.example-box h4{
+
+    font-size:11px;
+
+    margin-bottom:9px;
+}
+
+.example-row{
+
+    display:grid;
+
+    grid-template-columns:80px 1fr;
+
+    gap:8px;
+
+    margin:5px 0;
+
+    font-size:10px;
+}
+
+.example-row span:first-child{
+
+    color:var(--muted);
+
+    font-weight:700;
+}
+
+.code-editor{
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    border:1px solid #263751;
+
+    background:#0b1322;
+
+    margin-bottom:18px;
+}
+
+.editor-header{
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 12px;
+
+    background:#111d31;
+
+    color:#9eabc0;
+
+    font-size:9px;
+}
+
+.editor-dots{
+
+    display:flex;
+
+    gap:5px;
+}
+
+.editor-dots span{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#4d5c72;
+}
+
+.code-editor textarea{
+
+    width:100%;
+
+    min-height:220px;
+
+    resize:vertical;
+
+    border:0;
+
+    outline:0;
+
+    background:#0b1322;
+
+    color:#e5edf8;
+
+    padding:16px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.modal-footer{
+
+    padding:17px 22px;
+
+    border-top:
+        1px solid var(--border);
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:9px;
+}
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+        transform:scale(.94) translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-container{
+
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    z-index:5000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.toast{
+
+    min-width:260px;
+
+    max-width:350px;
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.15);
+
+    border-radius:12px;
+
+    padding:13px 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    animation:toastIn .4s ease both;
+}
+
+.toast i{
+
+    color:var(--success);
+}
+
+.toast span{
+
+    font-size:11px;
+
+    color:var(--text);
+}
+
+@keyframes toastIn{
+
+    from{
+        opacity:0;
+        transform:translateX(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    padding:28px 0 10px;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .stats-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .coding-layout{
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .right-column{
+
+        display:grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+@media(max-width:1000px){
+
+    .sidebar{
+
+        transform:
+            translateX(-100%);
+    }
+
+    .sidebar.open{
+
+        transform:
+            translateX(0);
+    }
+
+    .main{
+
+        margin-left:0;
+    }
+
+    .mobile-menu{
+
+        display:flex;
+
+        align-items:center;
+        justify-content:center;
+    }
+
+}
+
+
+@media(max-width:750px){
+
+    .content{
+
+        padding:20px;
+    }
+
+    .topbar{
+
+        padding:0 18px;
+    }
+
+    .page-title h1{
+
+        font-size:17px;
+    }
+
+    .page-title p{
+
+        display:none;
+    }
+
+    .coding-hero{
+
+        padding:24px;
+    }
+
+    .hero-content h2{
+
+        font-size:23px;
+    }
+
+    .filter-top{
+
+        grid-template-columns:1fr;
+    }
+
+    .right-column{
+
+        grid-template-columns:1fr;
+    }
+
+    .problem-card{
+
+        align-items:flex-start;
+    }
+
+    .problem-actions{
+
+        flex-direction:column;
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    .content{
+
+        padding:15px;
+    }
+
+    .topbar{
+
+        height:68px;
+    }
+
+    .top-actions
+    .icon-btn:nth-child(2){
+
+        display:none;
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+    }
+
+    .stat-card{
+
+        padding:14px;
+
+        gap:9px;
+    }
+
+    .stat-icon{
+
+        width:36px;
+        height:36px;
+    }
+
+    .stat-info strong{
+
+        font-size:16px;
+    }
+
+    .coding-hero{
+
+        border-radius:17px;
+
+        padding:20px;
+    }
+
+    .hero-content h2{
+
+        font-size:21px;
+    }
+
+    .hero-content p{
+
+        font-size:11px;
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+    }
+
+    .hero-buttons .btn{
+
+        width:100%;
+    }
+
+    .problem-card{
+
+        flex-wrap:wrap;
+    }
+
+    .problem-info{
+
+        width:
+            calc(100% - 55px);
+    }
+
+    .problem-actions{
+
+        width:100%;
+
+        flex-direction:row;
+
+        justify-content:flex-end;
+    }
+
+    .solve-btn{
+
+        flex:1;
+    }
+
+    .toast-container{
+
+        left:15px;
+        right:15px;
+        bottom:15px;
+    }
+
+    .toast{
+
+        min-width:0;
+        width:100%;
+    }
+
+}
+
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms!important;
+
+        animation-iteration-count:1!important;
+
+        transition-duration:.01ms!important;
+
+        scroll-behavior:auto!important;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div id="loader">
+
+    <div class="loader-box">
+
+        <div class="loader-logo">
+            SB
+        </div>
+
+        <h3>
+            SkillBridge
+        </h3>
+
+        <p>
+            Loading coding practice...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- MOBILE OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+
+    <div class="logo-area">
+
+        <div class="logo-icon">
+            SB
+        </div>
+
+        <div class="logo-text">
+
+            <h2>
+                SkillBridge
+            </h2>
+
+            <span>
+                LEARN • PRACTICE • GROW
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+
+        <div class="nav-title">
+            Main Menu
+        </div>
+
+
+        <a href="dashboard.html">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="study-material.html">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <span>
+                Study Material
+            </span>
+
+        </a>
+
+
+        <a href="aptitude.html">
+
+            <i class="fa-solid fa-brain"></i>
+
+            <span>
+                Aptitude
+            </span>
+
+        </a>
+
+
+        <a href="coding practice.html"
+           class="active">
+
+            <i class="fa-solid fa-code"></i>
+
+            <span>
+                Coding Practice
+            </span>
+
+        </a>
+
+
+        <a href="progress.html">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>
+                My Progress
+            </span>
+
+        </a>
+
+
+        <div class="nav-title">
+            Account
+        </div>
+
+
+        <a href="profile.html">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>
+                My Profile
+            </span>
+
+        </a>
+
+
+        <a href="settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="mini-profile">
+
+            <div class="avatar">
+                MP
+            </div>
+
+            <div class="mini-profile-info">
+
+                <strong id="sideName">
+                    Mohana
+                </strong>
+
+                <span>
+                    Full Stack Learner
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-ellipsis"
+               style="color:#72829b;font-size:12px;">
+            </i>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+
+        <div class="topbar-left">
+
+
+            <button class="mobile-menu"
+                    id="mobileMenu">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div class="page-title">
+
+                <h1>
+                    Coding Practice
+                </h1>
+
+                <p>
+                    Improve your logic. Build your coding skills.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+
+            <button class="icon-btn"
+                    onclick="showToast('No new notifications')">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+            <button class="icon-btn"
+                    onclick="toggleTheme()"
+                    id="themeButton">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+
+            <button class="icon-btn"
+                    onclick="location.href='profile.html'">
+
+                <i class="fa-regular fa-user"></i>
+
+            </button>
+
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENT
+    ===================================================== -->
+
+    <div class="content">
+
+
+        <!-- HERO -->
+
+        <section class="coding-hero">
+
+
+            <div class="hero-content">
+
+
+                <div class="hero-tag">
+
+                    <i class="fa-solid fa-laptop-code"></i>
+
+                    CODING ARENA
+
+                </div>
+
+
+                <h2>
+                    Code. Solve. Improve. 🚀
+                </h2>
+
+
+                <p>
+
+                    Practice programming problems, improve your
+                    problem-solving skills and prepare yourself for
+                    technical interviews with SkillBridge coding practice.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+
+                    <button class="btn btn-primary"
+                            onclick="startRandomProblem()">
+
+                        <i class="fa-solid fa-play"></i>
+
+                        Start Coding
+
+                    </button>
+
+
+                    <button class="btn btn-secondary"
+                            onclick="scrollToProblems()">
+
+                        <i class="fa-solid fa-list"></i>
+
+                        Explore Problems
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             STATS
+        ===================================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-code"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        48
+                    </strong>
+
+                    <span>
+                        Problems Solved
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        67
+                    </strong>
+
+                    <span>
+                        Problems Attempted
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <i class="fa-solid fa-bullseye"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        82%
+                    </strong>
+
+                    <span>
+                        Accuracy
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+
+                    <i class="fa-solid fa-fire"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        12
+                    </strong>
+
+                    <span>
+                        Day Streak
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             SECTION
+        ===================================================== -->
+
+        <div class="section-header"
+             id="problemSection">
+
+
+            <div class="section-heading">
+
+                <h3>
+                    Practice Problems
+                </h3>
+
+                <p>
+                    Choose a problem and start coding.
+                </p>
+
+            </div>
+
+
+            <button class="btn btn-secondary"
+                    onclick="clearFilters()">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Reset Filters
+
+            </button>
+
+
+        </div>
+
+
+        <!-- FILTER -->
+
+        <div class="filter-panel">
+
+
+            <div class="filter-top">
+
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search coding problems..."
+                        oninput="filterProblems()">
+
+                </div>
+
+
+                <select class="filter-select"
+                        id="difficultyFilter"
+                        onchange="filterProblems()">
+
+                    <option value="all">
+                        All Difficulties
+                    </option>
+
+                    <option value="easy">
+                        Easy
+                    </option>
+
+                    <option value="medium">
+                        Medium
+                    </option>
+
+                    <option value="hard">
+                        Hard
+                    </option>
+
+                </select>
+
+
+                <select class="filter-select"
+                        id="languageFilter"
+                        onchange="filterProblems()">
+
+                    <option value="all">
+                        All Languages
+                    </option>
+
+                    <option value="javascript">
+                        JavaScript
+                    </option>
+
+                    <option value="java">
+                        Java
+                    </option>
+
+                    <option value="python">
+                        Python
+                    </option>
+
+                    <option value="cpp">
+                        C++
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <div class="filter-chips">
+
+
+                <button class="chip active"
+                        data-topic="all"
+                        onclick="selectTopic(this,'all')">
+
+                    All Topics
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="arrays"
+                        onclick="selectTopic(this,'arrays')">
+
+                    Arrays
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="strings"
+                        onclick="selectTopic(this,'strings')">
+
+                    Strings
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="loops"
+                        onclick="selectTopic(this,'loops')">
+
+                    Loops
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="functions"
+                        onclick="selectTopic(this,'functions')">
+
+                    Functions
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="oop"
+                        onclick="selectTopic(this,'oop')">
+
+                    OOP
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="dsa"
+                        onclick="selectTopic(this,'dsa')">
+
+                    DSA
+
+                </button>
+
+
+                <button class="chip"
+                        data-topic="sql"
+                        onclick="selectTopic(this,'sql')">
+
+                    SQL
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             CODING LAYOUT
+        ===================================================== -->
+
+        <div class="coding-layout">
+
+
+            <!-- PROBLEMS -->
+
+            <div>
+
+
+                <div class="problem-list"
+                     id="problemList">
+
+
+                    <!-- PROBLEM 1 -->
+
+                    <div class="problem-card"
+                         data-title="Reverse a String"
+                         data-difficulty="easy"
+                         data-language="javascript"
+                         data-topic="strings"
+                         data-id="1">
+
+
+                        <div class="problem-number">
+                            01
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Reverse a String
+                                </h4>
+
+                                <span class="tag easy">
+                                    Easy
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Write a program to reverse the given string without using a built-in reverse method.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Strings
+                                </span>
+
+                                <span class="tag language">
+                                    JavaScript
+                                </span>
+
+                                <span class="tag">
+                                    10 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)"
+                                    title="Bookmark">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '01',
+                                    'Reverse a String',
+                                    'Easy',
+                                    'Write a program to reverse the given string without using a built-in reverse method.',
+                                    'Hello',
+                                    'olleH'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 2 -->
+
+                    <div class="problem-card"
+                         data-title="Find Largest Number"
+                         data-difficulty="easy"
+                         data-language="java"
+                         data-topic="arrays"
+                         data-id="2">
+
+
+                        <div class="problem-number">
+                            02
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Find Largest Number
+                                </h4>
+
+                                <span class="tag easy">
+                                    Easy
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Find the largest element from an array of integers.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Arrays
+                                </span>
+
+                                <span class="tag language">
+                                    Java
+                                </span>
+
+                                <span class="tag">
+                                    10 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '02',
+                                    'Find Largest Number',
+                                    'Easy',
+                                    'Find the largest element from an array of integers.',
+                                    '10 25 7 42 18',
+                                    '42'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 3 -->
+
+                    <div class="problem-card"
+                         data-title="Count Vowels"
+                         data-difficulty="easy"
+                         data-language="python"
+                         data-topic="strings"
+                         data-id="3">
+
+
+                        <div class="problem-number">
+                            03
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Count Vowels
+                                </h4>
+
+                                <span class="tag easy">
+                                    Easy
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Count the number of vowels present in a given string.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Strings
+                                </span>
+
+                                <span class="tag language">
+                                    Python
+                                </span>
+
+                                <span class="tag">
+                                    15 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '03',
+                                    'Count Vowels',
+                                    'Easy',
+                                    'Count the number of vowels present in a given string.',
+                                    'SkillBridge',
+                                    '3'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 4 -->
+
+                    <div class="problem-card"
+                         data-title="Sum of Array Elements"
+                         data-difficulty="easy"
+                         data-language="cpp"
+                         data-topic="arrays"
+                         data-id="4">
+
+
+                        <div class="problem-number">
+                            04
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Sum of Array Elements
+                                </h4>
+
+                                <span class="tag easy">
+                                    Easy
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Calculate the sum of all elements present in an integer array.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Arrays
+                                </span>
+
+                                <span class="tag language">
+                                    C++
+                                </span>
+
+                                <span class="tag">
+                                    10 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '04',
+                                    'Sum of Array Elements',
+                                    'Easy',
+                                    'Calculate the sum of all elements present in an integer array.',
+                                    '5 10 15 20',
+                                    '50'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 5 -->
+
+                    <div class="problem-card"
+                         data-title="Palindrome Number"
+                         data-difficulty="medium"
+                         data-language="java"
+                         data-topic="loops"
+                         data-id="5">
+
+
+                        <div class="problem-number">
+                            05
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Palindrome Number
+                                </h4>
+
+                                <span class="tag medium">
+                                    Medium
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Check whether the given number reads the same forward and backward.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Loops
+                                </span>
+
+                                <span class="tag language">
+                                    Java
+                                </span>
+
+                                <span class="tag">
+                                    20 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '05',
+                                    'Palindrome Number',
+                                    'Medium',
+                                    'Check whether the given number reads the same forward and backward.',
+                                    '121',
+                                    'Palindrome'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 6 -->
+
+                    <div class="problem-card"
+                         data-title="Two Sum"
+                         data-difficulty="medium"
+                         data-language="javascript"
+                         data-topic="arrays"
+                         data-id="6">
+
+
+                        <div class="problem-number">
+                            06
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Two Sum
+                                </h4>
+
+                                <span class="tag medium">
+                                    Medium
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Find two numbers in an array whose sum equals the given target.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Arrays
+                                </span>
+
+                                <span class="tag language">
+                                    JavaScript
+                                </span>
+
+                                <span class="tag">
+                                    25 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '06',
+                                    'Two Sum',
+                                    'Medium',
+                                    'Find two numbers in an array whose sum equals the given target.',
+                                    '2, 7, 11, 15 | Target = 9',
+                                    'Indexes 0 and 1'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 7 -->
+
+                    <div class="problem-card"
+                         data-title="Factorial Using Recursion"
+                         data-difficulty="medium"
+                         data-language="python"
+                         data-topic="functions"
+                         data-id="7">
+
+
+                        <div class="problem-number">
+                            07
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Factorial Using Recursion
+                                </h4>
+
+                                <span class="tag medium">
+                                    Medium
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Calculate factorial of a number using a recursive function.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Functions
+                                </span>
+
+                                <span class="tag language">
+                                    Python
+                                </span>
+
+                                <span class="tag">
+                                    25 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '07',
+                                    'Factorial Using Recursion',
+                                    'Medium',
+                                    'Calculate factorial of a number using a recursive function.',
+                                    '5',
+                                    '120'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 8 -->
+
+                    <div class="problem-card"
+                         data-title="Student Class"
+                         data-difficulty="medium"
+                         data-language="java"
+                         data-topic="oop"
+                         data-id="8">
+
+
+                        <div class="problem-number">
+                            08
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Create a Student Class
+                                </h4>
+
+                                <span class="tag medium">
+                                    Medium
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Create a Student class with properties and a method to display student information.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    OOP
+                                </span>
+
+                                <span class="tag language">
+                                    Java
+                                </span>
+
+                                <span class="tag">
+                                    30 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '08',
+                                    'Create a Student Class',
+                                    'Medium',
+                                    'Create a Student class with properties and a method to display student information.',
+                                    'Name: Mohana, Age: 22',
+                                    'Student information displayed'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 9 -->
+
+                    <div class="problem-card"
+                         data-title="Binary Search"
+                         data-difficulty="hard"
+                         data-language="cpp"
+                         data-topic="dsa"
+                         data-id="9">
+
+
+                        <div class="problem-number">
+                            09
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Binary Search
+                                </h4>
+
+                                <span class="tag hard">
+                                    Hard
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Implement binary search to find a target element in a sorted array.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    DSA
+                                </span>
+
+                                <span class="tag language">
+                                    C++
+                                </span>
+
+                                <span class="tag">
+                                    40 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '09',
+                                    'Binary Search',
+                                    'Hard',
+                                    'Implement binary search to find a target element in a sorted array.',
+                                    '1 3 5 7 9 | Target = 7',
+                                    'Index 3'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PROBLEM 10 -->
+
+                    <div class="problem-card"
+                         data-title="Second Largest Element"
+                         data-difficulty="hard"
+                         data-language="javascript"
+                         data-topic="arrays"
+                         data-id="10">
+
+
+                        <div class="problem-number">
+                            10
+                        </div>
+
+
+                        <div class="problem-info">
+
+
+                            <div class="problem-title">
+
+                                <h4>
+                                    Second Largest Element
+                                </h4>
+
+                                <span class="tag hard">
+                                    Hard
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Find the second largest distinct number from an array.
+                            </p>
+
+
+                            <div class="problem-meta">
+
+                                <span class="tag">
+                                    Arrays
+                                </span>
+
+                                <span class="tag language">
+                                    JavaScript
+                                </span>
+
+                                <span class="tag">
+                                    40 Points
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="problem-actions">
+
+                            <button class="small-btn"
+                                    onclick="toggleBookmark(this)">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+
+                            <button class="solve-btn"
+                                    onclick="openProblem(
+                                    '10',
+                                    'Second Largest Element',
+                                    'Hard',
+                                    'Find the second largest distinct number from an array.',
+                                    '10 20 40 30 50',
+                                    '40'
+                                    )">
+
+                                Solve
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- EMPTY -->
+
+                <div class="empty-state"
+                     id="emptyState">
+
+                    <i class="fa-solid fa-code"></i>
+
+                    <h4>
+                        No problems found
+                    </h4>
+
+                    <p>
+                        Try changing your search or filters.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT COLUMN
+            ================================================= -->
+
+            <aside class="right-column">
+
+
+                <!-- DAILY CHALLENGE -->
+
+                <div class="challenge-card">
+
+
+                    <span class="small-label">
+                        Daily Challenge
+                    </span>
+
+
+                    <h3>
+                        Complete today's coding challenge 🔥
+                    </h3>
+
+
+                    <p>
+                        Solve one problem every day to build
+                        consistency and maintain your streak.
+                    </p>
+
+
+                    <div class="challenge-progress">
+
+
+                        <div class="challenge-progress-top">
+
+                            <span>
+                                Today's progress
+                            </span>
+
+                            <span>
+                                65%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <span></span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button class="btn btn-primary"
+                            style="margin-top:15px;"
+                            onclick="startRandomProblem()">
+
+                        <i class="fa-solid fa-bolt"></i>
+
+                        Continue Challenge
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- TOPICS -->
+
+                <div class="side-card">
+
+
+                    <div class="side-card-title">
+
+                        <h4>
+                            Topic Progress
+                        </h4>
+
+                        <span>
+                            View All
+                        </span>
+
+                    </div>
+
+
+                    <div class="topic-item">
+
+
+                        <div class="topic-icon">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                        </div>
+
+
+                        <div class="topic-info">
+
+                            <strong>
+                                Arrays
+                            </strong>
+
+                            <span>
+                                12 / 15 solved
+                            </span>
+
+                        </div>
+
+
+                        <div class="topic-percent">
+                            80%
+                        </div>
+
+                    </div>
+
+
+                    <div class="topic-item">
+
+
+                        <div class="topic-icon">
+
+                            <i class="fa-solid fa-font"></i>
+
+                        </div>
+
+
+                        <div class="topic-info">
+
+                            <strong>
+                                Strings
+                            </strong>
+
+                            <span>
+                                8 / 12 solved
+                            </span>
+
+                        </div>
+
+
+                        <div class="topic-percent">
+                            67%
+                        </div>
+
+                    </div>
+
+
+                    <div class="topic-item">
+
+
+                        <div class="topic-icon">
+
+                            <i class="fa-solid fa-arrows-spin"></i>
+
+                        </div>
+
+
+                        <div class="topic-info">
+
+                            <strong>
+                                Loops
+                            </strong>
+
+                            <span>
+                                10 / 10 solved
+                            </span>
+
+                        </div>
+
+
+                        <div class="topic-percent">
+                            100%
+                        </div>
+
+                    </div>
+
+
+                    <div class="topic-item">
+
+
+                        <div class="topic-icon">
+
+                            <i class="fa-solid fa-sitemap"></i>
+
+                        </div>
+
+
+                        <div class="topic-info">
+
+                            <strong>
+                                DSA
+                            </strong>
+
+                            <span>
+                                6 / 15 solved
+                            </span>
+
+                        </div>
+
+
+                        <div class="topic-percent">
+                            40%
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- RECENT -->
+
+                <div class="side-card">
+
+
+                    <div class="side-card-title">
+
+                        <h4>
+                            Recent Practice
+                        </h4>
+
+                        <span>
+                            History
+                        </span>
+
+                    </div>
+
+
+                    <div class="recent-item">
+
+
+                        <div class="recent-icon">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </div>
+
+
+                        <div class="recent-info">
+
+                            <strong>
+                                Reverse a String
+                            </strong>
+
+                            <span>
+                                Solved • 10 min ago
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="recent-item">
+
+
+                        <div class="recent-icon">
+
+                            <i class="fa-solid fa-code"></i>
+
+                        </div>
+
+
+                        <div class="recent-info">
+
+                            <strong>
+                                Two Sum
+                            </strong>
+
+                            <span>
+                                Attempted • Yesterday
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="recent-item">
+
+
+                        <div class="recent-icon">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                        </div>
+
+
+                        <div class="recent-info">
+
+                            <strong>
+                                Palindrome Number
+                            </strong>
+
+                            <span>
+                                Solved • 2 days ago
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </aside>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            © 2026 SkillBridge • Learn. Practice. Grow.
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     CODING MODAL
+========================================================= -->
+
+<div class="modal"
+     id="problemModal">
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+
+            <div class="modal-title">
+
+
+                <div class="modal-number"
+                     id="modalNumber">
+
+                    01
+
+                </div>
+
+
+                <div>
+
+                    <h3 id="modalTitle">
+                        Reverse a String
+                    </h3>
+
+                    <p id="modalDifficulty">
+                        Easy
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <button class="close-modal"
+                    onclick="closeProblem()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <div class="problem-description"
+                 id="modalDescription">
+
+                Write a program to reverse the given string.
+
+            </div>
+
+
+            <div class="example-box">
+
+
+                <h4>
+                    Example
+                </h4>
+
+
+                <div class="example-row">
+
+                    <span>
+                        Input
+                    </span>
+
+                    <strong id="modalInput">
+                        Hello
+                    </strong>
+
+                </div>
+
+
+                <div class="example-row">
+
+                    <span>
+                        Output
+                    </span>
+
+                    <strong id="modalOutput">
+                        olleH
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="code-editor">
+
+
+                <div class="editor-header">
+
+
+                    <div>
+
+                        <i class="fa-solid fa-code"></i>
+
+                        solution.js
+
+                    </div>
+
+
+                    <div class="editor-dots">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                </div>
+
+
+                <textarea id="codeArea"
+placeholder="// Write your solution here...
+
+function solution(input) {
+
+    // Your code
+
+}"></textarea>
+
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:8px;
+            ">
+
+
+                <button class="btn btn-primary"
+                        onclick="runCode()">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Run Code
+
+                </button>
+
+
+                <button class="btn btn-secondary"
+                        onclick="submitCode()">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Submit
+
+                </button>
+
+
+                <button class="btn btn-secondary"
+                        onclick="copyCode()">
+
+                    <i class="fa-regular fa-copy"></i>
+
+                    Copy Code
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast-container"
+     id="toastContainer">
+</div>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load",function(){
+
+    setTimeout(function(){
+
+        document.getElementById("loader").style.opacity="0";
+
+        setTimeout(function(){
+
+            document.getElementById("loader").style.display="none";
+
+        },500);
+
+    },650);
+
+});
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+const sidebar=
+    document.getElementById("sidebar");
+
+const overlay=
+    document.getElementById("overlay");
+
+const mobileMenu=
+    document.getElementById("mobileMenu");
+
+
+mobileMenu.addEventListener("click",function(){
+
+    sidebar.classList.toggle("open");
+
+    overlay.classList.toggle("show");
+
+});
+
+
+overlay.addEventListener("click",function(){
+
+    sidebar.classList.remove("open");
+
+    overlay.classList.remove("show");
+
+});
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function updateThemeIcon(){
+
+    const button=
+        document.getElementById("themeButton");
+
+    const dark=
+        document.body.classList.contains("dark");
+
+    button.innerHTML=dark
+        ? `<i class="fa-solid fa-sun"></i>`
+        : `<i class="fa-solid fa-moon"></i>`;
+}
+
+
+function toggleTheme(){
+
+    const dark=
+        document.body.classList.contains("dark");
+
+    document.body.classList.toggle(
+        "dark",
+        !dark
+    );
+
+    localStorage.setItem(
+        "sbTheme",
+        !dark ? "dark" : "light"
+    );
+
+    updateThemeIcon();
+
+    showToast(
+        !dark
+        ? "Dark mode enabled."
+        : "Light mode enabled."
+    );
+
+}
+
+
+/* LOAD THEME */
+
+(function(){
+
+    const theme=
+        localStorage.getItem("sbTheme");
+
+    if(theme==="dark"){
+
+        document.body.classList.add("dark");
+
+    }
+
+    updateThemeIcon();
+
+})();
+
+
+/* =========================================================
+   SEARCH + FILTER
+========================================================= */
+
+let selectedTopic="all";
+
+
+function selectTopic(button,topic){
+
+    document
+        .querySelectorAll(".chip")
+        .forEach(chip=>{
+            chip.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    selectedTopic=topic;
+
+    filterProblems();
+
+}
+
+
+function filterProblems(){
+
+    const search=
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const difficulty=
+        document
+        .getElementById("difficultyFilter")
+        .value;
+
+    const language=
+        document
+        .getElementById("languageFilter")
+        .value;
+
+
+    const cards=
+        document.querySelectorAll(
+            ".problem-card"
+        );
+
+
+    let visible=0;
+
+
+    cards.forEach(card=>{
+
+        const title=
+            card.dataset.title
+            .toLowerCase();
+
+        const cardDifficulty=
+            card.dataset.difficulty;
+
+        const cardLanguage=
+            card.dataset.language;
+
+        const cardTopic=
+            card.dataset.topic;
+
+
+        const searchMatch=
+            title.includes(search);
+
+        const difficultyMatch=
+            difficulty==="all" ||
+            cardDifficulty===difficulty;
+
+        const languageMatch=
+            language==="all" ||
+            cardLanguage===language;
+
+        const topicMatch=
+            selectedTopic==="all" ||
+            cardTopic===selectedTopic;
+
+
+        if(
+            searchMatch &&
+            difficultyMatch &&
+            languageMatch &&
+            topicMatch
+        ){
+
+            card.style.display="flex";
+
+            visible++;
+
+        }else{
+
+            card.style.display="none";
+
+        }
+
+    });
+
+
+    const empty=
+        document.getElementById("emptyState");
+
+    empty.style.display=
+        visible===0
+        ? "block"
+        : "none";
+
+}
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+function clearFilters(){
+
+    document.getElementById(
+        "searchInput"
+    ).value="";
+
+    document.getElementById(
+        "difficultyFilter"
+    ).value="all";
+
+    document.getElementById(
+        "languageFilter"
+    ).value="all";
+
+
+    selectedTopic="all";
+
+
+    document
+        .querySelectorAll(".chip")
+        .forEach(chip=>{
+            chip.classList.remove("active");
+        });
+
+
+    document
+        .querySelector('.chip[data-topic="all"]')
+        .classList.add("active");
+
+
+    filterProblems();
+
+    showToast(
+        "All filters cleared."
+    );
+
+}
+
+
+/* =========================================================
+   BOOKMARK
+========================================================= */
+
+function toggleBookmark(button){
+
+    button.classList.toggle("bookmarked");
+
+
+    const icon=
+        button.querySelector("i");
+
+
+    if(button.classList.contains("bookmarked")){
+
+        icon.className=
+            "fa-solid fa-bookmark";
+
+        showToast(
+            "Problem added to bookmarks."
+        );
+
+    }else{
+
+        icon.className=
+            "fa-regular fa-bookmark";
+
+        showToast(
+            "Problem removed from bookmarks."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN PROBLEM
+========================================================= */
+
+function openProblem(
+    number,
+    title,
+    difficulty,
+    description,
+    input,
+    output
+){
+
+    document.getElementById(
+        "modalNumber"
+    ).textContent=number;
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent=title;
+
+    document.getElementById(
+        "modalDifficulty"
+    ).textContent=difficulty;
+
+    document.getElementById(
+        "modalDescription"
+    ).textContent=description;
+
+    document.getElementById(
+        "modalInput"
+    ).textContent=input;
+
+    document.getElementById(
+        "modalOutput"
+    ).textContent=output;
+
+
+    document.getElementById(
+        "problemModal"
+    ).classList.add("show");
+
+
+    document.body.style.overflow="hidden";
+
+}
+
+
+function closeProblem(){
+
+    document.getElementById(
+        "problemModal"
+    ).classList.remove("show");
+
+    document.body.style.overflow="";
+
+}
+
+
+/* =========================================================
+   RUN CODE
+========================================================= */
+
+function runCode(){
+
+    const code=
+        document.getElementById(
+            "codeArea"
+        ).value.trim();
+
+
+    if(!code){
+
+        showToast(
+            "Write some code first.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    showToast(
+        "Code executed successfully! ✓"
+    );
+
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+function submitCode(){
+
+    const code=
+        document.getElementById(
+            "codeArea"
+        ).value.trim();
+
+
+    if(!code){
+
+        showToast(
+            "Please write your solution first.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    showToast(
+        "Solution submitted for evaluation!"
+    );
+
+}
+
+
+/* =========================================================
+   COPY CODE
+========================================================= */
+
+function copyCode(){
+
+    const code=
+        document.getElementById(
+            "codeArea"
+        ).value;
+
+
+    if(!code){
+
+        showToast(
+            "Nothing to copy.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    navigator.clipboard
+        .writeText(code)
+        .then(()=>{
+
+            showToast(
+                "Code copied to clipboard!"
+            );
+
+        })
+        .catch(()=>{
+
+            showToast(
+                "Unable to copy code.",
+                "fa-circle-exclamation"
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   RANDOM PROBLEM
+========================================================= */
+
+function startRandomProblem(){
+
+    const cards=
+        Array.from(
+            document.querySelectorAll(
+                ".problem-card"
+            )
+        );
+
+
+    const random=
+        cards[
+            Math.floor(
+                Math.random()*cards.length
+            )
+        ];
+
+
+    const solveButton=
+        random.querySelector(
+            ".solve-btn"
+        );
+
+
+    solveButton.click();
+
+
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToProblems(){
+
+    document.getElementById(
+        "problemSection"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message,
+    icon="fa-circle-check"
+){
+
+    const container=
+        document.getElementById(
+            "toastContainer"
+        );
+
+
+    const toast=
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className="toast";
+
+
+    toast.innerHTML=`
+
+        <i class="fa-solid ${icon}"></i>
+
+        <span>
+            ${message}
+        </span>
+
+    `;
+
+
+    container.appendChild(toast);
+
+
+    setTimeout(()=>{
+
+        toast.style.opacity="0";
+
+        toast.style.transform=
+            "translateX(30px)";
+
+
+        setTimeout(
+            ()=>toast.remove(),
+            350
+        );
+
+    },2800);
+
+}
+
+
+/* =========================================================
+   MODAL CLICK OUTSIDE
+========================================================= */
+
+document
+    .getElementById("problemModal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(e.target===this){
+
+                closeProblem();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key==="Escape"){
+
+            sidebar.classList.remove("open");
+
+            overlay.classList.remove("show");
+
+            closeProblem();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOAD USER NAME
+========================================================= */
+
+(function(){
+
+    const savedName=
+        localStorage.getItem(
+            "sbUserName"
+        );
+
+
+    if(savedName){
+
+        document.getElementById(
+            "sideName"
+        ).textContent=savedName;
+
+    }
+
+})();
+
+</script>
+
+
+</body>
+</html>

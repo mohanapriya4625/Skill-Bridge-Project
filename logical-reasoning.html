@@ -1,0 +1,3248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Logical Reasoning | SkillBridge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        :root {
+            --primary:#ff6b00;
+            --primary-dark:#e85d00;
+            --primary-light:#fff1e6;
+
+            --navy:#12233f;
+            --navy-2:#24456f;
+
+            --bg:#f5f7fb;
+            --card:#ffffff;
+
+            --text:#172033;
+            --muted:#7b8497;
+            --border:#e7eaf0;
+
+            --success:#20b26b;
+            --success-light:#e9f9f1;
+            --danger:#ef4444;
+
+            --shadow:0 10px 30px rgba(18,35,63,.08);
+            --shadow-hover:0 18px 40px rgba(18,35,63,.14);
+
+            --sidebar-width:260px;
+        }
+
+        body.dark {
+            --bg:#0d1625;
+            --card:#162235;
+            --text:#f3f6fb;
+            --muted:#9ba8bb;
+            --border:#29374b;
+
+            --primary-light:#3a281d;
+
+            --navy:#09111e;
+            --navy-2:#14243c;
+
+            --shadow:0 10px 30px rgba(0,0,0,.25);
+            --shadow-hover:0 18px 40px rgba(0,0,0,.35);
+        }
+
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            font-family:"Inter",sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            min-height:100vh;
+            transition:.3s ease;
+        }
+
+        button,input {
+            font-family:inherit;
+        }
+
+        button {
+            cursor:pointer;
+        }
+
+        a {
+            text-decoration:none;
+            color:inherit;
+        }
+
+
+        /* LOADER */
+
+        .loader {
+            position:fixed;
+            inset:0;
+            background:var(--navy);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:9999;
+            transition:.5s ease;
+        }
+
+        .loader.hide {
+            opacity:0;
+            visibility:hidden;
+        }
+
+        .loader-logo {
+            width:75px;
+            height:75px;
+            border-radius:22px;
+            background:var(--primary);
+            color:white;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:26px;
+            font-weight:800;
+
+            animation:pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform:scale(1);
+            }
+
+            50% {
+                transform:scale(1.08);
+                box-shadow:0 0 0 15px rgba(255,107,0,.15);
+            }
+
+            100% {
+                transform:scale(1);
+            }
+        }
+
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position:fixed;
+            left:0;
+            top:0;
+
+            width:var(--sidebar-width);
+            height:100vh;
+
+            background:var(--navy);
+            color:white;
+
+            padding:25px 15px;
+
+            z-index:1000;
+
+            overflow-y:auto;
+        }
+
+        .brand {
+            display:flex;
+            align-items:center;
+            gap:12px;
+
+            padding:0 10px 30px;
+        }
+
+        .brand-logo {
+            width:45px;
+            height:45px;
+
+            border-radius:14px;
+            background:var(--primary);
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-weight:800;
+        }
+
+        .brand h2 {
+            font-size:20px;
+            font-weight:800;
+        }
+
+        .brand span {
+            color:var(--primary);
+        }
+
+        .nav-title {
+            color:#8996a9;
+            font-size:10px;
+            font-weight:700;
+
+            letter-spacing:1px;
+            text-transform:uppercase;
+
+            padding:10px 15px;
+        }
+
+        .nav-menu {
+            list-style:none;
+        }
+
+        .nav-menu li {
+            margin:5px 0;
+        }
+
+        .nav-menu a {
+            display:flex;
+            align-items:center;
+            gap:13px;
+
+            padding:13px 15px;
+
+            border-radius:12px;
+
+            color:#aeb9ca;
+
+            font-size:13px;
+            font-weight:600;
+
+            transition:.3s ease;
+        }
+
+        .nav-menu a i {
+            width:20px;
+            text-align:center;
+        }
+
+        .nav-menu a:hover {
+            color:white;
+            background:rgba(255,107,0,.15);
+            transform:translateX(4px);
+        }
+
+        .nav-menu a.active {
+            background:var(--primary);
+            color:white;
+        }
+
+
+        /* MAIN */
+
+        .main {
+            margin-left:var(--sidebar-width);
+            min-height:100vh;
+        }
+
+
+        /* TOPBAR */
+
+        .topbar {
+            height:78px;
+
+            background:var(--card);
+            border-bottom:1px solid var(--border);
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            padding:0 35px;
+
+            position:sticky;
+            top:0;
+
+            z-index:900;
+        }
+
+        .top-left {
+            display:flex;
+            align-items:center;
+            gap:16px;
+        }
+
+        .mobile-menu {
+            display:none;
+
+            width:40px;
+            height:40px;
+
+            border:none;
+            border-radius:12px;
+
+            background:var(--primary-light);
+            color:var(--primary);
+        }
+
+        .heading h1 {
+            font-size:19px;
+            font-weight:800;
+        }
+
+        .heading p {
+            color:var(--muted);
+            font-size:11px;
+            margin-top:4px;
+        }
+
+        .top-actions {
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+
+        /* SEARCH */
+
+        .search {
+            position:relative;
+        }
+
+        .search input {
+            width:230px;
+            height:42px;
+
+            border:1px solid var(--border);
+            border-radius:12px;
+
+            background:var(--bg);
+            color:var(--text);
+
+            outline:none;
+
+            padding:0 40px 0 15px;
+
+            transition:.3s ease;
+        }
+
+        .search input:focus {
+            border-color:var(--primary);
+            box-shadow:0 0 0 3px rgba(255,107,0,.1);
+        }
+
+        .search i {
+            position:absolute;
+            right:14px;
+            top:50%;
+            transform:translateY(-50%);
+            color:var(--muted);
+        }
+
+
+        /* ICON */
+
+        .icon-btn {
+            width:42px;
+            height:42px;
+
+            border:1px solid var(--border);
+            border-radius:12px;
+
+            background:var(--card);
+            color:var(--text);
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            transition:.3s ease;
+        }
+
+        .icon-btn:hover {
+            background:var(--primary);
+            border-color:var(--primary);
+            color:white;
+            transform:translateY(-2px);
+        }
+
+
+        /* PROFILE */
+
+        .profile {
+            display:flex;
+            align-items:center;
+            gap:9px;
+
+            cursor:pointer;
+            padding:4px;
+
+            border-radius:12px;
+        }
+
+        .profile:hover {
+            background:var(--bg);
+        }
+
+        .avatar {
+            width:42px;
+            height:42px;
+
+            border-radius:50%;
+
+            background:linear-gradient(135deg,#ff6b00,#ff9c52);
+
+            color:white;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:12px;
+            font-weight:800;
+        }
+
+        .profile-info strong {
+            display:block;
+            font-size:12px;
+        }
+
+        .profile-info span {
+            display:block;
+            color:var(--muted);
+            font-size:10px;
+        }
+
+
+        /* CONTENT */
+
+        .content {
+            padding:30px 35px 60px;
+        }
+
+
+        /* BREADCRUMB */
+
+        .breadcrumb {
+            display:flex;
+            align-items:center;
+            gap:8px;
+
+            color:var(--muted);
+
+            font-size:11px;
+
+            margin-bottom:20px;
+        }
+
+        .breadcrumb span:last-child {
+            color:var(--primary);
+            font-weight:700;
+        }
+
+
+        /* HERO */
+
+        .course-hero {
+            background:linear-gradient(135deg,#12233f,#24456f);
+
+            border-radius:24px;
+
+            padding:30px;
+
+            color:white;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            gap:25px;
+
+            position:relative;
+            overflow:hidden;
+
+            animation:fadeUp .6s ease;
+        }
+
+        .course-hero::before {
+            content:"";
+
+            position:absolute;
+
+            width:240px;
+            height:240px;
+
+            border-radius:50%;
+
+            background:rgba(255,107,0,.15);
+
+            right:-80px;
+            top:-100px;
+        }
+
+        .hero-left {
+            position:relative;
+            z-index:2;
+
+            max-width:680px;
+        }
+
+        .course-tag {
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+
+            background:rgba(255,255,255,.12);
+
+            padding:7px 12px;
+
+            border-radius:20px;
+
+            font-size:10px;
+
+            margin-bottom:15px;
+        }
+
+        .hero-left h2 {
+            font-size:28px;
+            margin-bottom:10px;
+        }
+
+        .hero-left p {
+            color:#cbd6e6;
+            font-size:13px;
+            line-height:1.7;
+        }
+
+        .hero-right {
+            position:relative;
+            z-index:2;
+
+            min-width:150px;
+            text-align:center;
+        }
+
+        .course-progress {
+            width:115px;
+            height:115px;
+
+            margin:auto;
+
+            border-radius:50%;
+
+            background:
+                conic-gradient(
+                    var(--primary) 0deg 252deg,
+                    rgba(255,255,255,.15) 252deg 360deg
+                );
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            position:relative;
+        }
+
+        .course-progress::after {
+            content:"";
+
+            position:absolute;
+
+            width:88px;
+            height:88px;
+
+            border-radius:50%;
+
+            background:#172d4e;
+        }
+
+        .course-progress strong {
+            position:relative;
+            z-index:2;
+            font-size:21px;
+        }
+
+        .hero-right small {
+            display:block;
+            color:#cbd6e6;
+            margin-top:10px;
+        }
+
+
+        /* LAYOUT */
+
+        .course-layout {
+            display:grid;
+            grid-template-columns:290px 1fr;
+            gap:22px;
+            margin-top:25px;
+        }
+
+
+        /* TOPICS */
+
+        .topics-panel {
+            background:var(--card);
+
+            border:1px solid var(--border);
+
+            border-radius:18px;
+
+            padding:20px;
+
+            height:fit-content;
+
+            position:sticky;
+            top:100px;
+
+            animation:fadeUp .7s ease;
+        }
+
+        .topics-panel h3 {
+            font-size:16px;
+            margin-bottom:5px;
+        }
+
+        .topics-panel > p {
+            color:var(--muted);
+            font-size:10px;
+            margin-bottom:17px;
+        }
+
+        .topic-item {
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            padding:11px;
+
+            border-radius:12px;
+
+            margin-bottom:7px;
+
+            cursor:pointer;
+
+            transition:.3s ease;
+        }
+
+        .topic-item:hover {
+            background:var(--primary-light);
+        }
+
+        .topic-item.active {
+            background:var(--primary);
+            color:white;
+        }
+
+        .topic-icon {
+            width:32px;
+            height:32px;
+
+            flex-shrink:0;
+
+            border-radius:9px;
+
+            background:var(--bg);
+
+            color:var(--primary);
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:12px;
+        }
+
+        .topic-item.active .topic-icon {
+            background:rgba(255,255,255,.15);
+            color:white;
+        }
+
+        .topic-text {
+            flex:1;
+        }
+
+        .topic-text strong {
+            display:block;
+            font-size:10px;
+        }
+
+        .topic-text span {
+            display:block;
+            color:var(--muted);
+            font-size:9px;
+            margin-top:3px;
+        }
+
+        .topic-item.active .topic-text span {
+            color:#dce5f1;
+        }
+
+        .topic-check {
+            font-size:11px;
+            color:var(--success);
+        }
+
+        .topic-item.active .topic-check {
+            color:white;
+        }
+
+
+        /* CONTENT CARD */
+
+        .content-card {
+            background:var(--card);
+
+            border:1px solid var(--border);
+
+            border-radius:18px;
+
+            padding:25px;
+
+            animation:fadeUp .8s ease;
+        }
+
+        .lesson-header {
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+
+            gap:15px;
+
+            padding-bottom:20px;
+
+            border-bottom:1px solid var(--border);
+        }
+
+        .lesson-number {
+            color:var(--primary);
+            font-size:11px;
+            font-weight:700;
+            margin-bottom:7px;
+        }
+
+        .lesson-header h2 {
+            font-size:23px;
+        }
+
+        .lesson-header p {
+            color:var(--muted);
+            font-size:11px;
+            margin-top:6px;
+        }
+
+        .bookmark {
+            width:42px;
+            height:42px;
+
+            border:1px solid var(--border);
+            border-radius:11px;
+
+            background:transparent;
+            color:var(--muted);
+
+            transition:.3s ease;
+        }
+
+        .bookmark:hover,
+        .bookmark.saved {
+            color:var(--primary);
+            border-color:var(--primary);
+            background:var(--primary-light);
+        }
+
+
+        /* LESSON */
+
+        .lesson-body {
+            padding-top:25px;
+        }
+
+        .lesson-body h3 {
+            font-size:17px;
+            margin-bottom:10px;
+        }
+
+        .lesson-body p {
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.8;
+            margin-bottom:17px;
+        }
+
+        .concept-box {
+            background:var(--primary-light);
+
+            border-left:4px solid var(--primary);
+
+            padding:17px;
+
+            border-radius:10px;
+
+            margin:20px 0;
+        }
+
+        .concept-box strong {
+            display:block;
+            color:var(--primary);
+            font-size:12px;
+            margin-bottom:7px;
+        }
+
+        .concept-box p {
+            color:var(--text);
+            margin:0;
+        }
+
+
+        /* KEY POINTS */
+
+        .key-points {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:10px;
+
+            margin:20px 0;
+        }
+
+        .key-point {
+            padding:14px;
+
+            background:var(--bg);
+
+            border:1px solid var(--border);
+
+            border-radius:12px;
+
+            display:flex;
+            gap:10px;
+            align-items:flex-start;
+        }
+
+        .key-point i {
+            color:var(--primary);
+            margin-top:2px;
+        }
+
+        .key-point span {
+            font-size:11px;
+            line-height:1.6;
+        }
+
+
+        /* EXAMPLE */
+
+        .example-card {
+            border:1px solid var(--border);
+            border-radius:14px;
+            overflow:hidden;
+            margin-top:20px;
+        }
+
+        .example-title {
+            background:var(--navy);
+            color:white;
+
+            padding:12px 15px;
+
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .example-body {
+            padding:17px;
+        }
+
+        .question {
+            font-size:13px;
+            font-weight:700;
+            margin-bottom:12px;
+        }
+
+        .solution {
+            background:var(--bg);
+
+            padding:14px;
+
+            border-radius:10px;
+
+            font-size:12px;
+            line-height:1.9;
+        }
+
+        .answer {
+            display:inline-block;
+
+            margin-top:10px;
+
+            background:var(--success-light);
+            color:var(--success);
+
+            padding:7px 10px;
+
+            border-radius:8px;
+
+            font-weight:700;
+        }
+
+
+        /* SHORTCUT */
+
+        .shortcut {
+            margin-top:20px;
+
+            padding:17px;
+
+            border-radius:14px;
+
+            background:var(--navy);
+
+            color:white;
+        }
+
+        .shortcut-title {
+            color:#ffb27d;
+
+            font-size:10px;
+            font-weight:700;
+
+            text-transform:uppercase;
+            letter-spacing:1px;
+
+            margin-bottom:7px;
+        }
+
+        .shortcut p {
+            color:#d6deea;
+            margin:0;
+            font-size:12px;
+        }
+
+
+        /* PRACTICE */
+
+        .practice {
+            margin-top:25px;
+
+            padding-top:25px;
+
+            border-top:1px solid var(--border);
+        }
+
+        .practice h3 {
+            margin-bottom:6px;
+        }
+
+        .practice > p {
+            font-size:11px;
+        }
+
+        .option {
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            padding:12px 14px;
+
+            border:1px solid var(--border);
+
+            border-radius:10px;
+
+            margin:8px 0;
+
+            cursor:pointer;
+
+            font-size:12px;
+
+            transition:.3s ease;
+        }
+
+        .option:hover {
+            border-color:var(--primary);
+            background:var(--primary-light);
+        }
+
+        .option input {
+            accent-color:var(--primary);
+        }
+
+        .practice-result {
+            display:none;
+
+            padding:12px;
+
+            border-radius:10px;
+
+            margin-top:12px;
+
+            font-size:12px;
+            font-weight:600;
+        }
+
+        .practice-result.show {
+            display:block;
+        }
+
+        .practice-result.correct {
+            background:var(--success-light);
+            color:var(--success);
+        }
+
+        .practice-result.wrong {
+            background:#fff0f0;
+            color:var(--danger);
+        }
+
+        body.dark .practice-result.wrong {
+            background:#351c21;
+        }
+
+
+        /* ACTIONS */
+
+        .lesson-actions {
+            display:flex;
+            justify-content:space-between;
+
+            gap:12px;
+
+            margin-top:25px;
+
+            padding-top:20px;
+
+            border-top:1px solid var(--border);
+        }
+
+        .action-btn {
+            border:1px solid var(--border);
+
+            background:transparent;
+            color:var(--text);
+
+            padding:11px 16px;
+
+            border-radius:10px;
+
+            font-size:11px;
+            font-weight:700;
+
+            transition:.3s ease;
+        }
+
+        .action-btn:hover {
+            border-color:var(--primary);
+            color:var(--primary);
+            transform:translateY(-2px);
+        }
+
+        .complete-btn {
+            background:var(--primary);
+            border-color:var(--primary);
+            color:white;
+        }
+
+        .complete-btn:hover {
+            background:var(--primary-dark);
+            color:white;
+        }
+
+
+        /* TOAST */
+
+        .toast {
+            position:fixed;
+
+            right:25px;
+            bottom:25px;
+
+            background:var(--navy);
+            color:white;
+
+            padding:14px 18px;
+
+            border-radius:12px;
+
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            font-size:12px;
+
+            box-shadow:var(--shadow-hover);
+
+            transform:translateY(100px);
+            opacity:0;
+
+            transition:.4s ease;
+
+            z-index:9999;
+        }
+
+        .toast.show {
+            transform:translateY(0);
+            opacity:1;
+        }
+
+        .toast i {
+            color:var(--primary);
+        }
+
+
+        /* OVERLAY */
+
+        .overlay {
+            position:fixed;
+            inset:0;
+
+            background:rgba(0,0,0,.5);
+
+            z-index:950;
+
+            opacity:0;
+            visibility:hidden;
+
+            transition:.3s ease;
+        }
+
+        .overlay.show {
+            opacity:1;
+            visibility:visible;
+        }
+
+
+        /* ANIMATION */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity:0;
+                transform:translateY(25px);
+            }
+
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+
+        }
+
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px) {
+
+            .course-layout {
+                grid-template-columns:240px 1fr;
+            }
+
+            .search input {
+                width:180px;
+            }
+
+        }
+
+
+        @media(max-width:850px) {
+
+            .sidebar {
+                transform:translateX(-100%);
+                transition:transform .3s ease;
+            }
+
+            .sidebar.open {
+                transform:translateX(0);
+            }
+
+            .main {
+                margin-left:0;
+            }
+
+            .mobile-menu {
+                display:flex;
+                align-items:center;
+                justify-content:center;
+            }
+
+            .topbar {
+                padding:0 20px;
+            }
+
+            .content {
+                padding:25px 20px 50px;
+            }
+
+            .profile-info {
+                display:none;
+            }
+
+            .search {
+                display:none;
+            }
+
+            .course-layout {
+                grid-template-columns:1fr;
+            }
+
+            .topics-panel {
+                position:static;
+            }
+
+            .topic-list {
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:7px;
+            }
+
+            .topic-item {
+                margin:0;
+            }
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .topbar {
+                height:70px;
+            }
+
+            .heading h1 {
+                font-size:16px;
+            }
+
+            .heading p {
+                display:none;
+            }
+
+            .top-actions {
+                gap:6px;
+            }
+
+            .icon-btn,
+            .avatar,
+            .mobile-menu {
+                width:38px;
+                height:38px;
+            }
+
+            .content {
+                padding:18px 14px 40px;
+            }
+
+            .course-hero {
+                flex-direction:column;
+                align-items:flex-start;
+
+                padding:23px;
+                border-radius:20px;
+            }
+
+            .hero-left h2 {
+                font-size:22px;
+            }
+
+            .hero-left p {
+                font-size:11px;
+            }
+
+            .hero-right {
+                align-self:center;
+            }
+
+            .topic-list {
+                grid-template-columns:1fr;
+            }
+
+            .content-card {
+                padding:18px;
+            }
+
+            .lesson-header h2 {
+                font-size:20px;
+            }
+
+            .lesson-body p {
+                font-size:12px;
+            }
+
+            .key-points {
+                grid-template-columns:1fr;
+            }
+
+            .lesson-actions {
+                flex-direction:column;
+            }
+
+            .action-btn {
+                width:100%;
+            }
+
+            .toast {
+                left:15px;
+                right:15px;
+                bottom:15px;
+                justify-content:center;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-logo">
+        SB
+    </div>
+
+</div>
+
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            SB
+        </div>
+
+        <h2>
+            Skill<span>Bridge</span>
+        </h2>
+
+    </div>
+
+
+    <div class="nav-title">
+        Main Menu
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="study-material.html" class="active">
+                <i class="fa-solid fa-book-open"></i>
+                Study Materials
+            </a>
+        </li>
+
+        <li>
+            <a href="aptitude.html">
+                <i class="fa-solid fa-brain"></i>
+                Aptitude Tests
+            </a>
+        </li>
+
+        <li>
+            <a href="coding.html">
+                <i class="fa-solid fa-code"></i>
+                Coding Practice
+            </a>
+        </li>
+
+        <li>
+            <a href="progress.html">
+                <i class="fa-solid fa-chart-line"></i>
+                My Progress
+            </a>
+        </li>
+
+    </ul>
+
+
+    <div class="nav-title">
+        Account
+    </div>
+
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logoutUser(event)">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="top-left">
+
+            <button
+                class="mobile-menu"
+                id="menuBtn"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+
+            <div class="heading">
+
+                <h1>
+                    Logical Reasoning
+                </h1>
+
+                <p>
+                    Improve your thinking and problem-solving skills
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+
+            <!-- SEARCH -->
+
+            <div class="search">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search topics..."
+                >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+
+            <!-- THEME -->
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Toggle theme"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+
+            <!-- NOTIFICATION -->
+
+            <button
+                class="icon-btn"
+                onclick="showToast('New reasoning practice available 🔔')"
+            >
+                <i class="fa-regular fa-bell"></i>
+            </button>
+
+
+            <!-- PROFILE -->
+
+            <div
+                class="profile"
+                onclick="goToProfile()"
+            >
+
+                <div class="avatar">
+                    MP
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Mohana
+                    </strong>
+
+                    <span>
+                        Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="breadcrumb">
+
+            <span>
+                Study Materials
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span>
+                Logical Reasoning
+            </span>
+
+        </div>
+
+
+        <!-- HERO -->
+
+        <div class="course-hero">
+
+            <div class="hero-left">
+
+                <div class="course-tag">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    Logical Reasoning
+
+                </div>
+
+
+                <h2>
+                    Think Smarter. Solve Faster. 🧠
+                </h2>
+
+
+                <p>
+                    Develop logical thinking, analytical ability
+                    and problem-solving skills through important
+                    reasoning concepts, shortcuts, solved examples
+                    and exam-oriented practice questions.
+                </p>
+
+            </div>
+
+
+            <div class="hero-right">
+
+                <div class="course-progress">
+
+                    <strong>
+                        70%
+                    </strong>
+
+                </div>
+
+                <small>
+                    Course Progress
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- COURSE LAYOUT -->
+
+        <div class="course-layout">
+
+
+            <!-- TOPICS -->
+
+            <aside class="topics-panel">
+
+                <h3>
+                    Reasoning Topics
+                </h3>
+
+                <p>
+                    10 topics • 5 hours
+                </p>
+
+
+                <div class="topic-list">
+
+
+                    <div
+                        class="topic-item active"
+                        onclick="selectTopic(this,'Number Series',0)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-list-ol"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Number Series
+                            </strong>
+
+                            <span>
+                                30 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Alphabet Series',1)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-font"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Alphabet Series
+                            </strong>
+
+                            <span>
+                                25 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Analogy',2)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Analogy
+                            </strong>
+
+                            <span>
+                                25 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Classification',3)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Classification
+                            </strong>
+
+                            <span>
+                                20 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Coding-Decoding',4)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Coding-Decoding
+                            </strong>
+
+                            <span>
+                                35 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Blood Relations',5)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-people-arrows"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Blood Relations
+                            </strong>
+
+                            <span>
+                                30 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Direction Sense',6)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Direction Sense
+                            </strong>
+
+                            <span>
+                                25 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Syllogism',7)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Syllogism
+                            </strong>
+
+                            <span>
+                                30 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Seating Arrangement',8)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-chair"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Seating Arrangement
+                            </strong>
+
+                            <span>
+                                40 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="topic-item"
+                        onclick="selectTopic(this,'Puzzles',9)"
+                    >
+
+                        <div class="topic-icon">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+
+                        <div class="topic-text">
+
+                            <strong>
+                                Puzzles
+                            </strong>
+
+                            <span>
+                                40 min
+                            </span>
+
+                        </div>
+
+                        <div class="topic-check">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- LEARNING -->
+
+            <div class="learning-area">
+
+                <div class="content-card">
+
+
+                    <!-- HEADER -->
+
+                    <div class="lesson-header">
+
+                        <div>
+
+                            <div class="lesson-number">
+                                LESSON 01
+                            </div>
+
+                            <h2 id="lessonTitle">
+                                Number Series
+                            </h2>
+
+                            <p id="lessonSubtitle">
+                                Identify patterns and find the missing number.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="bookmark"
+                            id="bookmarkBtn"
+                            onclick="toggleBookmark()"
+                            title="Bookmark"
+                        >
+
+                            <i class="fa-regular fa-bookmark"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- LESSON CONTENT -->
+
+                    <div
+                        class="lesson-body"
+                        id="lessonContent"
+                    >
+
+
+                        <h3>
+                            What is a Number Series?
+                        </h3>
+
+
+                        <p>
+                            A number series is a sequence of numbers
+                            arranged according to a specific pattern.
+                            In reasoning questions, you need to identify
+                            that pattern and find the missing or next number.
+                        </p>
+
+
+                        <div class="concept-box">
+
+                            <strong>
+                                💡 Important Idea
+                            </strong>
+
+                            <p>
+                                Always check the difference between
+                                consecutive numbers first. If the
+                                difference is not constant, check
+                                multiplication, division, squares,
+                                cubes or alternate patterns.
+                            </p>
+
+                        </div>
+
+
+                        <h3>
+                            Common Patterns
+                        </h3>
+
+
+                        <div class="key-points">
+
+                            <div class="key-point">
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                <span>
+                                    Addition pattern:
+                                    2, 4, 6, 8...
+                                </span>
+
+                            </div>
+
+
+                            <div class="key-point">
+
+                                <i class="fa-solid fa-minus"></i>
+
+                                <span>
+                                    Subtraction pattern:
+                                    20, 17, 14, 11...
+                                </span>
+
+                            </div>
+
+
+                            <div class="key-point">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                                <span>
+                                    Multiplication pattern:
+                                    2, 4, 8, 16...
+                                </span>
+
+                            </div>
+
+
+                            <div class="key-point">
+
+                                <i class="fa-solid fa-square-root-variable"></i>
+
+                                <span>
+                                    Square pattern:
+                                    1, 4, 9, 16...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EXAMPLE -->
+
+                        <div class="example-card">
+
+                            <div class="example-title">
+
+                                <i class="fa-solid fa-lightbulb"></i>
+
+                                Solved Example
+
+                            </div>
+
+
+                            <div class="example-body">
+
+                                <div class="question">
+
+                                    Find the next number:
+
+                                    2, 5, 8, 11, ?
+
+                                </div>
+
+
+                                <div class="solution">
+
+                                    Step 1:
+                                    Find the difference.
+
+                                    <br>
+
+                                    5 - 2 = 3
+
+                                    <br>
+
+                                    8 - 5 = 3
+
+                                    <br>
+
+                                    11 - 8 = 3
+
+                                    <br><br>
+
+                                    Therefore, the pattern is
+                                    +3.
+
+                                    <br>
+
+                                    11 + 3 = 14
+
+                                    <br>
+
+                                    <span class="answer">
+                                        Answer: 14
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SHORTCUT -->
+
+                        <div class="shortcut">
+
+                            <div class="shortcut-title">
+                                ⚡ Exam Shortcut
+                            </div>
+
+                            <p>
+                                For number series, first check
+                                differences. If differences are
+                                changing, check second differences,
+                                multiplication/division or alternate
+                                terms.
+                            </p>
+
+                        </div>
+
+
+                        <!-- PRACTICE -->
+
+                        <div class="practice">
+
+                            <h3>
+                                Quick Practice 🧠
+                            </h3>
+
+                            <p>
+                                Find the next number:
+                                3, 6, 9, 12, ?
+                            </p>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="reasoningQuestion"
+                                    value="14"
+                                >
+
+                                14
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="reasoningQuestion"
+                                    value="15"
+                                >
+
+                                15
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="reasoningQuestion"
+                                    value="16"
+                                >
+
+                                16
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="reasoningQuestion"
+                                    value="18"
+                                >
+
+                                18
+
+                            </label>
+
+
+                            <button
+                                class="action-btn complete-btn"
+                                onclick="checkAnswer()"
+                                style="margin-top:10px;"
+                            >
+
+                                <i class="fa-solid fa-check"></i>
+
+                                Check Answer
+
+                            </button>
+
+
+                            <div
+                                class="practice-result"
+                                id="practiceResult"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="lesson-actions">
+
+                        <button
+                            class="action-btn"
+                            onclick="previousTopic()"
+                        >
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Previous
+
+                        </button>
+
+
+                        <button
+                            class="action-btn complete-btn"
+                            onclick="markComplete()"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Mark as Complete
+
+                        </button>
+
+
+                        <button
+                            class="action-btn"
+                            onclick="nextTopic()"
+                        >
+
+                            Next
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Success
+    </span>
+
+</div>
+
+
+<script>
+
+    /* LOADER */
+
+    window.addEventListener("load", () => {
+
+        setTimeout(() => {
+
+            document
+                .getElementById("loader")
+                .classList.add("hide");
+
+        },700);
+
+    });
+
+
+    /* MOBILE MENU */
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("overlay");
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+
+    menuBtn.addEventListener("click", () => {
+
+        sidebar.classList.toggle("open");
+
+        overlay.classList.toggle("show");
+
+    });
+
+
+    overlay.addEventListener("click", () => {
+
+        sidebar.classList.remove("open");
+
+        overlay.classList.remove("show");
+
+    });
+
+
+    /* DARK MODE */
+
+    const themeBtn =
+        document.getElementById("themeBtn");
+
+
+    const savedTheme =
+        localStorage.getItem("skillbridge-theme");
+
+
+    if(savedTheme === "dark") {
+
+        document.body.classList.add("dark");
+
+        themeBtn.innerHTML =
+            '<i class="fa-solid fa-sun"></i>';
+
+    }
+
+
+    themeBtn.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark");
+
+
+        const dark =
+            document.body.classList.contains("dark");
+
+
+        localStorage.setItem(
+            "skillbridge-theme",
+            dark ? "dark" : "light"
+        );
+
+
+        themeBtn.innerHTML = dark
+
+            ? '<i class="fa-solid fa-sun"></i>'
+
+            : '<i class="fa-solid fa-moon"></i>';
+
+
+        showToast(
+            dark
+                ? "Dark mode enabled 🌙"
+                : "Light mode enabled ☀️"
+        );
+
+    });
+
+
+    /* PROFILE */
+
+    function goToProfile() {
+
+        window.location.href =
+            "profile.html";
+
+    }
+
+
+    /* BOOKMARK */
+
+    function toggleBookmark() {
+
+        const button =
+            document.getElementById(
+                "bookmarkBtn"
+            );
+
+
+        button.classList.toggle("saved");
+
+
+        const saved =
+            button.classList.contains("saved");
+
+
+        button.innerHTML = saved
+
+            ? '<i class="fa-solid fa-bookmark"></i>'
+
+            : '<i class="fa-regular fa-bookmark"></i>';
+
+
+        showToast(
+            saved
+                ? "Topic bookmarked 🔖"
+                : "Bookmark removed"
+        );
+
+    }
+
+
+    /* TOPIC DATA */
+
+    const topicData = {
+
+        "Number Series": {
+
+            subtitle:
+                "Identify patterns and find the missing number.",
+
+            concept:
+                "A number series contains numbers arranged according to a particular mathematical pattern.",
+
+            points:[
+                "Check consecutive differences.",
+                "Check multiplication or division.",
+                "Look for square and cube patterns.",
+                "Check alternate terms."
+            ],
+
+            example:
+                "Example: 5, 10, 15, 20, ? → Pattern is +5 → Answer = 25",
+
+            shortcut:
+                "Start with subtraction/difference. It is usually the fastest way to identify a simple series."
+
+        },
+
+
+        "Alphabet Series": {
+
+            subtitle:
+                "Understand letter positions and identify alphabet patterns.",
+
+            concept:
+                "Alphabet series questions use the positions of letters such as A=1, B=2, C=3 and so on.",
+
+            points:[
+                "Remember A=1 to Z=26.",
+                "Check forward movement.",
+                "Check backward movement.",
+                "Look for alternate letter patterns."
+            ],
+
+            example:
+                "Example: A, C, E, G, ? → Every second letter → Answer = I",
+
+            shortcut:
+                "Convert letters into numbers when the pattern is difficult to see."
+
+        },
+
+
+        "Analogy": {
+
+            subtitle:
+                "Find the relationship between two pairs.",
+
+            concept:
+                "Analogy questions test whether you can identify the relationship between two objects or concepts.",
+
+            points:[
+                "Find the relationship in the first pair.",
+                "Apply the same relationship.",
+                "Check meaning and function.",
+                "Eliminate unrelated options."
+            ],
+
+            example:
+                "Example: Bird : Nest :: Lion : ? → Lion lives in a Den.",
+
+            shortcut:
+                "Do not look at options first. Identify the relationship in the first pair."
+
+        },
+
+
+        "Classification": {
+
+            subtitle:
+                "Find the odd item from a group.",
+
+            concept:
+                "Classification questions ask you to identify an item that does not belong to the common group.",
+
+            points:[
+                "Compare all items.",
+                "Find the common property.",
+                "Identify the different item.",
+                "Check category or relationship."
+            ],
+
+            example:
+                "Example: Apple, Mango, Banana, Carrot → Carrot is different because it is a vegetable.",
+
+            shortcut:
+                "Try to find one common category shared by three options."
+
+        },
+
+
+        "Coding-Decoding": {
+
+            subtitle:
+                "Decode words using hidden patterns.",
+
+            concept:
+                "Coding-decoding questions represent letters, words or numbers using a particular rule.",
+
+            points:[
+                "Check letter shifts.",
+                "Use alphabet positions.",
+                "Check reverse alphabet.",
+                "Look for word-level patterns."
+            ],
+
+            example:
+                "If CAT is coded as DBU, each letter is shifted by +1.",
+
+            shortcut:
+                "Write A=1 to Z=26 and compare the original and coded letters."
+
+        },
+
+
+        "Blood Relations": {
+
+            subtitle:
+                "Solve family relationship problems quickly.",
+
+            concept:
+                "Blood relation questions test your ability to identify relationships among family members.",
+
+            points:[
+                "Identify the speaker first.",
+                "Draw a small family tree.",
+                "Mark gender carefully.",
+                "Trace the relationship step by step."
+            ],
+
+            example:
+                "If A is the brother of B and B is the mother of C, A is the maternal uncle of C.",
+
+            shortcut:
+                "Draw the family tree instead of solving the relationship mentally."
+
+        },
+
+
+        "Direction Sense": {
+
+            subtitle:
+                "Understand directions and calculate positions.",
+
+            concept:
+                "Direction sense questions involve movement in North, South, East and West directions.",
+
+            points:[
+                "Fix North first.",
+                "Mark every movement.",
+                "Use a simple diagram.",
+                "Calculate final direction."
+            ],
+
+            example:
+                "If you move North and then East, your final direction from the starting point is North-East.",
+
+            shortcut:
+                "Always draw arrows. A 5-second diagram can prevent a 30-second calculation mistake."
+
+        },
+
+
+        "Syllogism": {
+
+            subtitle:
+                "Analyze statements and conclusions.",
+
+            concept:
+                "Syllogism questions contain statements followed by conclusions. You must determine which conclusions logically follow.",
+
+            points:[
+                "Read every statement carefully.",
+                "Use Venn diagrams when useful.",
+                "Do not assume extra information.",
+                "Check each conclusion independently."
+            ],
+
+            example:
+                "All cats are animals. All animals need food. Therefore, all cats need food.",
+
+            shortcut:
+                "Use simple circles to represent 'All', 'Some' and 'No' relationships."
+
+        },
+
+
+        "Seating Arrangement": {
+
+            subtitle:
+                "Arrange people according to given conditions.",
+
+            concept:
+                "Seating arrangement questions require placing people in a row, circle or other arrangement using clues.",
+
+            points:[
+                "Identify fixed positions.",
+                "Place direct clues first.",
+                "Use left and right carefully.",
+                "Eliminate impossible arrangements."
+            ],
+
+            example:
+                "If A sits immediately left of B, place B first and then A immediately to its left.",
+
+            shortcut:
+                "Draw boxes for linear arrangements and a circle for circular arrangements."
+
+        },
+
+
+        "Puzzles": {
+
+            subtitle:
+                "Solve complex logical problems systematically.",
+
+            concept:
+                "Puzzles combine multiple clues and require systematic deduction to find the correct arrangement.",
+
+            points:[
+                "Read all clues once.",
+                "Start with definite information.",
+                "Create a table.",
+                "Eliminate impossible cases."
+            ],
+
+            example:
+                "For a five-person puzzle, create five positions and fill the definite clues first.",
+
+            shortcut:
+                "Never solve a puzzle completely in your head. Use a table or diagram."
+
+        }
+
+    };
+
+
+    /* SELECT TOPIC */
+
+    function selectTopic(element,topic,index) {
+
+        document
+            .querySelectorAll(".topic-item")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        element.classList.add("active");
+
+
+        const data =
+            topicData[topic];
+
+
+        if(!data) return;
+
+
+        document.getElementById(
+            "lessonTitle"
+        ).textContent = topic;
+
+
+        document.getElementById(
+            "lessonSubtitle"
+        ).textContent = data.subtitle;
+
+
+        document.getElementById(
+            "lessonContent"
+        ).innerHTML = `
+
+            <h3>
+                What is ${topic}?
+            </h3>
+
+            <p>
+                ${data.concept}
+            </p>
+
+            <div class="concept-box">
+
+                <strong>
+                    💡 Key Concept
+                </strong>
+
+                <p>
+                    ${data.concept}
+                </p>
+
+            </div>
+
+            <h3>
+                Important Points
+            </h3>
+
+            <div class="key-points">
+
+                ${data.points.map(point => `
+
+                    <div class="key-point">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            ${point}
+                        </span>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+
+            <div class="example-card">
+
+                <div class="example-title">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    Solved Example
+
+                </div>
+
+                <div class="example-body">
+
+                    <div class="question">
+
+                        Practice Example
+
+                    </div>
+
+                    <div class="solution">
+
+                        ${data.example}
+
+                        <br>
+
+                        <span class="answer">
+                            Concept understood ✓
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="shortcut">
+
+                <div class="shortcut-title">
+                    ⚡ Exam Shortcut
+                </div>
+
+                <p>
+                    ${data.shortcut}
+                </p>
+
+            </div>
+
+
+            <div class="practice">
+
+                <h3>
+                    Quick Practice 🧠
+                </h3>
+
+                <p>
+                    Which approach is generally useful
+                    for solving ${topic} questions?
+                </p>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="dynamicQuestion"
+                        value="diagram"
+                    >
+
+                    Use a diagram or structured method
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="dynamicQuestion"
+                        value="guess"
+                    >
+
+                    Guess without checking the clues
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="dynamicQuestion"
+                        value="ignore"
+                    >
+
+                    Ignore the given information
+
+                </label>
+
+
+                <button
+                    class="action-btn complete-btn"
+                    onclick="checkDynamicAnswer()"
+                    style="margin-top:10px;"
+                >
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Check Answer
+
+                </button>
+
+
+                <div
+                    class="practice-result"
+                    id="practiceResult"
+                ></div>
+
+            </div>
+
+        `;
+
+
+        showToast(
+            topic + " opened 📚"
+        );
+
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+
+
+    /* ORIGINAL ANSWER */
+
+    function checkAnswer() {
+
+        const selected =
+            document.querySelector(
+                'input[name="reasoningQuestion"]:checked'
+            );
+
+
+        const result =
+            document.getElementById(
+                "practiceResult"
+            );
+
+
+        if(!selected) {
+
+            result.textContent =
+                "Please select an answer first.";
+
+            result.className =
+                "practice-result show wrong";
+
+            return;
+
+        }
+
+
+        if(selected.value === "15") {
+
+            result.textContent =
+                "🎉 Correct! The pattern is +3, so the answer is 15.";
+
+            result.className =
+                "practice-result show correct";
+
+            showToast(
+                "Correct answer! 🎉"
+            );
+
+        } else {
+
+            result.textContent =
+                "❌ Incorrect. Check the difference between consecutive numbers.";
+
+            result.className =
+                "practice-result show wrong";
+
+            showToast(
+                "Try again 💪"
+            );
+
+        }
+
+    }
+
+
+    /* DYNAMIC ANSWER */
+
+    function checkDynamicAnswer() {
+
+        const selected =
+            document.querySelector(
+                'input[name="dynamicQuestion"]:checked'
+            );
+
+
+        const result =
+            document.getElementById(
+                "practiceResult"
+            );
+
+
+        if(!selected) {
+
+            result.textContent =
+                "Please select an answer first.";
+
+            result.className =
+                "practice-result show wrong";
+
+            return;
+
+        }
+
+
+        if(selected.value === "diagram") {
+
+            result.textContent =
+                "🎉 Correct! A structured approach helps reduce mistakes.";
+
+            result.className =
+                "practice-result show correct";
+
+            showToast(
+                "Correct! 🎉"
+            );
+
+        } else {
+
+            result.textContent =
+                "❌ Incorrect. Reasoning questions should be solved using the given clues.";
+
+            result.className =
+                "practice-result show wrong";
+
+        }
+
+    }
+
+
+    /* COMPLETE */
+
+    function markComplete() {
+
+        const active =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        if(active) {
+
+            const check =
+                active.querySelector(
+                    ".topic-check"
+                );
+
+
+            check.innerHTML =
+                '<i class="fa-solid fa-circle-check"></i>';
+
+            check.style.color =
+                "var(--success)";
+
+        }
+
+
+        showToast(
+            "Lesson marked as completed ✅"
+        );
+
+    }
+
+
+    /* TOPIC LIST */
+
+    function getTopics() {
+
+        return Array.from(
+            document.querySelectorAll(
+                ".topic-item"
+            )
+        );
+
+    }
+
+
+    /* NEXT */
+
+    function nextTopic() {
+
+        const topics =
+            getTopics();
+
+
+        const active =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        const index =
+            topics.indexOf(active);
+
+
+        if(index < topics.length - 1) {
+
+            const next =
+                topics[index + 1];
+
+
+            const name =
+                next.querySelector(
+                    ".topic-text strong"
+                ).textContent;
+
+
+            selectTopic(
+                next,
+                name,
+                index + 1
+            );
+
+        } else {
+
+            showToast(
+                "🎉 You reached the final topic!"
+            );
+
+        }
+
+    }
+
+
+    /* PREVIOUS */
+
+    function previousTopic() {
+
+        const topics =
+            getTopics();
+
+
+        const active =
+            document.querySelector(
+                ".topic-item.active"
+            );
+
+
+        const index =
+            topics.indexOf(active);
+
+
+        if(index > 0) {
+
+            const previous =
+                topics[index - 1];
+
+
+            const name =
+                previous.querySelector(
+                    ".topic-text strong"
+                ).textContent;
+
+
+            selectTopic(
+                previous,
+                name,
+                index - 1
+            );
+
+        } else {
+
+            showToast(
+                "This is the first topic."
+            );
+
+        }
+
+    }
+
+
+    /* SEARCH */
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            const value =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            document
+                .querySelectorAll(".topic-item")
+                .forEach(item => {
+
+                    const text =
+                        item.innerText
+                            .toLowerCase();
+
+
+                    item.style.display =
+                        text.includes(value)
+                            ? "flex"
+                            : "none";
+
+                });
+
+        }
+    );
+
+
+    /* TOAST */
+
+    let toastTimer;
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        document.getElementById(
+            "toastMessage"
+        ).textContent = message;
+
+
+        toast.classList.add("show");
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer =
+            setTimeout(() => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },2500);
+
+    }
+
+
+    /* LOGOUT */
+
+    function logoutUser(event) {
+
+        event.preventDefault();
+
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to logout?"
+            );
+
+
+        if(confirmation) {
+
+            showToast(
+                "Logging out..."
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "login.html";
+
+            },900);
+
+        }
+
+    }
+
+
+    /* ESCAPE */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if(event.key === "Escape") {
+
+                sidebar.classList.remove(
+                    "open"
+                );
+
+                overlay.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
