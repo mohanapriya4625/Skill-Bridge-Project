@@ -1,0 +1,6 @@
+$kind: http-request
+name: http://localhost:5000/api/progress/1
+description: ""
+url: http://localhost:5000/api/progress/1
+method: GET
+order: 1789629036205

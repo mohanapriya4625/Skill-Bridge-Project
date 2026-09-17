@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Programming | SkillBridge</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+    --navy:#12233f;
+    --navy2:#1b3154;
+    --bg:#f6f8fc;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#718096;
+    --border:#e6eaf0;
+    --success:#18a66a;
+    --danger:#ef4444;
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* ================= LOADER ================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:.5s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    width:75px;
+    height:75px;
+    border-radius:22px;
+    background:var(--orange);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:800;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.12)}
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:255px;
+    height:100vh;
+    background:var(--navy);
+    color:white;
+    z-index:1000;
+    padding:24px 16px;
+    transition:.3s ease;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 10px 30px;
+}
+
+.logo-box{
+    width:43px;
+    height:43px;
+    background:var(--orange);
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:18px;
+}
+
+.logo h2{
+    font-size:20px;
+}
+
+.logo span{
+    color:var(--orange);
+}
+
+.nav-title{
+    font-size:11px;
+    color:#8fa1bb;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin:12px 12px;
+}
+
+.nav-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:13px 14px;
+    margin:5px 0;
+    color:#c9d3e2;
+    text-decoration:none;
+    border-radius:12px;
+    transition:.25s;
+    font-size:14px;
+}
+
+.nav-link i{
+    width:20px;
+    text-align:center;
+}
+
+.nav-link:hover,
+.nav-link.active{
+    background:rgba(255,107,0,.15);
+    color:white;
+}
+
+.nav-link.active{
+    border-left:3px solid var(--orange);
+}
+
+.nav-link:hover i,
+.nav-link.active i{
+    color:var(--orange);
+}
+
+.sidebar-bottom{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:999;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    height:76px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-heading h1{
+    font-size:20px;
+    color:var(--navy);
+}
+
+.page-heading p{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.icon-btn:hover{
+    background:var(--orange);
+    color:white;
+    transform:translateY(-2px);
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-left:5px;
+    cursor:pointer;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+.profile-mini span{
+    font-size:13px;
+    font-weight:600;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    background:linear-gradient(120deg,var(--navy),#1c365d);
+    border-radius:24px;
+    padding:30px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    animation:fadeUp .7s ease;
+}
+
+.hero:before,
+.hero:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,107,0,.12);
+}
+
+.hero:before{
+    width:220px;
+    height:220px;
+    right:100px;
+    top:-100px;
+}
+
+.hero:after{
+    width:150px;
+    height:150px;
+    right:-30px;
+    bottom:-70px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,107,0,.17);
+    color:#ff9c5c;
+    padding:7px 12px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:13px;
+}
+
+.hero h2{
+    font-size:30px;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#b9c7da;
+    font-size:14px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.hero-progress{
+    width:170px;
+    position:relative;
+    z-index:2;
+}
+
+.progress-circle{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:conic-gradient(var(--orange) 70%,rgba(255,255,255,.12) 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.progress-circle:after{
+    content:"";
+    position:absolute;
+    width:94px;
+    height:94px;
+    border-radius:50%;
+    background:var(--navy);
+}
+
+.progress-circle span{
+    position:relative;
+    z-index:2;
+    font-size:22px;
+    font-weight:800;
+}
+
+/* ================= LAYOUT ================= */
+
+.learning-layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:24px;
+    margin-top:25px;
+}
+
+/* ================= TOPICS ================= */
+
+.topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    height:max-content;
+    position:sticky;
+    top:100px;
+}
+
+.topic-card h3{
+    color:var(--navy);
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.topic-search{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    margin-bottom:15px;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.topic-search:focus{
+    border-color:var(--orange);
+}
+
+.topic-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.topic{
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--muted);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.topic-number{
+    width:27px;
+    height:27px;
+    border-radius:8px;
+    background:#f0f3f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:700;
+}
+
+.topic:hover{
+    background:#fff2e9;
+    color:var(--orange);
+}
+
+.topic.active{
+    background:var(--orange);
+    color:white;
+}
+
+.topic.active .topic-number{
+    background:rgba(255,255,255,.2);
+    color:white;
+}
+
+/* ================= LESSON ================= */
+
+.lesson{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    animation:fadeUp .6s ease;
+}
+
+.lesson-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.lesson-head small{
+    color:var(--orange);
+    font-weight:700;
+    font-size:12px;
+}
+
+.lesson-head h2{
+    color:var(--navy);
+    margin-top:5px;
+    font-size:25px;
+}
+
+.bookmark{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#fff3eb;
+    color:var(--orange);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+}
+
+.bookmark:hover{
+    transform:scale(1.08);
+}
+
+.bookmark.saved{
+    background:var(--orange);
+    color:white;
+}
+
+.lesson-text{
+    color:#566276;
+    line-height:1.8;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.key-box{
+    background:#fff7f1;
+    border-left:4px solid var(--orange);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.key-box h4{
+    color:var(--navy);
+    margin-bottom:9px;
+}
+
+.key-box ul{
+    padding-left:18px;
+    color:#566276;
+    line-height:1.8;
+    font-size:13px;
+}
+
+/* ================= CODE ================= */
+
+.code-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.code-title span{
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+}
+
+.copy-btn{
+    background:var(--navy);
+    color:white;
+    padding:7px 11px;
+    border-radius:8px;
+    font-size:11px;
+}
+
+.copy-btn:hover{
+    background:var(--orange);
+}
+
+pre{
+    background:#101827;
+    color:#e8eef8;
+    border-radius:14px;
+    padding:20px;
+    overflow:auto;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.output{
+    background:#f1f7f4;
+    border:1px solid #d8eee4;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.output strong{
+    color:var(--success);
+    font-size:13px;
+}
+
+.output p{
+    font-family:monospace;
+    margin-top:7px;
+    font-size:13px;
+}
+
+/* ================= PRACTICE ================= */
+
+.practice{
+    margin-top:25px;
+    padding:20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#fff8f3,#f8faff);
+    border:1px solid var(--border);
+}
+
+.practice h3{
+    color:var(--navy);
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.question{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:14px;
+    line-height:1.6;
+}
+
+.options{
+    display:grid;
+    gap:8px;
+}
+
+.option{
+    padding:11px 13px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+    text-align:left;
+    transition:.2s;
+    font-size:13px;
+}
+
+.option:hover{
+    border-color:var(--orange);
+    transform:translateX(4px);
+}
+
+.option.correct{
+    background:#eaf8f1;
+    border-color:var(--success);
+    color:var(--success);
+}
+
+.option.wrong{
+    background:#fff0f0;
+    border-color:var(--danger);
+    color:var(--danger);
+}
+
+/* ================= NAV BUTTONS ================= */
+
+.lesson-actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+}
+
+.action-btn{
+    padding:11px 17px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.prev-btn{
+    background:#eef1f6;
+    color:var(--navy);
+}
+
+.next-btn{
+    background:var(--orange);
+    color:white;
+}
+
+.complete-btn{
+    background:#eaf8f1;
+    color:var(--success);
+}
+
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:var(--navy);
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
+    z-index:9999;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+    --bg:#0d1524;
+    --card:#142033;
+    --text:#e8edf5;
+    --muted:#9aa9bd;
+    --border:#26354b;
+    --navy:#0b1526;
+}
+
+body.dark .page-heading h1,
+body.dark .lesson-head h2,
+body.dark .topic-card h3,
+body.dark .code-title span,
+body.dark .key-box h4,
+body.dark .practice h3{
+    color:#f1f5fb;
+}
+
+body.dark .topic-number{
+    background:#223149;
+}
+
+body.dark .key-box{
+    background:#241d18;
+}
+
+body.dark .key-box ul,
+body.dark .lesson-text{
+    color:#aebbd0;
+}
+
+body.dark .practice{
+    background:#172438;
+}
+
+body.dark .option{
+    background:#1a283c;
+    color:#d9e1ec;
+}
+
+body.dark .output{
+    background:#12251d;
+    border-color:#24553e;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .overlay.show{
+        display:block;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:flex;
+    }
+
+    .learning-layout{
+        grid-template-columns:1fr;
+    }
+
+    .topic-card{
+        position:relative;
+        top:auto;
+    }
+
+    .topic-list{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .topbar{
+        padding:0 15px;
+        height:68px;
+    }
+
+    .page-heading h1{
+        font-size:16px;
+    }
+
+    .page-heading p{
+        display:none;
+    }
+
+    .profile-mini span{
+        display:none;
+    }
+
+    .content{
+        padding:16px;
+    }
+
+    .hero{
+        padding:22px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .hero h2{
+        font-size:24px;
+    }
+
+    .hero-progress{
+        align-self:center;
+    }
+
+    .learning-layout{
+        gap:15px;
+    }
+
+    .lesson{
+        padding:20px;
+    }
+
+    .lesson-head h2{
+        font-size:21px;
+    }
+
+    .lesson-actions{
+        flex-wrap:wrap;
+    }
+
+    .action-btn{
+        flex:1;
+        justify-content:center;
+    }
+
+    .topic-list{
+        grid-template-columns:1fr;
+    }
+
+    pre{
+        font-size:11px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *:before,
+    *:after{
+        animation:none!important;
+        transition:none!important;
+        scroll-behavior:auto!important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <div class="loader-logo">SB</div>
+</div>
+
+<!-- MOBILE OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logo-box">SB</div>
+        <h2>Skill<span>Bridge</span></h2>
+    </div>
+
+    <div class="nav-title">Main Menu</div>
+
+    <a href="dashboard.html" class="nav-link">
+        <i class="fa-solid fa-chart-pie"></i>
+        Dashboard
+    </a>
+
+    <a href="study-material.html" class="nav-link active">
+        <i class="fa-solid fa-book-open"></i>
+        Study Materials
+    </a>
+
+    <a href="aptitude.html" class="nav-link">
+        <i class="fa-solid fa-brain"></i>
+        Aptitude Tests
+    </a>
+
+    <a href="coding.html" class="nav-link">
+        <i class="fa-solid fa-code"></i>
+        Coding Practice
+    </a>
+
+    <a href="progress.html" class="nav-link">
+        <i class="fa-solid fa-chart-line"></i>
+        My Progress
+    </a>
+
+    <div class="nav-title">Account</div>
+
+    <a href="profile.html" class="nav-link">
+        <i class="fa-solid fa-user"></i>
+        My Profile
+    </a>
+
+    <a href="settings.html" class="nav-link">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+    </a>
+
+    <div class="sidebar-bottom">
+        <a href="login.html" class="nav-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+    </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="top-actions">
+
+            <button class="icon-btn mobile-menu" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-heading">
+                <h1>Java Programming</h1>
+                <p>Study Materials / Java</p>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <button class="icon-btn" id="themeBtn" title="Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fa-regular fa-bell"></i>
+            </button>
+
+            <div class="profile-mini" onclick="goProfile()">
+                <div class="avatar">MP</div>
+                <span>Mohana</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <section class="content">
+
+        <!-- HERO -->
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    <i class="fa-brands fa-java"></i>
+                    Programming Course
+                </div>
+
+                <h2>Master Java ☕</h2>
+
+                <p>
+                    Learn Java from fundamentals to advanced concepts.
+                    Understand OOP, collections, exception handling,
+                    strings and multithreading with practical examples.
+                </p>
+
+            </div>
+
+            <div class="hero-progress">
+
+                <div class="progress-circle">
+                    <span>70%</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- LEARNING -->
+        <div class="learning-layout">
+
+            <!-- TOPICS -->
+            <div class="topic-card">
+
+                <h3>Java Topics</h3>
+
+                <input
+                    type="text"
+                    class="topic-search"
+                    id="topicSearch"
+                    placeholder="Search topic..."
+                >
+
+                <div class="topic-list" id="topicList"></div>
+
+            </div>
+
+            <!-- LESSON -->
+            <div class="lesson" id="lesson">
+
+                <div class="lesson-head">
+
+                    <div>
+                        <small id="topicCount">TOPIC 1 OF 10</small>
+                        <h2 id="lessonTitle">Java Basics</h2>
+                    </div>
+
+                    <button class="bookmark" id="bookmarkBtn">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+                <div id="lessonContent"></div>
+
+                <!-- PRACTICE -->
+                <div class="practice">
+
+                    <h3>
+                        <i class="fa-solid fa-circle-question"></i>
+                        Quick Practice
+                    </h3>
+
+                    <div class="question" id="question">
+                        What is the main method used as the starting point of a Java program?
+                    </div>
+
+                    <div class="options" id="options"></div>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="lesson-actions">
+
+                    <button class="action-btn prev-btn" onclick="previousTopic()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Previous
+                    </button>
+
+                    <button class="action-btn complete-btn" onclick="markComplete()">
+                        <i class="fa-solid fa-check"></i>
+                        Mark Complete
+                    </button>
+
+                    <button class="action-btn next-btn" onclick="nextTopic()">
+                        Next
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ================= TOPIC DATA ================= */
+
+const topicData = [
+
+{
+title:"Java Basics",
+icon:"fa-coffee",
+description:`
+Java is a high-level, object-oriented programming language.
+It is widely used for web applications, enterprise software,
+Android development and backend systems.
+`,
+points:[
+"Java is platform independent.",
+"Java follows object-oriented programming.",
+"Java programs are compiled into bytecode.",
+"JVM executes Java bytecode."
+],
+code:`
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello SkillBridge!");
+    }
+}
+`,
+output:"Hello SkillBridge!",
+question:"Which method is the starting point of a Java program?",
+options:["start()","main()","run()","execute()"],
+answer:1
+},
+
+{
+title:"OOP Concepts",
+icon:"fa-cubes",
+description:`
+Object-Oriented Programming is one of the most important
+concepts in Java. It organizes programs using classes and objects.
+`,
+points:[
+"Encapsulation",
+"Inheritance",
+"Polymorphism",
+"Abstraction"
+],
+code:`
+class Student {
+
+    String name;
+
+    void display() {
+        System.out.println("Student: " + name);
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        s.name = "Mohana";
+        s.display();
+    }
+}
+`,
+output:"Student: Mohana",
+question:"Which of these is an OOP concept?",
+options:["Compilation","Inheritance","Debugging","Parsing"],
+answer:1
+},
+
+{
+title:"Classes & Objects",
+icon:"fa-box",
+description:`
+A class is a blueprint for creating objects.
+An object is an instance of a class.
+`,
+points:[
+"Class defines properties and behaviour.",
+"Object represents a real entity.",
+"Objects are created using new.",
+"Methods define object behaviour."
+],
+code:`
+class Car {
+
+    String brand = "Toyota";
+
+    void drive() {
+        System.out.println("Car is moving");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car c = new Car();
+
+        System.out.println(c.brand);
+        c.drive();
+    }
+}
+`,
+output:`Toyota
+Car is moving`,
+question:"Which keyword is used to create an object?",
+options:["class","object","new","create"],
+answer:2
+},
+
+{
+title:"Inheritance",
+icon:"fa-sitemap",
+description:`
+Inheritance allows one class to acquire properties and methods
+from another class. It improves code reusability.
+`,
+points:[
+"Parent class is called superclass.",
+"Child class is called subclass.",
+"extends keyword is used.",
+"Inheritance supports code reuse."
+],
+code:`
+class Animal {
+
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Dog d = new Dog();
+
+        d.sound();
+        d.bark();
+    }
+}
+`,
+output:`Animal makes sound
+Dog barks`,
+question:"Which keyword is used for class inheritance?",
+options:["inherit","extends","inherits","superclass"],
+answer:1
+},
+
+{
+title:"Polymorphism",
+icon:"fa-shuffle",
+description:`
+Polymorphism means one name having multiple forms.
+Java supports compile-time and runtime polymorphism.
+`,
+points:[
+"Method overloading is compile-time polymorphism.",
+"Method overriding is runtime polymorphism.",
+"It improves flexibility.",
+"It supports reusable designs."
+],
+code:`
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+
+        System.out.println(c.add(10,20));
+        System.out.println(c.add(10,20,30));
+    }
+}
+`,
+output:`30
+60`,
+question:"Method overloading is an example of which polymorphism?",
+options:[
+"Runtime",
+"Compile-time",
+"Dynamic",
+"Multiple inheritance"
+],
+answer:1
+},
+
+{
+title:"Abstraction & Interfaces",
+icon:"fa-layer-group",
+description:`
+Abstraction hides implementation details and shows only the
+important functionality to the user.
+`,
+points:[
+"Abstract classes can contain abstract methods.",
+"Interfaces define contracts.",
+"Implementation details can be hidden.",
+"abstract and interface are important Java concepts."
+],
+code:`
+interface Vehicle {
+
+    void start();
+}
+
+class Bike implements Vehicle {
+
+    public void start() {
+        System.out.println("Bike started");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Bike b = new Bike();
+        b.start();
+    }
+}
+`,
+output:"Bike started",
+question:"Which keyword is used when a class implements an interface?",
+options:["extends","implements","interface","inherits"],
+answer:1
+},
+
+{
+title:"Exception Handling",
+icon:"fa-triangle-exclamation",
+description:`
+Exception handling allows Java programs to handle runtime errors
+without stopping the entire application unexpectedly.
+`,
+points:[
+"try contains risky code.",
+"catch handles exceptions.",
+"finally executes after try/catch.",
+"throw and throws are also used."
+],
+code:`
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+
+            int result = 10 / 0;
+            System.out.println(result);
+
+        } catch (ArithmeticException e) {
+
+            System.out.println("Cannot divide by zero");
+        }
+    }
+}
+`,
+output:"Cannot divide by zero",
+question:"Which block is used to handle an exception?",
+options:["try","catch","error","handle"],
+answer:1
+},
+
+{
+title:"Collections",
+icon:"fa-layer-group",
+description:`
+The Java Collections Framework provides classes and interfaces
+for storing and manipulating groups of objects.
+`,
+points:[
+"List stores ordered elements.",
+"Set stores unique elements.",
+"Map stores key-value pairs.",
+"ArrayList is commonly used."
+],
+code:`
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<String> names = new ArrayList<>();
+
+        names.add("Mohana");
+        names.add("Priya");
+        names.add("Kavi");
+
+        System.out.println(names);
+    }
+}
+`,
+output:"[Mohana, Priya, Kavi]",
+question:"Which collection stores unique elements?",
+options:["List","Set","ArrayList","Queue"],
+answer:1
+},
+
+{
+title:"Strings",
+icon:"fa-font",
+description:`
+String is used to represent sequences of characters.
+Java provides many useful methods for string manipulation.
+`,
+points:[
+"String objects are immutable.",
+"length() returns string length.",
+"toUpperCase() converts to uppercase.",
+"equals() compares string content."
+],
+code:`
+public class Main {
+
+    public static void main(String[] args) {
+
+        String name = "SkillBridge";
+
+        System.out.println(name.length());
+        System.out.println(name.toUpperCase());
+    }
+}
+`,
+output:`11
+SKILLBRIDGE`,
+question:"Which method returns the length of a String?",
+options:["size()","count()","length()","getLength()"],
+answer:2
+},
+
+{
+title:"Multithreading",
+icon:"fa-gears",
+description:`
+Multithreading allows multiple tasks to execute concurrently.
+It is useful for responsive and high-performance applications.
+`,
+points:[
+"Thread represents a unit of execution.",
+"Threads can run concurrently.",
+"start() begins thread execution.",
+"run() contains thread logic."
+],
+code:`
+class MyThread extends Thread {
+
+    public void run() {
+
+        System.out.println("Thread is running");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        MyThread t = new MyThread();
+
+        t.start();
+    }
+}
+`,
+output:"Thread is running",
+question:"Which method starts a Java thread?",
+options:["run()","start()","begin()","execute()"],
+answer:1
+}
+
+];
+
+let currentTopic = 0;
+let bookmarked = false;
+
+/* ================= INITIALIZE ================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+    },700);
+
+    loadTopics();
+    selectTopic(0);
+    loadTheme();
+
+});
+
+/* ================= TOPIC LIST ================= */
+
+function loadTopics(){
+
+    const list = document.getElementById("topicList");
+
+    list.innerHTML = "";
+
+    topicData.forEach((topic,index)=>{
+
+        const div = document.createElement("div");
+
+        div.className = "topic";
+
+        div.innerHTML = `
+            <span class="topic-number">${String(index+1).padStart(2,"0")}</span>
+            <span>${topic.title}</span>
+        `;
+
+        div.onclick = () => selectTopic(index);
+
+        list.appendChild(div);
+
+    });
+
+}
+
+/* ================= SELECT TOPIC ================= */
+
+function selectTopic(index){
+
+    currentTopic = index;
+
+    const topic = topicData[index];
+
+    document.querySelectorAll(".topic").forEach((item,i)=>{
+
+        item.classList.toggle("active",i===index);
+
+    });
+
+    document.getElementById("topicCount").textContent =
+        `TOPIC ${index+1} OF ${topicData.length}`;
+
+    document.getElementById("lessonTitle").textContent =
+        topic.title;
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        <p class="lesson-text">
+            ${topic.description}
+        </p>
+
+        <div class="key-box">
+
+            <h4>
+                <i class="fa-solid fa-lightbulb"></i>
+                Key Points
+            </h4>
+
+            <ul>
+                ${topic.points.map(point=>`<li>${point}</li>`).join("")}
+            </ul>
+
+        </div>
+
+        <div class="code-title">
+
+            <span>
+                <i class="fa-solid fa-code"></i>
+                Example Code
+            </span>
+
+            <button class="copy-btn" onclick="copyCode()">
+                <i class="fa-regular fa-copy"></i>
+                Copy Code
+            </button>
+
+        </div>
+
+        <pre id="codeBlock"><code>${escapeHtml(topic.code)}</code></pre>
+
+        <div class="output">
+
+            <strong>
+                <i class="fa-solid fa-terminal"></i>
+                Expected Output
+            </strong>
+
+            <p>${escapeHtml(topic.output)}</p>
+
+        </div>
+
+    `;
+
+    loadQuestion();
+
+    bookmarked = false;
+
+    document.getElementById("bookmarkBtn").classList.remove("saved");
+
+    document.getElementById("bookmarkBtn").innerHTML =
+        `<i class="fa-regular fa-bookmark"></i>`;
+
+    document.getElementById("lesson").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHtml(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+}
+
+/* ================= COPY CODE ================= */
+
+function copyCode(){
+
+    const code = topicData[currentTopic].code;
+
+    navigator.clipboard.writeText(code)
+        .then(()=>showToast("Code copied successfully! 📋"))
+        .catch(()=>showToast("Unable to copy code"));
+
+}
+
+/* ================= BOOKMARK ================= */
+
+document.getElementById("bookmarkBtn").addEventListener("click",function(){
+
+    bookmarked = !bookmarked;
+
+    this.classList.toggle("saved",bookmarked);
+
+    this.innerHTML = bookmarked
+        ? `<i class="fa-solid fa-bookmark"></i>`
+        : `<i class="fa-regular fa-bookmark"></i>`;
+
+    showToast(
+        bookmarked
+        ? "Topic bookmarked 🔖"
+        : "Bookmark removed"
+    );
+
+});
+
+/* ================= PRACTICE ================= */
+
+function loadQuestion(){
+
+    const topic = topicData[currentTopic];
+
+    document.getElementById("question").textContent =
+        topic.question;
+
+    const options = document.getElementById("options");
+
+    options.innerHTML = "";
+
+    topic.options.forEach((option,index)=>{
+
+        const btn = document.createElement("button");
+
+        btn.className = "option";
+
+        btn.textContent = option;
+
+        btn.onclick = () => checkAnswer(btn,index);
+
+        options.appendChild(btn);
+
+    });
+
+}
+
+function checkAnswer(button,index){
+
+    const topic = topicData[currentTopic];
+
+    const buttons = document.querySelectorAll(".option");
+
+    buttons.forEach(btn => btn.disabled = true);
+
+    if(index === topic.answer){
+
+        button.classList.add("correct");
+
+        showToast("Correct answer! 🎉");
+
+    }else{
+
+        button.classList.add("wrong");
+
+        buttons[topic.answer].classList.add("correct");
+
+        showToast("Not quite! Check the correct answer 💡");
+
+    }
+
+}
+
+/* ================= COMPLETE ================= */
+
+function markComplete(){
+
+    const topic = topicData[currentTopic];
+
+    showToast(`${topic.title} completed! ✅`);
+
+}
+
+/* ================= NEXT ================= */
+
+function nextTopic(){
+
+    if(currentTopic < topicData.length - 1){
+
+        selectTopic(currentTopic + 1);
+
+    }else{
+
+        showToast("🎉 You completed all Java topics!");
+
+    }
+
+}
+
+/* ================= PREVIOUS ================= */
+
+function previousTopic(){
+
+    if(currentTopic > 0){
+
+        selectTopic(currentTopic - 1);
+
+    }else{
+
+        showToast("You are already at the first topic");
+
+    }
+
+}
+
+/* ================= SEARCH ================= */
+
+document.getElementById("topicSearch").addEventListener("input",function(){
+
+    const value = this.value.toLowerCase();
+
+    document.querySelectorAll(".topic").forEach((item,index)=>{
+
+        const title = topicData[index].title.toLowerCase();
+
+        item.style.display =
+            title.includes(value) ? "flex" : "none";
+
+    });
+
+});
+
+/* ================= MOBILE MENU ================= */
+
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const menuBtn = document.getElementById("menuBtn");
+
+menuBtn.addEventListener("click",()=>{
+
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+
+});
+
+overlay.addEventListener("click",closeSidebar);
+
+function closeSidebar(){
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+}
+
+/* ================= THEME ================= */
+
+document.getElementById("themeBtn").addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+
+    localStorage.setItem("skillbridge-theme",dark ? "dark" : "light");
+
+    document.getElementById("themeBtn").innerHTML = dark
+        ? `<i class="fa-solid fa-sun"></i>`
+        : `<i class="fa-solid fa-moon"></i>`;
+
+});
+
+function loadTheme(){
+
+    const theme = localStorage.getItem("skillbridge-theme");
+
+    if(theme === "dark"){
+
+        document.body.classList.add("dark");
+
+        document.getElementById("themeBtn").innerHTML =
+            `<i class="fa-solid fa-sun"></i>`;
+
+    }
+
+}
+
+/* ================= NOTIFICATION ================= */
+
+document.getElementById("notificationBtn").addEventListener("click",()=>{
+
+    showToast("No new notifications 🔔");
+
+});
+
+/* ================= PROFILE ================= */
+
+function goProfile(){
+
+    window.location.href = "profile.html";
+
+}
+
+/* ================= TOAST ================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+/* ================= ESC KEY ================= */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Escape"){
+
+        closeSidebar();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

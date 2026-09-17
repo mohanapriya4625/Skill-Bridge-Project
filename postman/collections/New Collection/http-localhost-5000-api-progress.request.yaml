@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://localhost:5000/api/progress
+description: ""
+url: http://localhost:5000/api/progress
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"user_id\": 1,\r
+
+    \    \"category\": \"JavaScript\",\r
+
+    \    \"completed\": 1,\r
+
+    \    \"score\": 90\r
+
+    }"
+order: 1311478702184452

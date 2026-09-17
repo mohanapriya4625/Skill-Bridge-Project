@@ -1,0 +1,3462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings | SkillBridge</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff8a3d;
+
+    --navy:#12233f;
+    --navy2:#1b3154;
+
+    --bg:#f6f8fc;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#718096;
+
+    --border:#e6eaf0;
+
+    --success:#18a66a;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+
+    --shadow:0 12px 35px rgba(18,35,63,.08);
+
+    --sidebar-width:255px;
+    --topbar-height:76px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark{
+    --bg:#0d1728;
+    --card:#142238;
+    --text:#f4f7fb;
+    --muted:#9eabc0;
+    --border:#263751;
+
+    --navy:#091527;
+    --navy2:#12233c;
+
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+#loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    transition:.5s ease;
+}
+
+.loader-box{
+    text-align:center;
+    color:white;
+    animation:loaderFloat 1.5s ease infinite alternate;
+}
+
+.loader-logo{
+    width:72px;
+    height:72px;
+    margin:auto;
+    border-radius:20px;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:800;
+    box-shadow:0 0 0 10px rgba(255,107,0,.1);
+}
+
+.loader-box h3{
+    margin-top:18px;
+    font-size:18px;
+}
+
+.loader-box p{
+    margin-top:6px;
+    color:#aebbd0;
+    font-size:13px;
+}
+
+@keyframes loaderFloat{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-8px);
+    }
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:var(--sidebar-width);
+    height:100vh;
+    background:linear-gradient(180deg,var(--navy),#0d1b30);
+    color:white;
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+    transition:.35s ease;
+}
+
+.logo-area{
+    height:90px;
+    display:flex;
+    align-items:center;
+    padding:0 22px;
+    gap:12px;
+}
+
+.logo-icon{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:17px;
+    box-shadow:0 8px 20px rgba(255,107,0,.25);
+}
+
+.logo-text h2{
+    font-size:19px;
+    font-weight:800;
+}
+
+.logo-text span{
+    display:block;
+    font-size:10px;
+    color:#91a1ba;
+    margin-top:2px;
+}
+
+
+/* NAVIGATION */
+
+.nav{
+    padding:10px 14px;
+    flex:1;
+    overflow-y:auto;
+}
+
+.nav-title{
+    color:#687a96;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    padding:15px 12px 8px;
+    font-weight:700;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px 13px;
+    margin:4px 0;
+    border-radius:10px;
+    color:#b9c5d8;
+    font-size:13px;
+    font-weight:500;
+    transition:.25s ease;
+}
+
+.nav a i{
+    width:20px;
+    text-align:center;
+    font-size:15px;
+}
+
+.nav a:hover{
+    color:white;
+    background:rgba(255,255,255,.07);
+    transform:translateX(4px);
+}
+
+.nav a.active{
+    color:white;
+    background:linear-gradient(
+        90deg,
+        rgba(255,107,0,.22),
+        rgba(255,107,0,.07)
+    );
+    border-left:3px solid var(--orange);
+}
+
+.nav a.active i{
+    color:var(--orange);
+}
+
+
+/* SIDEBAR BOTTOM */
+
+.sidebar-bottom{
+    padding:15px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.mini-profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border-radius:12px;
+    transition:.25s;
+}
+
+.mini-profile:hover{
+    background:rgba(255,255,255,.06);
+}
+
+.avatar{
+    width:39px;
+    height:39px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:13px;
+}
+
+.mini-profile-info{
+    flex:1;
+    min-width:0;
+}
+
+.mini-profile-info strong{
+    display:block;
+    font-size:12px;
+    color:white;
+}
+
+.mini-profile-info span{
+    display:block;
+    color:#8393aa;
+    font-size:10px;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:900;
+    display:none;
+}
+
+.overlay.show{
+    display:block;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:var(--sidebar-width);
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+    height:var(--topbar-height);
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:500;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    backdrop-filter:blur(15px);
+}
+
+.topbar-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.mobile-menu{
+    display:none;
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:10px;
+    color:var(--text);
+}
+
+.page-title h1{
+    font-size:20px;
+    font-weight:800;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.icon-btn{
+    width:39px;
+    height:39px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.25s;
+    position:relative;
+}
+
+.icon-btn:hover{
+    color:var(--orange);
+    border-color:rgba(255,107,0,.4);
+    transform:translateY(-2px);
+}
+
+.notification-dot{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:6px;
+    height:6px;
+    background:var(--orange);
+    border-radius:50%;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+    padding:30px;
+    max-width:1250px;
+    margin:auto;
+}
+
+
+/* =========================================================
+   SETTINGS HEADER
+========================================================= */
+
+.settings-hero{
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(255,107,0,.2),
+            transparent 35%
+        ),
+        linear-gradient(135deg,var(--navy),var(--navy2));
+
+    color:white;
+    border-radius:22px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:25px;
+    box-shadow:var(--shadow);
+    animation:fadeUp .7s ease both;
+}
+
+.settings-hero::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    right:-80px;
+    bottom:-100px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-content .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,107,0,.15);
+    color:#ffb07d;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:13px;
+}
+
+.hero-content h2{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.hero-content p{
+    color:#b7c4d8;
+    font-size:13px;
+    max-width:650px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   SETTINGS LAYOUT
+========================================================= */
+
+.settings-layout{
+    display:grid;
+    grid-template-columns:230px 1fr;
+    gap:22px;
+}
+
+
+/* =========================================================
+   SETTINGS MENU
+========================================================= */
+
+.settings-menu{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:10px;
+    height:max-content;
+    box-shadow:var(--shadow);
+    position:sticky;
+    top:100px;
+    animation:fadeUp .7s ease .1s both;
+}
+
+.settings-menu button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:12px;
+    border-radius:10px;
+    text-align:left;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:4px;
+    transition:.25s;
+}
+
+.settings-menu button i{
+    width:20px;
+    text-align:center;
+}
+
+.settings-menu button:hover{
+    background:rgba(255,107,0,.07);
+    color:var(--orange);
+    transform:translateX(3px);
+}
+
+.settings-menu button.active{
+    background:rgba(255,107,0,.11);
+    color:var(--orange);
+}
+
+.settings-menu button.danger{
+    color:var(--danger);
+}
+
+.settings-menu button.danger:hover{
+    background:rgba(239,68,68,.08);
+}
+
+
+/* =========================================================
+   SETTINGS CONTENT
+========================================================= */
+
+.settings-content{
+    min-width:0;
+}
+
+.settings-section{
+    display:none;
+    animation:fadeUp .4s ease both;
+}
+
+.settings-section.active{
+    display:block;
+}
+
+.section-heading{
+    margin-bottom:16px;
+}
+
+.section-heading h3{
+    font-size:18px;
+    font-weight:800;
+}
+
+.section-heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.card-title h4{
+    font-size:14px;
+    font-weight:800;
+}
+
+.card-title p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    border-radius:10px;
+    padding:11px 12px;
+    font-size:12px;
+    outline:none;
+    transition:.25s;
+}
+
+.form-group textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--orange);
+    box-shadow:0 0 0 3px rgba(255,107,0,.08);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn-row{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    font-size:11px;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:white;
+    box-shadow:0 8px 18px rgba(255,107,0,.2);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(255,107,0,.28);
+}
+
+.btn-secondary{
+    background:var(--bg);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.btn-secondary:hover{
+    border-color:var(--orange);
+    color:var(--orange);
+}
+
+.btn-danger{
+    background:rgba(239,68,68,.1);
+    color:var(--danger);
+}
+
+.btn-danger:hover{
+    background:var(--danger);
+    color:white;
+}
+
+
+/* =========================================================
+   TOGGLE ROW
+========================================================= */
+
+.option-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.option-row:last-child{
+    border-bottom:0;
+    padding-bottom:0;
+}
+
+.option-info{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    min-width:0;
+}
+
+.option-icon{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:rgba(255,107,0,.09);
+    color:var(--orange);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.option-text strong{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+}
+
+.option-text span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.5;
+    margin-top:3px;
+}
+
+
+/* TOGGLE */
+
+.switch{
+    position:relative;
+    width:45px;
+    height:24px;
+    flex-shrink:0;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#cbd3df;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.slider::before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:3px;
+    top:3px;
+    background:white;
+    border-radius:50%;
+    transition:.3s;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+
+.switch input:checked + .slider{
+    background:var(--orange);
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(21px);
+}
+
+
+/* =========================================================
+   THEME CARDS
+========================================================= */
+
+.theme-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.theme-card{
+    border:2px solid var(--border);
+    border-radius:13px;
+    padding:14px;
+    cursor:pointer;
+    transition:.25s;
+    background:var(--bg);
+}
+
+.theme-card:hover{
+    transform:translateY(-3px);
+    border-color:var(--orange);
+}
+
+.theme-card.active{
+    border-color:var(--orange);
+    box-shadow:0 0 0 3px rgba(255,107,0,.08);
+}
+
+.theme-preview{
+    height:70px;
+    border-radius:9px;
+    margin-bottom:10px;
+    position:relative;
+    overflow:hidden;
+}
+
+.preview-light{
+    background:#f5f7fb;
+    border:1px solid #ddd;
+}
+
+.preview-dark{
+    background:#101c2e;
+}
+
+.preview-system{
+    background:linear-gradient(90deg,#f5f7fb 50%,#101c2e 50%);
+}
+
+.preview-sidebar{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:25%;
+    background:#12233f;
+}
+
+.preview-content{
+    position:absolute;
+    left:32%;
+    top:15px;
+    right:10%;
+}
+
+.preview-line{
+    height:5px;
+    border-radius:5px;
+    background:var(--orange);
+    margin-bottom:7px;
+}
+
+.preview-line.small{
+    width:60%;
+    background:#aeb8c8;
+}
+
+.theme-card strong{
+    display:block;
+    font-size:11px;
+}
+
+.theme-card span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.security-item:last-child{
+    border-bottom:0;
+}
+
+.security-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.security-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:rgba(24,166,106,.1);
+    color:var(--success);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.security-left strong{
+    display:block;
+    font-size:12px;
+}
+
+.security-left span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:6px 9px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.badge-success{
+    color:var(--success);
+    background:rgba(24,166,106,.1);
+}
+
+.badge-warning{
+    color:var(--warning);
+    background:rgba(245,158,11,.1);
+}
+
+
+/* =========================================================
+   DANGER ZONE
+========================================================= */
+
+.danger-zone{
+    border:1px solid rgba(239,68,68,.25);
+    background:rgba(239,68,68,.035);
+}
+
+.danger-zone .card-title h4{
+    color:var(--danger);
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-container{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:5000;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.toast{
+    min-width:260px;
+    max-width:350px;
+    background:var(--card);
+    border:1px solid var(--border);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    border-radius:12px;
+    padding:13px 15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    animation:toastIn .4s ease both;
+}
+
+.toast i{
+    color:var(--success);
+}
+
+.toast span{
+    font-size:11px;
+    color:var(--text);
+}
+
+@keyframes toastIn{
+    from{
+        opacity:0;
+        transform:translateX(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(4,12,25,.65);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:4000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:430px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+    animation:modalIn .35s ease both;
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.modal-header h3{
+    font-size:17px;
+}
+
+.close-modal{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:9px;
+    background:var(--bg);
+    color:var(--muted);
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:scale(.94) translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:10px;
+    padding:25px 0 10px;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    :root{
+        --sidebar-width:255px;
+    }
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .settings-layout{
+        grid-template-columns:200px 1fr;
+    }
+}
+
+
+@media(max-width:750px){
+
+    .content{
+        padding:20px;
+    }
+
+    .topbar{
+        padding:0 18px;
+    }
+
+    .page-title h1{
+        font-size:17px;
+    }
+
+    .page-title p{
+        display:none;
+    }
+
+    .settings-layout{
+        grid-template-columns:1fr;
+    }
+
+    .settings-menu{
+        position:static;
+        display:flex;
+        overflow-x:auto;
+        gap:5px;
+        padding:8px;
+    }
+
+    .settings-menu button{
+        width:auto;
+        white-space:nowrap;
+        margin:0;
+    }
+
+    .settings-menu button span{
+        display:none;
+    }
+
+    .settings-menu button i{
+        width:auto;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .theme-options{
+        grid-template-columns:1fr;
+    }
+
+    .settings-hero{
+        padding:24px;
+    }
+
+    .hero-content h2{
+        font-size:22px;
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .content{
+        padding:15px;
+    }
+
+    .topbar{
+        height:68px;
+    }
+
+    .top-actions .icon-btn:nth-child(2){
+        display:none;
+    }
+
+    .settings-hero{
+        border-radius:17px;
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+
+    .security-item{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .option-row{
+        align-items:flex-start;
+    }
+
+    .toast-container{
+        left:15px;
+        right:15px;
+        bottom:15px;
+    }
+
+    .toast{
+        min-width:0;
+        width:100%;
+    }
+
+}
+
+
+/* Reduced Motion */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+        scroll-behavior:auto!important;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div id="loader">
+
+    <div class="loader-box">
+
+        <div class="loader-logo">
+            SB
+        </div>
+
+        <h3>SkillBridge</h3>
+
+        <p>Loading your settings...</p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MOBILE OVERLAY
+========================================================= -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-area">
+
+        <div class="logo-icon">
+            SB
+        </div>
+
+        <div class="logo-text">
+
+            <h2>SkillBridge</h2>
+
+            <span>LEARN • PRACTICE • GROW</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <div class="nav-title">
+            Main Menu
+        </div>
+
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="study-material.html">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Study Material</span>
+        </a>
+
+        <a href="aptitude.html">
+            <i class="fa-solid fa-brain"></i>
+            <span>Aptitude</span>
+        </a>
+
+        <a href="coding.html">
+            <i class="fa-solid fa-code"></i>
+            <span>Coding Practice</span>
+        </a>
+
+        <a href="progress.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>My Progress</span>
+        </a>
+
+
+        <div class="nav-title">
+            Account
+        </div>
+
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>My Profile</span>
+        </a>
+
+        <a href="settings.html" class="active">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="mini-profile">
+
+            <div class="avatar">
+                MP
+            </div>
+
+            <div class="mini-profile-info">
+
+                <strong id="sideName">
+                    Mohana
+                </strong>
+
+                <span>
+                    Full Stack Learner
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-ellipsis"
+               style="color:#72829b;font-size:12px;"></i>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>Settings</h1>
+
+                <p>
+                    Customize your SkillBridge experience
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button class="icon-btn"
+                    onclick="showToast('No new notifications')">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+            <button class="icon-btn"
+                    onclick="toggleTheme()"
+                    id="topThemeBtn">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+
+            <button class="icon-btn"
+                    onclick="location.href='profile.html'">
+
+                <i class="fa-regular fa-user"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- SETTINGS HERO -->
+
+        <section class="settings-hero">
+
+            <div class="hero-content">
+
+                <div class="tag">
+                    <i class="fa-solid fa-sliders"></i>
+                    PERSONAL SETTINGS
+                </div>
+
+                <h2>Make SkillBridge Yours ⚙️</h2>
+
+                <p>
+                    Manage your profile, appearance, notifications,
+                    learning preferences and security settings from one place.
+                    Customize your learning experience exactly the way you like.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS LAYOUT -->
+
+        <div class="settings-layout">
+
+
+            <!-- SETTINGS MENU -->
+
+            <aside class="settings-menu">
+
+                <button class="active"
+                        onclick="openSection('account',this)">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <span>Account</span>
+
+                </button>
+
+
+                <button onclick="openSection('appearance',this)">
+
+                    <i class="fa-solid fa-palette"></i>
+
+                    <span>Appearance</span>
+
+                </button>
+
+
+                <button onclick="openSection('notifications',this)">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span>Notifications</span>
+
+                </button>
+
+
+                <button onclick="openSection('learning',this)">
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    <span>Learning</span>
+
+                </button>
+
+
+                <button onclick="openSection('privacy',this)">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>Privacy & Security</span>
+
+                </button>
+
+
+                <button onclick="openSection('danger',this)"
+                        class="danger">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <span>Danger Zone</span>
+
+                </button>
+
+            </aside>
+
+
+            <!-- SETTINGS CONTENT -->
+
+            <div class="settings-content">
+
+
+                <!-- =================================================
+                     ACCOUNT
+                ================================================= -->
+
+                <section class="settings-section active"
+                         id="account">
+
+                    <div class="section-heading">
+
+                        <h3>Account Settings</h3>
+
+                        <p>
+                            Manage your personal information and account preferences.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+                                <h4>Personal Information</h4>
+                                <p>Keep your profile information updated.</p>
+                            </div>
+
+                            <i class="fa-solid fa-user-pen"
+                               style="color:var(--orange);"></i>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Full Name</label>
+
+                                <input type="text"
+                                       id="fullName"
+                                       value="Mohana">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Username</label>
+
+                                <input type="text"
+                                       value="mohana_dev">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Email Address</label>
+
+                                <input type="email"
+                                       value="mohana@example.com">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Phone Number</label>
+
+                                <input type="text"
+                                       value="+91 XXXXX XXXXX">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Education</label>
+
+                                <select>
+
+                                    <option selected>
+                                        MCA – 2nd Year
+                                    </option>
+
+                                    <option>
+                                        MCA – 1st Year
+                                    </option>
+
+                                    <option>
+                                        BCA
+                                    </option>
+
+                                    <option>
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Career Goal</label>
+
+                                <select>
+
+                                    <option selected>
+                                        Full Stack Developer
+                                    </option>
+
+                                    <option>
+                                        Java Developer
+                                    </option>
+
+                                    <option>
+                                        Software Engineer
+                                    </option>
+
+                                    <option>
+                                        Backend Developer
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>About Me</label>
+
+                                <textarea>Passionate learner building skills in Full Stack Development, Java, MySQL, DSA and aptitude.</textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="btn-row">
+
+                            <button class="btn btn-primary"
+                                    onclick="saveAccount()">
+
+                                <i class="fa-solid fa-check"></i>
+
+                                Save Changes
+
+                            </button>
+
+                            <button class="btn btn-secondary"
+                                    onclick="location.href='profile.html'">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                View Profile
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Language</h4>
+
+                                <p>
+                                    Choose the language used throughout the platform.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-language"
+                               style="color:var(--orange);"></i>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Preferred Language</label>
+
+                            <select id="languageSelect"
+                                    onchange="changeLanguage()">
+
+                                <option value="english">
+                                    English
+                                </option>
+
+                                <option value="simple">
+                                    Simple English
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     APPEARANCE
+                ================================================= -->
+
+                <section class="settings-section"
+                         id="appearance">
+
+                    <div class="section-heading">
+
+                        <h3>Appearance</h3>
+
+                        <p>
+                            Change how SkillBridge looks on your device.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Theme</h4>
+
+                                <p>
+                                    Select your preferred appearance.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-wand-magic-sparkles"
+                               style="color:var(--orange);"></i>
+
+                        </div>
+
+
+                        <div class="theme-options">
+
+
+                            <div class="theme-card active"
+                                 id="lightTheme"
+                                 onclick="setTheme('light')">
+
+                                <div class="theme-preview preview-light">
+
+                                    <div class="preview-sidebar"></div>
+
+                                    <div class="preview-content">
+
+                                        <div class="preview-line"></div>
+                                        <div class="preview-line small"></div>
+
+                                    </div>
+
+                                </div>
+
+                                <strong>Light Mode</strong>
+
+                                <span>
+                                    Clean and bright
+                                </span>
+
+                            </div>
+
+
+                            <div class="theme-card"
+                                 id="darkTheme"
+                                 onclick="setTheme('dark')">
+
+                                <div class="theme-preview preview-dark">
+
+                                    <div class="preview-sidebar"></div>
+
+                                    <div class="preview-content">
+
+                                        <div class="preview-line"></div>
+                                        <div class="preview-line small"></div>
+
+                                    </div>
+
+                                </div>
+
+                                <strong>Dark Mode</strong>
+
+                                <span>
+                                    Comfortable at night
+                                </span>
+
+                            </div>
+
+
+                            <div class="theme-card"
+                                 id="systemTheme"
+                                 onclick="setTheme('system')">
+
+                                <div class="theme-preview preview-system">
+
+                                    <div class="preview-sidebar"></div>
+
+                                    <div class="preview-content">
+
+                                        <div class="preview-line"></div>
+                                        <div class="preview-line small"></div>
+
+                                    </div>
+
+                                </div>
+
+                                <strong>System Default</strong>
+
+                                <span>
+                                    Follow device setting
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Interface</h4>
+
+                                <p>
+                                    Additional visual preferences.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+                                    <i class="fa-solid fa-expand"></i>
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Compact Layout</strong>
+
+                                    <span>
+                                        Reduce spacing between cards and sections.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       id="compactToggle">
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Animations</strong>
+
+                                    <span>
+                                        Show smooth page and card animations.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       id="animationToggle"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     NOTIFICATIONS
+                ================================================= -->
+
+                <section class="settings-section"
+                         id="notifications">
+
+                    <div class="section-heading">
+
+                        <h3>Notifications</h3>
+
+                        <p>
+                            Decide which updates you want to receive.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-bullhorn"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Learning Reminders</strong>
+
+                                    <span>
+                                        Get reminders to continue your learning journey.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       id="learningReminder"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-trophy"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Achievement Alerts</strong>
+
+                                    <span>
+                                        Receive notifications when you unlock achievements.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-book"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>New Study Materials</strong>
+
+                                    <span>
+                                        Get notified about newly added learning content.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-envelope"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Email Notifications</strong>
+
+                                    <span>
+                                        Receive important SkillBridge updates by email.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="btn-row">
+
+                            <button class="btn btn-primary"
+                                    onclick="saveNotifications()">
+
+                                <i class="fa-solid fa-check"></i>
+
+                                Save Preferences
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     LEARNING
+                ================================================= -->
+
+                <section class="settings-section"
+                         id="learning">
+
+                    <div class="section-heading">
+
+                        <h3>Learning Preferences</h3>
+
+                        <p>
+                            Customize your study routine and learning experience.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Study Preferences</h4>
+
+                                <p>
+                                    SkillBridge will use these preferences to improve your experience.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-graduation-cap"
+                               style="color:var(--orange);"></i>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Daily Learning Goal</label>
+
+                                <select id="dailyGoal">
+
+                                    <option>30 Minutes</option>
+
+                                    <option selected>
+                                        1 Hour
+                                    </option>
+
+                                    <option>
+                                        2 Hours
+                                    </option>
+
+                                    <option>
+                                        3 Hours
+                                    </option>
+
+                                    <option>
+                                        4+ Hours
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Preferred Difficulty</label>
+
+                                <select>
+
+                                    <option>
+                                        Beginner
+                                    </option>
+
+                                    <option selected>
+                                        Intermediate
+                                    </option>
+
+                                    <option>
+                                        Advanced
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Primary Learning Path</label>
+
+                                <select>
+
+                                    <option selected>
+                                        Full Stack Development
+                                    </option>
+
+                                    <option>
+                                        Java Development
+                                    </option>
+
+                                    <option>
+                                        Aptitude & Reasoning
+                                    </option>
+
+                                    <option>
+                                        Database Development
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Practice Preference</label>
+
+                                <select>
+
+                                    <option selected>
+                                        Questions + Coding
+                                    </option>
+
+                                    <option>
+                                        Theory First
+                                    </option>
+
+                                    <option>
+                                        Projects First
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="btn-row">
+
+                            <button class="btn btn-primary"
+                                    onclick="saveLearning()">
+
+                                <i class="fa-solid fa-floppy-disk"></i>
+
+                                Save Learning Preferences
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-fire"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Maintain Learning Streak</strong>
+
+                                    <span>
+                                        Show daily streak reminders and progress.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-chart-simple"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Progress Suggestions</strong>
+
+                                    <span>
+                                        Suggest topics based on your learning progress.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     PRIVACY
+                ================================================= -->
+
+                <section class="settings-section"
+                         id="privacy">
+
+                    <div class="section-heading">
+
+                        <h3>Privacy & Security</h3>
+
+                        <p>
+                            Keep your account secure and control your privacy.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Account Security</h4>
+
+                                <p>
+                                    Review important security settings.
+                                </p>
+
+                            </div>
+
+                            <span class="badge badge-success">
+
+                                <i class="fa-solid fa-shield-check"></i>
+
+                                Protected
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <div class="security-icon">
+
+                                    <i class="fa-solid fa-envelope-circle-check"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Email Verification</strong>
+
+                                    <span>
+                                        Your email address is verified.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="badge badge-success">
+                                Verified
+                            </span>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <div class="security-icon">
+
+                                    <i class="fa-solid fa-key"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Password</strong>
+
+                                    <span>
+                                        Change your account password regularly.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-secondary"
+                                    onclick="openPasswordModal()">
+
+                                Change
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <div class="security-icon">
+
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Active Sessions</strong>
+
+                                    <span>
+                                        Manage devices currently signed into your account.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-secondary"
+                                    onclick="showToast('Session manager opened')">
+
+                                Manage
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <div class="security-icon">
+
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Login Activity</strong>
+
+                                    <span>
+                                        Last login: Today • Chrome • Windows
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="badge badge-success">
+                                Active
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Privacy Preferences</h4>
+
+                                <p>
+                                    Control how your learning information is used.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-chart-pie"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Learning Analytics</strong>
+
+                                    <span>
+                                        Allow SkillBridge to use your learning activity
+                                        to show progress insights.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox"
+                                       checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-row">
+
+                            <div class="option-info">
+
+                                <div class="option-icon">
+
+                                    <i class="fa-solid fa-user-group"></i>
+
+                                </div>
+
+                                <div class="option-text">
+
+                                    <strong>Public Profile</strong>
+
+                                    <span>
+                                        Allow other learners to see your basic profile.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox">
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     DANGER
+                ================================================= -->
+
+                <section class="settings-section"
+                         id="danger">
+
+                    <div class="section-heading">
+
+                        <h3>Danger Zone</h3>
+
+                        <p>
+                            These actions can affect your account and saved preferences.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card danger-zone">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Reset Settings</h4>
+
+                                <p>
+                                    Restore SkillBridge settings to their default values.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-rotate-left"
+                               style="color:var(--danger);"></i>
+
+                        </div>
+
+
+                        <button class="btn btn-danger"
+                                onclick="resetSettings()">
+
+                            <i class="fa-solid fa-arrow-rotate-left"></i>
+
+                            Reset Settings
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="card danger-zone">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Sign Out</h4>
+
+                                <p>
+                                    Sign out from your current SkillBridge session.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-right-from-bracket"
+                               style="color:var(--danger);"></i>
+
+                        </div>
+
+
+                        <button class="btn btn-danger"
+                                onclick="logoutUser()">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+
+                            Sign Out
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="card danger-zone">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h4>Delete Account</h4>
+
+                                <p>
+                                    Permanently delete your SkillBridge account.
+                                    This action cannot be undone.
+                                </p>
+
+                            </div>
+
+                            <i class="fa-solid fa-trash"
+                               style="color:var(--danger);"></i>
+
+                        </div>
+
+
+                        <button class="btn btn-danger"
+                                onclick="deleteAccount()">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete Account
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            © 2026 SkillBridge • Learn. Practice. Grow.
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     PASSWORD MODAL
+========================================================= -->
+
+<div class="modal" id="passwordModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>Change Password</h3>
+
+            <button class="close-modal"
+                    onclick="closePasswordModal()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Current Password</label>
+
+            <input type="password"
+                   id="currentPassword"
+                   placeholder="Enter current password">
+
+        </div>
+
+
+        <br>
+
+
+        <div class="form-group">
+
+            <label>New Password</label>
+
+            <input type="password"
+                   id="newPassword"
+                   placeholder="Enter new password">
+
+        </div>
+
+
+        <br>
+
+
+        <div class="form-group">
+
+            <label>Confirm New Password</label>
+
+            <input type="password"
+                   id="confirmPassword"
+                   placeholder="Confirm new password">
+
+        </div>
+
+
+        <div class="btn-row">
+
+            <button class="btn btn-primary"
+                    onclick="changePassword()">
+
+                <i class="fa-solid fa-key"></i>
+
+                Update Password
+
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="closePasswordModal()">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div class="toast-container" id="toastContainer"></div>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load",function(){
+
+    setTimeout(function(){
+
+        document.getElementById("loader").style.opacity="0";
+
+        setTimeout(function(){
+
+            document.getElementById("loader").style.display="none";
+
+        },500);
+
+    },650);
+
+});
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+const sidebar=document.getElementById("sidebar");
+const overlay=document.getElementById("overlay");
+const mobileMenu=document.getElementById("mobileMenu");
+
+mobileMenu.addEventListener("click",function(){
+
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+
+});
+
+overlay.addEventListener("click",function(){
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+});
+
+
+/* =========================================================
+   SETTINGS SECTION
+========================================================= */
+
+function openSection(sectionId,button){
+
+    document.querySelectorAll(".settings-section")
+        .forEach(section=>{
+            section.classList.remove("active");
+        });
+
+    document.querySelectorAll(".settings-menu button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+    document.getElementById(sectionId)
+        .classList.add("active");
+
+    button.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message,icon="fa-circle-check"){
+
+    const container=document.getElementById("toastContainer");
+
+    const toast=document.createElement("div");
+
+    toast.className="toast";
+
+    toast.innerHTML=`
+        <i class="fa-solid ${icon}"></i>
+        <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(()=>{
+
+        toast.style.opacity="0";
+        toast.style.transform="translateX(30px)";
+
+        setTimeout(()=>toast.remove(),350);
+
+    },2800);
+
+}
+
+
+/* =========================================================
+   ACCOUNT SAVE
+========================================================= */
+
+function saveAccount(){
+
+    const name=document.getElementById("fullName").value.trim();
+
+    if(!name){
+
+        showToast(
+            "Please enter your name.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+    }
+
+    localStorage.setItem("sbUserName",name);
+
+    document.getElementById("sideName").textContent=name;
+
+    showToast("Account information saved successfully!");
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function changeLanguage(){
+
+    const value=document.getElementById("languageSelect").value;
+
+    if(value==="simple"){
+
+        showToast("Simple English preference selected.");
+
+    }else{
+
+        showToast("English language selected.");
+
+    }
+
+    localStorage.setItem("sbLanguage",value);
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function setTheme(theme){
+
+    localStorage.setItem("sbTheme",theme);
+
+    const darkTheme=document.getElementById("darkTheme");
+    const lightTheme=document.getElementById("lightTheme");
+    const systemTheme=document.getElementById("systemTheme");
+
+    lightTheme.classList.remove("active");
+    darkTheme.classList.remove("active");
+    systemTheme.classList.remove("active");
+
+
+    if(theme==="dark"){
+
+        document.body.classList.add("dark");
+
+        darkTheme.classList.add("active");
+
+        updateThemeIcon(true);
+
+        showToast("Dark mode enabled.");
+
+    }
+
+
+    else if(theme==="light"){
+
+        document.body.classList.remove("dark");
+
+        lightTheme.classList.add("active");
+
+        updateThemeIcon(false);
+
+        showToast("Light mode enabled.");
+
+    }
+
+
+    else{
+
+        systemTheme.classList.add("active");
+
+        const systemDark=
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        document.body.classList.toggle("dark",systemDark);
+
+        updateThemeIcon(systemDark);
+
+        showToast("System theme selected.");
+
+    }
+
+}
+
+
+function updateThemeIcon(isDark){
+
+    const button=document.getElementById("topThemeBtn");
+
+    button.innerHTML=isDark
+        ? `<i class="fa-solid fa-sun"></i>`
+        : `<i class="fa-solid fa-moon"></i>`;
+
+}
+
+
+function toggleTheme(){
+
+    const isDark=document.body.classList.contains("dark");
+
+    setTheme(isDark?"light":"dark");
+
+}
+
+
+/* =========================================================
+   LOAD THEME
+========================================================= */
+
+(function(){
+
+    const savedTheme=localStorage.getItem("sbTheme") || "light";
+
+    if(savedTheme==="dark"){
+
+        document.body.classList.add("dark");
+
+        document.getElementById("darkTheme")
+            .classList.add("active");
+
+        document.getElementById("lightTheme")
+            .classList.remove("active");
+
+    }
+
+    else if(savedTheme==="system"){
+
+        const systemDark=
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        document.body.classList.toggle("dark",systemDark);
+
+        document.getElementById("systemTheme")
+            .classList.add("active");
+
+        document.getElementById("lightTheme")
+            .classList.remove("active");
+
+    }
+
+
+    const savedName=localStorage.getItem("sbUserName");
+
+    if(savedName){
+
+        document.getElementById("fullName").value=savedName;
+
+        document.getElementById("sideName").textContent=savedName;
+
+    }
+
+})();
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function saveNotifications(){
+
+    showToast(
+        "Notification preferences saved successfully!"
+    );
+
+}
+
+
+/* =========================================================
+   LEARNING
+========================================================= */
+
+function saveLearning(){
+
+    const goal=document.getElementById("dailyGoal").value;
+
+    localStorage.setItem("sbDailyGoal",goal);
+
+    showToast(
+        "Learning preferences updated!"
+    );
+
+}
+
+
+/* =========================================================
+   PASSWORD MODAL
+========================================================= */
+
+function openPasswordModal(){
+
+    document
+        .getElementById("passwordModal")
+        .classList.add("show");
+
+}
+
+
+function closePasswordModal(){
+
+    document
+        .getElementById("passwordModal")
+        .classList.remove("show");
+
+}
+
+
+function changePassword(){
+
+    const current=
+        document.getElementById("currentPassword").value;
+
+    const newPassword=
+        document.getElementById("newPassword").value;
+
+    const confirm=
+        document.getElementById("confirmPassword").value;
+
+
+    if(!current || !newPassword || !confirm){
+
+        showToast(
+            "Please fill all password fields.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    if(newPassword.length<6){
+
+        showToast(
+            "New password must contain at least 6 characters.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    if(newPassword!==confirm){
+
+        showToast(
+            "Passwords do not match.",
+            "fa-circle-exclamation"
+        );
+
+        return;
+
+    }
+
+
+    closePasswordModal();
+
+    document.getElementById("currentPassword").value="";
+    document.getElementById("newPassword").value="";
+    document.getElementById("confirmPassword").value="";
+
+    showToast(
+        "Password updated successfully!"
+    );
+
+}
+
+
+/* =========================================================
+   RESET SETTINGS
+========================================================= */
+
+function resetSettings(){
+
+    const confirmReset=
+        confirm(
+            "Are you sure you want to reset all SkillBridge settings?"
+        );
+
+    if(!confirmReset) return;
+
+    localStorage.removeItem("sbTheme");
+    localStorage.removeItem("sbUserName");
+    localStorage.removeItem("sbLanguage");
+    localStorage.removeItem("sbDailyGoal");
+
+    document.body.classList.remove("dark");
+
+    document.getElementById("lightTheme")
+        .classList.add("active");
+
+    document.getElementById("darkTheme")
+        .classList.remove("active");
+
+    document.getElementById("systemTheme")
+        .classList.remove("active");
+
+    updateThemeIcon(false);
+
+    showToast(
+        "Settings restored to default."
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutUser(){
+
+    const confirmLogout=
+        confirm(
+            "Are you sure you want to sign out?"
+        );
+
+    if(!confirmLogout) return;
+
+    showToast("Signing you out...");
+
+    setTimeout(()=>{
+
+        window.location.href="login.html";
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   DELETE ACCOUNT
+========================================================= */
+
+function deleteAccount(){
+
+    const confirmDelete=
+        confirm(
+            "Delete your account permanently? This action cannot be undone."
+        );
+
+    if(!confirmDelete) return;
+
+    showToast(
+        "Account deletion request submitted.",
+        "fa-triangle-exclamation"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener("keydown",function(e){
+
+    if(e.key==="Escape"){
+
+        sidebar.classList.remove("open");
+        overlay.classList.remove("show");
+
+        closePasswordModal();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials | SkillBridge</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* ================================
+           ROOT VARIABLES
+        ================================= */
+
+        :root {
+            --primary: #ff6b00;
+            --primary-light: #fff1e6;
+            --primary-dark: #e85d00;
+
+            --navy: #12233f;
+            --navy-2: #1b3155;
+
+            --white: #ffffff;
+            --bg: #f5f7fb;
+            --card: #ffffff;
+
+            --text: #172033;
+            --muted: #7b8497;
+            --border: #e7eaf0;
+
+            --success: #20b26b;
+            --success-light: #e8f9f0;
+
+            --danger: #ef4444;
+            --warning: #f59e0b;
+
+            --shadow: 0 10px 30px rgba(18, 35, 63, 0.08);
+            --shadow-hover: 0 18px 40px rgba(18, 35, 63, 0.14);
+
+            --sidebar-width: 260px;
+
+            --transition: all 0.3s ease;
+        }
+
+        /* DARK MODE */
+
+        body.dark {
+            --bg: #0e1625;
+            --card: #162235;
+            --white: #162235;
+
+            --text: #f4f7fb;
+            --muted: #9da9bb;
+            --border: #29374c;
+
+            --primary-light: #3b281d;
+
+            --navy: #0a1220;
+            --navy-2: #15253e;
+
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            --shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ================================
+           LOADER
+        ================================= */
+
+        .loader-wrapper {
+            position: fixed;
+            inset: 0;
+            background: var(--navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-wrapper.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            width: 75px;
+            height: 75px;
+            border-radius: 22px;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 27px;
+            font-weight: 800;
+            animation: loaderPulse 1.2s infinite;
+        }
+
+        @keyframes loaderPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.5);
+            }
+
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 18px rgba(255, 107, 0, 0);
+            }
+        }
+
+        /* ================================
+           SIDEBAR
+        ================================= */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--navy);
+            color: white;
+            padding: 25px 15px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 10px 30px;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        .nav-title {
+            color: #8d9ab0;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 15px;
+            margin-top: 5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 5px 0;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 15px;
+            border-radius: 12px;
+            color: #aeb9ca;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-menu a i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(255, 107, 0, 0.15);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .nav-menu a.active {
+            background: var(--primary);
+        }
+
+        .sidebar-bottom {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        /* ================================
+           TOPBAR
+        ================================= */
+
+        .topbar {
+            height: 78px;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 12px;
+            font-size: 18px;
+        }
+
+        .page-heading h1 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .page-heading p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Search */
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 250px;
+            height: 42px;
+            padding: 0 42px 0 16px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            border-radius: 12px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.10);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+        }
+
+        /* Theme */
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Profile */
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .profile:hover {
+            background: var(--bg);
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #ff9d52);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .profile-info span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* ================================
+           CONTENT
+        ================================= */
+
+        .content {
+            padding: 30px 35px 50px;
+        }
+
+        /* Hero */
+
+        .materials-hero {
+            background: linear-gradient(135deg, #12233f, #1f3b65);
+            border-radius: 24px;
+            padding: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .materials-hero::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,107,0,0.15);
+            right: -70px;
+            top: -80px;
+        }
+
+        .materials-hero::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            right: 150px;
+            bottom: -70px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        .hero-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 30px;
+            font-size: 11px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            color: #cbd5e4;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* ================================
+           FILTERS
+        ================================= */
+
+        .filter-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .material-count {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ================================
+           SECTION TITLE
+        ================================= */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-header h3 {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* ================================
+           MATERIAL CARDS
+        ================================= */
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .material-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .material-card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(255,107,0,0.25);
+        }
+
+        .material-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .material-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .completed-badge {
+            background: var(--success-light);
+            color: var(--success);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 6px 9px;
+            border-radius: 20px;
+        }
+
+        .new-badge {
+            background: #fff7df;
+            color: #d99000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 6px 9px;
+            border-radius: 20px;
+        }
+
+        body.dark .new-badge {
+            background: #3b301a;
+        }
+
+        .material-card h4 {
+            font-size: 16px;
+            margin-top: 17px;
+            margin-bottom: 8px;
+        }
+
+        .material-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+            min-height: 39px;
+        }
+
+        .material-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .material-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .material-progress {
+            margin-top: 10px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #ff9b50);
+            border-radius: 20px;
+            width: 0;
+            transition: width 1.2s ease;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 17px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            width: 42px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* ================================
+           QUICK STATS
+        ================================= */
+
+        .quick-section {
+            margin-top: 35px;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .quick-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            transition: var(--transition);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .quick-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-card strong {
+            display: block;
+            font-size: 17px;
+        }
+
+        .quick-card span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* ================================
+           TOAST
+        ================================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: var(--navy);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            box-shadow: var(--shadow-hover);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.4s ease;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--primary);
+        }
+
+        /* ================================
+           MOBILE OVERLAY
+        ================================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 950;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ================================
+           ANIMATIONS
+        ================================= */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 1150px) {
+
+            .materials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-box input {
+                width: 190px;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 25px 20px 40px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .search-box {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .topbar {
+                height: 70px;
+            }
+
+            .page-heading h1 {
+                font-size: 17px;
+            }
+
+            .page-heading p {
+                display: none;
+            }
+
+            .top-actions {
+                gap: 7px;
+            }
+
+            .icon-btn,
+            .profile-avatar,
+            .mobile-menu-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .materials-hero {
+                padding: 23px;
+                border-radius: 20px;
+            }
+
+            .hero-content h2 {
+                font-size: 22px;
+            }
+
+            .hero-content p {
+                font-size: 12px;
+            }
+
+            .filter-section {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                padding: 8px 11px;
+                font-size: 10px;
+            }
+
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .quick-card {
+                padding: 14px;
+            }
+
+            .quick-card strong {
+                font-size: 15px;
+            }
+
+            .content {
+                padding: 20px 15px 35px;
+            }
+
+            .section-header h3 {
+                font-size: 17px;
+            }
+
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .material-actions {
+                flex-direction: column;
+            }
+
+            .btn-outline {
+                width: 100%;
+                height: 40px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================================
+     LOADER
+================================= -->
+
+<div class="loader-wrapper" id="loader">
+    <div class="loader-logo">SB</div>
+</div>
+
+<!-- ================================
+     MOBILE OVERLAY
+================================= -->
+
+<div class="overlay" id="overlay"></div>
+
+<!-- ================================
+     SIDEBAR
+================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">SB</div>
+
+        <h2>Skill<span>Bridge</span></h2>
+    </div>
+
+    <div class="nav-title">Main Menu</div>
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="study-material.html" class="active">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Study Materials</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="aptitude.html">
+                <i class="fa-solid fa-brain"></i>
+                <span>Aptitude Tests</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="coding.html">
+                <i class="fa-solid fa-code"></i>
+                <span>Coding Practice</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="progress.html">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>My Progress</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="nav-title">Account</div>
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                <span>My Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logoutUser(event)">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- ================================
+     MAIN
+================================= -->
+
+<main class="main">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="top-left">
+
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-heading">
+                <h1>Study Materials</h1>
+                <p>Learn, revise and improve your skills</p>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search materials..."
+                >
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+            <!-- DARK MODE -->
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Toggle dark mode"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <!-- NOTIFICATION -->
+
+            <button
+                class="icon-btn"
+                onclick="showToast('You have 3 new learning updates!')"
+            >
+                <i class="fa-regular fa-bell"></i>
+            </button>
+
+            <!-- PROFILE -->
+
+            <div
+                class="profile"
+                onclick="goToProfile()"
+                title="Open Profile"
+            >
+
+                <div class="profile-avatar">
+                    MP
+                </div>
+
+                <div class="profile-info">
+                    <strong>Mohana</strong>
+                    <span>Student</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+        <!-- HERO -->
+
+        <div class="materials-hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Learning Hub
+                </div>
+
+                <h2>Learn Something New Every Day 🚀</h2>
+
+                <p>
+                    Explore carefully organized study materials,
+                    improve your concepts, revise important topics
+                    and prepare yourself for exams and placements.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- FILTER -->
+
+        <div class="filter-section">
+
+            <div class="filter-buttons">
+
+                <button
+                    class="filter-btn active"
+                    onclick="filterMaterials('all', this)"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-btn"
+                    onclick="filterMaterials('aptitude', this)"
+                >
+                    Aptitude
+                </button>
+
+                <button
+                    class="filter-btn"
+                    onclick="filterMaterials('programming', this)"
+                >
+                    Programming
+                </button>
+
+                <button
+                    class="filter-btn"
+                    onclick="filterMaterials('web', this)"
+                >
+                    Web Development
+                </button>
+
+                <button
+                    class="filter-btn"
+                    onclick="filterMaterials('database', this)"
+                >
+                    Database
+                </button>
+
+            </div>
+
+            <div class="material-count" id="materialCount">
+                8 Materials
+            </div>
+
+        </div>
+
+        <!-- MATERIALS -->
+
+        <div class="section-header">
+
+            <div>
+                <h3>Recommended Materials</h3>
+                <p>Continue your learning journey</p>
+            </div>
+
+        </div>
+
+        <div class="materials-grid" id="materialsGrid">
+
+            <!-- CARD 1 -->
+
+            <article
+                class="material-card"
+                data-category="aptitude"
+                data-title="Quantitative Aptitude"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+
+                    <span class="completed-badge">
+                        80% Done
+                    </span>
+
+                </div>
+
+                <h4>Quantitative Aptitude</h4>
+
+                <p>
+                    Percentages, Profit & Loss, Ratio,
+                    Time & Work, SI and CI concepts.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        12 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        4 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>80%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="80"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('Quantitative Aptitude')"
+                    >
+                    <a href="quantitative-aptitude.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Contiune Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('Quantitative Aptitude')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 2 -->
+
+            <article
+                class="material-card"
+                data-category="aptitude"
+                data-title="Logical Reasoning"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+
+                    <span class="completed-badge">
+                        65% Done
+                    </span>
+
+                </div>
+
+                <h4>Logical Reasoning</h4>
+
+                <p>
+                    Coding-decoding, series, analogy,
+                    blood relations and logical puzzles.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        10 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        3 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>65%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="65"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('Logical Reasoning')"
+                    >
+                      <a href="logical-reasoning.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Contiune Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('Logical Reasoning')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 3 -->
+
+            <article
+                class="material-card"
+                data-category="programming"
+                data-title="JavaScript Fundamentals"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-brands fa-js"></i>
+                    </div>
+
+                    <span class="completed-badge">
+                        90% Done
+                    </span>
+
+                </div>
+
+                <h4>JavaScript Fundamentals</h4>
+
+                <p>
+                    Variables, functions, arrays, objects,
+                    DOM manipulation and events.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        15 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        5 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>90%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="90"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('JavaScript Fundamentals')"
+                    >
+                        <a href="javascript-material.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Continue Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('JavaScript Fundamentals')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 4 -->
+
+            <article
+                class="material-card"
+                data-category="programming"
+                data-title="Java Programming"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-brands fa-java"></i>
+                    </div>
+
+                    <span class="new-badge">
+                        New
+                    </span>
+
+                </div>
+
+                <h4>Java Programming</h4>
+
+                <p>
+                    OOP concepts, classes, inheritance,
+                    interfaces, exceptions and collections.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        18 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        6 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>35%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="35"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('Java Programming')"
+                    >
+                        <a href="java-material.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Start Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('Java Programming')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 5 -->
+
+            <article
+                class="material-card"
+                data-category="web"
+                data-title="HTML CSS Web Development"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+
+                    <span class="completed-badge">
+                        75% Done
+                    </span>
+
+                </div>
+
+                <h4>HTML & CSS</h4>
+
+                <p>
+                    Build responsive websites using HTML5,
+                    CSS3, Flexbox, Grid and animations.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        14 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        4 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>75%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="75"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('HTML & CSS')"
+                    >
+                        <a href="html-css-material.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Continue Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('HTML & CSS')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 6 -->
+
+            <article
+                class="material-card"
+                data-category="web"
+                data-title="Bootstrap Responsive Design"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-brands fa-bootstrap"></i>
+                    </div>
+
+                    <span class="new-badge">
+                        New
+                    </span>
+
+                </div>
+
+                <h4>Bootstrap & Responsive Design</h4>
+
+                <p>
+                    Learn grids, components, utilities,
+                    responsive layouts and modern UI design.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        9 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        3 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>20%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="20"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('Bootstrap & Responsive Design')"
+                    >
+                        <a href="bootstrap-material.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Continue Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('Bootstrap & Responsive Design')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 7 -->
+
+            <article
+                class="material-card"
+                data-category="database"
+                data-title="MySQL Database"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+
+                    <span class="completed-badge">
+                        60% Done
+                    </span>
+
+                </div>
+
+                <h4>MySQL Database</h4>
+
+                <p>
+                    SQL queries, tables, relationships,
+                    joins, constraints and database design.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        11 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        4 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>60%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="60"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('MySQL Database')"
+                    >
+                        <a href="mysql-material.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Continue Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('MySQL Database')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 8 -->
+
+            <article
+                class="material-card"
+                data-category="aptitude"
+                data-title="Time Work Problems"
+            >
+
+                <div class="material-top">
+
+                    <div class="material-icon">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+
+                    <span class="new-badge">
+                        Recommended
+                    </span>
+
+                </div>
+
+                <h4>Time & Work</h4>
+
+                <p>
+                    Efficiency, work calculations,
+                    men-women problems and shortcuts.
+                </p>
+
+                <div class="material-meta">
+
+                    <span>
+                        <i class="fa-regular fa-file-lines"></i>
+                        8 Topics
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        2 Hours
+                    </span>
+
+                </div>
+
+                <div class="material-progress">
+
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span>45%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="45"></div>
+                    </div>
+
+                </div>
+
+                <div class="material-actions">
+
+                    <button
+                        class="btn-primary"
+                        onclick="startMaterial('Time & Work')"
+                    >
+                   <a href="time-work.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Continue Learning</span>
+                    </button>
+
+                    <button
+                        class="btn-outline"
+                        onclick="saveMaterial('Time & Work')"
+                    >
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+        <!-- QUICK STATS -->
+
+        <div class="quick-section">
+
+            <div class="section-header">
+                <div>
+                    <h3>Your Learning Overview</h3>
+                    <p>Track your study material progress</p>
+                </div>
+            </div>
+
+            <div class="quick-grid">
+
+                <div class="quick-card">
+
+                    <div class="quick-icon">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+
+                    <div>
+                        <strong>24</strong>
+                        <span>Materials Completed</span>
+                    </div>
+
+                </div>
+
+                <div class="quick-card">
+
+                    <div class="quick-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                    <div>
+                        <strong>32h</strong>
+                        <span>Total Study Time</span>
+                    </div>
+
+                </div>
+
+                <div class="quick-card">
+
+                    <div class="quick-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+
+                    <div>
+                        <strong>12 Days</strong>
+                        <span>Learning Streak</span>
+                    </div>
+
+                </div>
+
+                <div class="quick-card">
+
+                    <div class="quick-icon">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+
+                    <div>
+                        <strong>86%</strong>
+                        <span>Learning Performance</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Success</span>
+</div>
+
+
+<script>
+
+    /* ================================
+       LOADER
+    ================================= */
+
+    window.addEventListener("load", () => {
+
+        setTimeout(() => {
+
+            document
+                .getElementById("loader")
+                .classList.add("hide");
+
+        }, 700);
+
+    });
+
+
+    /* ================================
+       MOBILE SIDEBAR
+    ================================= */
+
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const menuBtn = document.getElementById("menuBtn");
+
+    menuBtn.addEventListener("click", () => {
+
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("show");
+
+    });
+
+    overlay.addEventListener("click", () => {
+
+        sidebar.classList.remove("open");
+        overlay.classList.remove("show");
+
+    });
+
+
+    /* ================================
+       DARK MODE
+    ================================= */
+
+    const themeBtn = document.getElementById("themeBtn");
+
+    const savedTheme = localStorage.getItem("skillbridge-theme");
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark");
+
+        themeBtn.innerHTML =
+            '<i class="fa-solid fa-sun"></i>';
+
+    }
+
+    themeBtn.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark");
+
+        const isDark =
+            document.body.classList.contains("dark");
+
+        localStorage.setItem(
+            "skillbridge-theme",
+            isDark ? "dark" : "light"
+        );
+
+        themeBtn.innerHTML = isDark
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
+
+        showToast(
+            isDark
+                ? "Dark mode enabled 🌙"
+                : "Light mode enabled ☀️"
+        );
+
+    });
+
+
+    /* ================================
+       PROFILE REDIRECT
+    ================================= */
+
+    function goToProfile() {
+
+        window.location.href = "profile.html";
+
+    }
+
+
+    /* ================================
+       FILTER MATERIALS
+    ================================= */
+
+    function filterMaterials(category, button) {
+
+        const cards =
+            document.querySelectorAll(".material-card");
+
+        const buttons =
+            document.querySelectorAll(".filter-btn");
+
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+
+            const cardCategory =
+                card.dataset.category;
+
+            if (
+                category === "all" ||
+                cardCategory === category
+            ) {
+
+                card.style.display = "block";
+
+                visibleCount++;
+
+                card.style.animation =
+                    "fadeUp 0.5s ease both";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("materialCount")
+            .textContent =
+            visibleCount + " Materials";
+
+    }
+
+
+    /* ================================
+       SEARCH
+    ================================= */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", () => {
+
+        const searchValue =
+            searchInput.value.toLowerCase().trim();
+
+        const cards =
+            document.querySelectorAll(".material-card");
+
+        let count = 0;
+
+        cards.forEach(card => {
+
+            const title =
+                card.dataset.title.toLowerCase();
+
+            const description =
+                card.innerText.toLowerCase();
+
+            if (
+                title.includes(searchValue) ||
+                description.includes(searchValue)
+            ) {
+
+                card.style.display = "block";
+
+                count++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("materialCount")
+            .textContent =
+            count + " Materials";
+
+    });
+
+
+    /* ================================
+       PROGRESS ANIMATION
+    ================================= */
+
+    function animateProgress() {
+
+        const progressBars =
+            document.querySelectorAll(".progress-fill");
+
+        progressBars.forEach((bar, index) => {
+
+            setTimeout(() => {
+
+                bar.style.width =
+                    bar.dataset.width + "%";
+
+            }, 200 + index * 100);
+
+        });
+
+    }
+
+    window.addEventListener("load", animateProgress);
+
+
+    /* ================================
+       START MATERIAL
+    ================================= */
+
+    function startMaterial(name) {
+
+        showToast(
+            "Opening " + name + " material..."
+        );
+
+        setTimeout(() => {
+
+            /*
+             * Later this can redirect to:
+             * material-details.html
+             */
+
+            showToast(
+                name + " is ready to learn 🚀"
+            );
+
+        }, 1200);
+
+    }
+
+
+    /* ================================
+       SAVE MATERIAL
+    ================================= */
+
+    function saveMaterial(name) {
+
+        showToast(
+            name + " added to your saved materials 🔖"
+        );
+
+    }
+
+
+    /* ================================
+       TOAST
+    ================================= */
+
+    let toastTimer;
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        const toastMessage =
+            document.getElementById("toastMessage");
+
+        toastMessage.textContent = message;
+
+        toast.classList.add("show");
+
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2500);
+
+    }
+
+
+    /* ================================
+       LOGOUT
+    ================================= */
+
+    function logoutUser(event) {
+
+        event.preventDefault();
+
+        const confirmLogout =
+            confirm(
+                "Are you sure you want to logout?"
+            );
+
+        if (confirmLogout) {
+
+            showToast("Logging out...");
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "login.html";
+
+            }, 1000);
+
+        }
+
+    }
+
+
+    /* ================================
+       ESC KEY
+    ================================= */
+
+    document.addEventListener("keydown", (event) => {
+
+        if (event.key === "Escape") {
+
+            sidebar.classList.remove("open");
+            overlay.classList.remove("show");
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
