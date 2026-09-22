@@ -1,23 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Coding Practice | SkillBridge</title>
-
 <!-- Google Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <!-- Font Awesome -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <style>
 
 /* =========================================================
@@ -2394,2052 +2387,732 @@ body.dark{
 
 }
 
+
+/* BACKEND FETCH STATE */
+.fetch-state{padding:45px 20px;text-align:center;color:var(--muted);}
+.fetch-state i{font-size:30px;margin-bottom:12px;display:block;}
+.fetch-state h4{font-size:14px;color:var(--text);margin-bottom:5px;}
+.fetch-state p{font-size:10px;}
 </style>
-
 </head>
-
-
 <body>
-
-
 <!-- =========================================================
      LOADER
 ========================================================= -->
-
 <div id="loader">
-
-    <div class="loader-box">
-
-        <div class="loader-logo">
+<div class="loader-box">
+<div class="loader-logo">
             SB
         </div>
-
-        <h3>
+<h3>
             SkillBridge
         </h3>
-
-        <p>
+<p>
             Loading coding practice...
         </p>
-
-    </div>
-
 </div>
-
-
+</div>
 <!-- MOBILE OVERLAY -->
-
 <div class="overlay" id="overlay"></div>
-
-
 <!-- =========================================================
      SIDEBAR
 ========================================================= -->
-
 <aside class="sidebar" id="sidebar">
-
-
-    <div class="logo-area">
-
-        <div class="logo-icon">
+<div class="logo-area">
+<div class="logo-icon">
             SB
         </div>
-
-        <div class="logo-text">
-
-            <h2>
+<div class="logo-text">
+<h2>
                 SkillBridge
             </h2>
-
-            <span>
+<span>
                 LEARN • PRACTICE • GROW
             </span>
-
-        </div>
-
-    </div>
-
-
-    <nav class="nav">
-
-
-        <div class="nav-title">
+</div>
+</div>
+<nav class="nav">
+<div class="nav-title">
             Main Menu
         </div>
-
-
-        <a href="dashboard.html">
-
-            <i class="fa-solid fa-house"></i>
-
-            <span>
+<a href="dashboard.html">
+<i class="fa-solid fa-house"></i>
+<span>
                 Dashboard
             </span>
-
-        </a>
-
-
-        <a href="study-material.html">
-
-            <i class="fa-solid fa-book-open"></i>
-
-            <span>
+</a>
+<a href="study-material.html">
+<i class="fa-solid fa-book-open"></i>
+<span>
                 Study Material
             </span>
-
-        </a>
-
-
-        <a href="aptitude.html">
-
-            <i class="fa-solid fa-brain"></i>
-
-            <span>
+</a>
+<a href="aptitude.html">
+<i class="fa-solid fa-brain"></i>
+<span>
                 Aptitude
             </span>
-
-        </a>
-
-
-        <a href="coding practice.html"
-           class="active">
-
-            <i class="fa-solid fa-code"></i>
-
-            <span>
+</a>
+<a class="active" href="coding practice.html">
+<i class="fa-solid fa-code"></i>
+<span>
                 Coding Practice
             </span>
-
-        </a>
-
-
-        <a href="progress.html">
-
-            <i class="fa-solid fa-chart-line"></i>
-
-            <span>
+</a>
+<a href="progress.html">
+<i class="fa-solid fa-chart-line"></i>
+<span>
                 My Progress
             </span>
-
-        </a>
-
-
-        <div class="nav-title">
+</a>
+<div class="nav-title">
             Account
         </div>
-
-
-        <a href="profile.html">
-
-            <i class="fa-solid fa-user"></i>
-
-            <span>
+<a href="profile.html">
+<i class="fa-solid fa-user"></i>
+<span>
                 My Profile
             </span>
-
-        </a>
-
-
-        <a href="settings.html">
-
-            <i class="fa-solid fa-gear"></i>
-
-            <span>
+</a>
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+<span>
                 Settings
             </span>
-
-        </a>
-
-
-    </nav>
-
-
-    <div class="sidebar-bottom">
-
-        <div class="mini-profile">
-
-            <div class="avatar">
+</a>
+</nav>
+<div class="sidebar-bottom">
+<div class="mini-profile">
+<div class="avatar">
                 MP
             </div>
-
-            <div class="mini-profile-info">
-
-                <strong id="sideName">
+<div class="mini-profile-info">
+<strong id="sideName">
                     Mohana
                 </strong>
-
-                <span>
+<span>
                     Full Stack Learner
                 </span>
-
-            </div>
-
-            <i class="fa-solid fa-ellipsis"
-               style="color:#72829b;font-size:12px;">
-            </i>
-
-        </div>
-
-    </div>
-
+</div>
+<i class="fa-solid fa-ellipsis" style="color:#72829b;font-size:12px;">
+</i>
+</div>
+</div>
 </aside>
-
-
 <!-- =========================================================
      MAIN
 ========================================================= -->
-
 <main class="main">
-
-
-    <!-- TOPBAR -->
-
-    <header class="topbar">
-
-
-        <div class="topbar-left">
-
-
-            <button class="mobile-menu"
-                    id="mobileMenu">
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
-
-
-            <div class="page-title">
-
-                <h1>
+<!-- TOPBAR -->
+<header class="topbar">
+<div class="topbar-left">
+<button class="mobile-menu" id="mobileMenu">
+<i class="fa-solid fa-bars"></i>
+</button>
+<div class="page-title">
+<h1>
                     Coding Practice
                 </h1>
-
-                <p>
+<p>
                     Improve your logic. Build your coding skills.
                 </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-actions">
-
-
-            <button class="icon-btn"
-                    onclick="showToast('No new notifications')">
-
-                <i class="fa-regular fa-bell"></i>
-
-                <span class="notification-dot"></span>
-
-            </button>
-
-
-            <button class="icon-btn"
-                    onclick="toggleTheme()"
-                    id="themeButton">
-
-                <i class="fa-solid fa-moon"></i>
-
-            </button>
-
-
-            <button class="icon-btn"
-                    onclick="location.href='profile.html'">
-
-                <i class="fa-regular fa-user"></i>
-
-            </button>
-
-
-        </div>
-
-    </header>
-
-
-    <!-- =====================================================
+</div>
+</div>
+<div class="top-actions">
+<button class="icon-btn" onclick="showToast('No new notifications')">
+<i class="fa-regular fa-bell"></i>
+<span class="notification-dot"></span>
+</button>
+<button class="icon-btn" id="themeButton" onclick="toggleTheme()">
+<i class="fa-solid fa-moon"></i>
+</button>
+<button class="icon-btn" onclick="location.href='profile.html'">
+<i class="fa-regular fa-user"></i>
+</button>
+</div>
+</header>
+<!-- =====================================================
          CONTENT
     ===================================================== -->
-
-    <div class="content">
-
-
-        <!-- HERO -->
-
-        <section class="coding-hero">
-
-
-            <div class="hero-content">
-
-
-                <div class="hero-tag">
-
-                    <i class="fa-solid fa-laptop-code"></i>
+<div class="content">
+<!-- HERO -->
+<section class="coding-hero">
+<div class="hero-content">
+<div class="hero-tag">
+<i class="fa-solid fa-laptop-code"></i>
 
                     CODING ARENA
 
                 </div>
-
-
-                <h2>
+<h2>
                     Code. Solve. Improve. 🚀
                 </h2>
-
-
-                <p>
+<p>
 
                     Practice programming problems, improve your
                     problem-solving skills and prepare yourself for
                     technical interviews with SkillBridge coding practice.
 
                 </p>
-
-
-                <div class="hero-buttons">
-
-
-                    <button class="btn btn-primary"
-                            onclick="startRandomProblem()">
-
-                        <i class="fa-solid fa-play"></i>
+<div class="hero-buttons">
+<button class="btn btn-primary" onclick="startRandomProblem()">
+<i class="fa-solid fa-play"></i>
 
                         Start Coding
 
                     </button>
-
-
-                    <button class="btn btn-secondary"
-                            onclick="scrollToProblems()">
-
-                        <i class="fa-solid fa-list"></i>
+<button class="btn btn-secondary" onclick="scrollToProblems()">
+<i class="fa-solid fa-list"></i>
 
                         Explore Problems
 
                     </button>
-
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
-
-        <!-- =====================================================
+</div>
+</div>
+</section>
+<!-- =====================================================
              STATS
         ===================================================== -->
-
-        <section class="stats-grid">
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-
-                    <i class="fa-solid fa-code"></i>
-
-                </div>
-
-                <div class="stat-info">
-
-                    <strong>
+<section class="stats-grid">
+<div class="stat-card">
+<div class="stat-icon">
+<i class="fa-solid fa-code"></i>
+</div>
+<div class="stat-info">
+<strong>
                         48
                     </strong>
-
-                    <span>
+<span>
                         Problems Solved
                     </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon green">
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                </div>
-
-                <div class="stat-info">
-
-                    <strong>
+</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon green">
+<i class="fa-solid fa-circle-check"></i>
+</div>
+<div class="stat-info">
+<strong>
                         67
                     </strong>
-
-                    <span>
+<span>
                         Problems Attempted
                     </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon blue">
-
-                    <i class="fa-solid fa-bullseye"></i>
-
-                </div>
-
-                <div class="stat-info">
-
-                    <strong>
+</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon blue">
+<i class="fa-solid fa-bullseye"></i>
+</div>
+<div class="stat-info">
+<strong>
                         82%
                     </strong>
-
-                    <span>
+<span>
                         Accuracy
                     </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon purple">
-
-                    <i class="fa-solid fa-fire"></i>
-
-                </div>
-
-                <div class="stat-info">
-
-                    <strong>
+</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon purple">
+<i class="fa-solid fa-fire"></i>
+</div>
+<div class="stat-info">
+<strong>
                         12
                     </strong>
-
-                    <span>
+<span>
                         Day Streak
                     </span>
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- =====================================================
+</div>
+</div>
+</section>
+<!-- =====================================================
              SECTION
         ===================================================== -->
-
-        <div class="section-header"
-             id="problemSection">
-
-
-            <div class="section-heading">
-
-                <h3>
+<div class="section-header" id="problemSection">
+<div class="section-heading">
+<h3>
                     Practice Problems
                 </h3>
-
-                <p>
+<p>
                     Choose a problem and start coding.
                 </p>
-
-            </div>
-
-
-            <button class="btn btn-secondary"
-                    onclick="clearFilters()">
-
-                <i class="fa-solid fa-rotate-left"></i>
+</div>
+<button class="btn btn-secondary" onclick="clearFilters()">
+<i class="fa-solid fa-rotate-left"></i>
 
                 Reset Filters
 
             </button>
-
-
-        </div>
-
-
-        <!-- FILTER -->
-
-        <div class="filter-panel">
-
-
-            <div class="filter-top">
-
-
-                <div class="search-box">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="Search coding problems..."
-                        oninput="filterProblems()">
-
-                </div>
-
-
-                <select class="filter-select"
-                        id="difficultyFilter"
-                        onchange="filterProblems()">
-
-                    <option value="all">
+</div>
+<!-- FILTER -->
+<div class="filter-panel">
+<div class="filter-top">
+<div class="search-box">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input id="searchInput" oninput="filterProblems()" placeholder="Search coding problems..." type="text"/>
+</div>
+<select class="filter-select" id="difficultyFilter" onchange="filterProblems()">
+<option value="all">
                         All Difficulties
                     </option>
-
-                    <option value="easy">
+<option value="easy">
                         Easy
                     </option>
-
-                    <option value="medium">
+<option value="medium">
                         Medium
                     </option>
-
-                    <option value="hard">
+<option value="hard">
                         Hard
                     </option>
-
-                </select>
-
-
-                <select class="filter-select"
-                        id="languageFilter"
-                        onchange="filterProblems()">
-
-                    <option value="all">
+</select>
+<select class="filter-select" id="languageFilter" onchange="filterProblems()">
+<option value="all">
                         All Languages
                     </option>
-
-                    <option value="javascript">
+<option value="javascript">
                         JavaScript
                     </option>
-
-                    <option value="java">
+<option value="java">
                         Java
                     </option>
-
-                    <option value="python">
+<option value="python">
                         Python
                     </option>
-
-                    <option value="cpp">
+<option value="cpp">
                         C++
                     </option>
-
-                </select>
-
-
-            </div>
-
-
-            <div class="filter-chips">
-
-
-                <button class="chip active"
-                        data-topic="all"
-                        onclick="selectTopic(this,'all')">
+</select>
+</div>
+<div class="filter-chips">
+<button class="chip active" data-topic="all" onclick="selectTopic(this,'all')">
 
                     All Topics
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="arrays"
-                        onclick="selectTopic(this,'arrays')">
+<button class="chip" data-topic="arrays" onclick="selectTopic(this,'arrays')">
 
                     Arrays
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="strings"
-                        onclick="selectTopic(this,'strings')">
+<button class="chip" data-topic="strings" onclick="selectTopic(this,'strings')">
 
                     Strings
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="loops"
-                        onclick="selectTopic(this,'loops')">
+<button class="chip" data-topic="loops" onclick="selectTopic(this,'loops')">
 
                     Loops
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="functions"
-                        onclick="selectTopic(this,'functions')">
+<button class="chip" data-topic="functions" onclick="selectTopic(this,'functions')">
 
                     Functions
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="oop"
-                        onclick="selectTopic(this,'oop')">
+<button class="chip" data-topic="oop" onclick="selectTopic(this,'oop')">
 
                     OOP
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="dsa"
-                        onclick="selectTopic(this,'dsa')">
+<button class="chip" data-topic="dsa" onclick="selectTopic(this,'dsa')">
 
                     DSA
 
                 </button>
-
-
-                <button class="chip"
-                        data-topic="sql"
-                        onclick="selectTopic(this,'sql')">
+<button class="chip" data-topic="sql" onclick="selectTopic(this,'sql')">
 
                     SQL
 
                 </button>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
+</div>
+</div>
+<!-- =====================================================
              CODING LAYOUT
         ===================================================== -->
-
-        <div class="coding-layout">
-
-
-            <!-- PROBLEMS -->
-
-            <div>
-
-
-                <div class="problem-list"
-                     id="problemList">
-
-
-                    <!-- PROBLEM 1 -->
-
-                    <div class="problem-card"
-                         data-title="Reverse a String"
-                         data-difficulty="easy"
-                         data-language="javascript"
-                         data-topic="strings"
-                         data-id="1">
-
-
-                        <div class="problem-number">
-                            01
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Reverse a String
-                                </h4>
-
-                                <span class="tag easy">
-                                    Easy
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Write a program to reverse the given string without using a built-in reverse method.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Strings
-                                </span>
-
-                                <span class="tag language">
-                                    JavaScript
-                                </span>
-
-                                <span class="tag">
-                                    10 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)"
-                                    title="Bookmark">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '01',
-                                    'Reverse a String',
-                                    'Easy',
-                                    'Write a program to reverse the given string without using a built-in reverse method.',
-                                    'Hello',
-                                    'olleH'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 2 -->
-
-                    <div class="problem-card"
-                         data-title="Find Largest Number"
-                         data-difficulty="easy"
-                         data-language="java"
-                         data-topic="arrays"
-                         data-id="2">
-
-
-                        <div class="problem-number">
-                            02
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Find Largest Number
-                                </h4>
-
-                                <span class="tag easy">
-                                    Easy
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Find the largest element from an array of integers.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Arrays
-                                </span>
-
-                                <span class="tag language">
-                                    Java
-                                </span>
-
-                                <span class="tag">
-                                    10 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '02',
-                                    'Find Largest Number',
-                                    'Easy',
-                                    'Find the largest element from an array of integers.',
-                                    '10 25 7 42 18',
-                                    '42'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 3 -->
-
-                    <div class="problem-card"
-                         data-title="Count Vowels"
-                         data-difficulty="easy"
-                         data-language="python"
-                         data-topic="strings"
-                         data-id="3">
-
-
-                        <div class="problem-number">
-                            03
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Count Vowels
-                                </h4>
-
-                                <span class="tag easy">
-                                    Easy
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Count the number of vowels present in a given string.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Strings
-                                </span>
-
-                                <span class="tag language">
-                                    Python
-                                </span>
-
-                                <span class="tag">
-                                    15 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '03',
-                                    'Count Vowels',
-                                    'Easy',
-                                    'Count the number of vowels present in a given string.',
-                                    'SkillBridge',
-                                    '3'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 4 -->
-
-                    <div class="problem-card"
-                         data-title="Sum of Array Elements"
-                         data-difficulty="easy"
-                         data-language="cpp"
-                         data-topic="arrays"
-                         data-id="4">
-
-
-                        <div class="problem-number">
-                            04
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Sum of Array Elements
-                                </h4>
-
-                                <span class="tag easy">
-                                    Easy
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Calculate the sum of all elements present in an integer array.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Arrays
-                                </span>
-
-                                <span class="tag language">
-                                    C++
-                                </span>
-
-                                <span class="tag">
-                                    10 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '04',
-                                    'Sum of Array Elements',
-                                    'Easy',
-                                    'Calculate the sum of all elements present in an integer array.',
-                                    '5 10 15 20',
-                                    '50'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 5 -->
-
-                    <div class="problem-card"
-                         data-title="Palindrome Number"
-                         data-difficulty="medium"
-                         data-language="java"
-                         data-topic="loops"
-                         data-id="5">
-
-
-                        <div class="problem-number">
-                            05
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Palindrome Number
-                                </h4>
-
-                                <span class="tag medium">
-                                    Medium
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Check whether the given number reads the same forward and backward.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Loops
-                                </span>
-
-                                <span class="tag language">
-                                    Java
-                                </span>
-
-                                <span class="tag">
-                                    20 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '05',
-                                    'Palindrome Number',
-                                    'Medium',
-                                    'Check whether the given number reads the same forward and backward.',
-                                    '121',
-                                    'Palindrome'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 6 -->
-
-                    <div class="problem-card"
-                         data-title="Two Sum"
-                         data-difficulty="medium"
-                         data-language="javascript"
-                         data-topic="arrays"
-                         data-id="6">
-
-
-                        <div class="problem-number">
-                            06
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Two Sum
-                                </h4>
-
-                                <span class="tag medium">
-                                    Medium
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Find two numbers in an array whose sum equals the given target.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Arrays
-                                </span>
-
-                                <span class="tag language">
-                                    JavaScript
-                                </span>
-
-                                <span class="tag">
-                                    25 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '06',
-                                    'Two Sum',
-                                    'Medium',
-                                    'Find two numbers in an array whose sum equals the given target.',
-                                    '2, 7, 11, 15 | Target = 9',
-                                    'Indexes 0 and 1'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 7 -->
-
-                    <div class="problem-card"
-                         data-title="Factorial Using Recursion"
-                         data-difficulty="medium"
-                         data-language="python"
-                         data-topic="functions"
-                         data-id="7">
-
-
-                        <div class="problem-number">
-                            07
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Factorial Using Recursion
-                                </h4>
-
-                                <span class="tag medium">
-                                    Medium
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Calculate factorial of a number using a recursive function.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Functions
-                                </span>
-
-                                <span class="tag language">
-                                    Python
-                                </span>
-
-                                <span class="tag">
-                                    25 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '07',
-                                    'Factorial Using Recursion',
-                                    'Medium',
-                                    'Calculate factorial of a number using a recursive function.',
-                                    '5',
-                                    '120'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 8 -->
-
-                    <div class="problem-card"
-                         data-title="Student Class"
-                         data-difficulty="medium"
-                         data-language="java"
-                         data-topic="oop"
-                         data-id="8">
-
-
-                        <div class="problem-number">
-                            08
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Create a Student Class
-                                </h4>
-
-                                <span class="tag medium">
-                                    Medium
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Create a Student class with properties and a method to display student information.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    OOP
-                                </span>
-
-                                <span class="tag language">
-                                    Java
-                                </span>
-
-                                <span class="tag">
-                                    30 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '08',
-                                    'Create a Student Class',
-                                    'Medium',
-                                    'Create a Student class with properties and a method to display student information.',
-                                    'Name: Mohana, Age: 22',
-                                    'Student information displayed'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 9 -->
-
-                    <div class="problem-card"
-                         data-title="Binary Search"
-                         data-difficulty="hard"
-                         data-language="cpp"
-                         data-topic="dsa"
-                         data-id="9">
-
-
-                        <div class="problem-number">
-                            09
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Binary Search
-                                </h4>
-
-                                <span class="tag hard">
-                                    Hard
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Implement binary search to find a target element in a sorted array.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    DSA
-                                </span>
-
-                                <span class="tag language">
-                                    C++
-                                </span>
-
-                                <span class="tag">
-                                    40 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '09',
-                                    'Binary Search',
-                                    'Hard',
-                                    'Implement binary search to find a target element in a sorted array.',
-                                    '1 3 5 7 9 | Target = 7',
-                                    'Index 3'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- PROBLEM 10 -->
-
-                    <div class="problem-card"
-                         data-title="Second Largest Element"
-                         data-difficulty="hard"
-                         data-language="javascript"
-                         data-topic="arrays"
-                         data-id="10">
-
-
-                        <div class="problem-number">
-                            10
-                        </div>
-
-
-                        <div class="problem-info">
-
-
-                            <div class="problem-title">
-
-                                <h4>
-                                    Second Largest Element
-                                </h4>
-
-                                <span class="tag hard">
-                                    Hard
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Find the second largest distinct number from an array.
-                            </p>
-
-
-                            <div class="problem-meta">
-
-                                <span class="tag">
-                                    Arrays
-                                </span>
-
-                                <span class="tag language">
-                                    JavaScript
-                                </span>
-
-                                <span class="tag">
-                                    40 Points
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="problem-actions">
-
-                            <button class="small-btn"
-                                    onclick="toggleBookmark(this)">
-
-                                <i class="fa-regular fa-bookmark"></i>
-
-                            </button>
-
-
-                            <button class="solve-btn"
-                                    onclick="openProblem(
-                                    '10',
-                                    'Second Largest Element',
-                                    'Hard',
-                                    'Find the second largest distinct number from an array.',
-                                    '10 20 40 30 50',
-                                    '40'
-                                    )">
-
-                                Solve
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- EMPTY -->
-
-                <div class="empty-state"
-                     id="emptyState">
-
-                    <i class="fa-solid fa-code"></i>
-
-                    <h4>
+<div class="coding-layout">
+<!-- PROBLEMS -->
+<div>
+<div class="problem-list" id="problemList"><div class="empty-state" id="loadingState" style="display:block"><i class="fa-solid fa-spinner fa-spin"></i><h4>Loading coding problems...</h4><p>Fetching coding problems from SkillBridge backend.</p></div></div>
+<!-- EMPTY -->
+<div class="empty-state" id="emptyState">
+<i class="fa-solid fa-code"></i>
+<h4>
                         No problems found
                     </h4>
-
-                    <p>
+<p>
                         Try changing your search or filters.
                     </p>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================================
+</div>
+</div>
+<!-- =================================================
                  RIGHT COLUMN
             ================================================= -->
-
-            <aside class="right-column">
-
-
-                <!-- DAILY CHALLENGE -->
-
-                <div class="challenge-card">
-
-
-                    <span class="small-label">
+<aside class="right-column">
+<!-- DAILY CHALLENGE -->
+<div class="challenge-card">
+<span class="small-label">
                         Daily Challenge
                     </span>
-
-
-                    <h3>
+<h3>
                         Complete today's coding challenge 🔥
                     </h3>
-
-
-                    <p>
+<p>
                         Solve one problem every day to build
                         consistency and maintain your streak.
                     </p>
-
-
-                    <div class="challenge-progress">
-
-
-                        <div class="challenge-progress-top">
-
-                            <span>
+<div class="challenge-progress">
+<div class="challenge-progress-top">
+<span>
                                 Today's progress
                             </span>
-
-                            <span>
+<span>
                                 65%
                             </span>
-
-                        </div>
-
-
-                        <div class="progress">
-
-                            <span></span>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <button class="btn btn-primary"
-                            style="margin-top:15px;"
-                            onclick="startRandomProblem()">
-
-                        <i class="fa-solid fa-bolt"></i>
+</div>
+<div class="progress">
+<span></span>
+</div>
+</div>
+<button class="btn btn-primary" onclick="startRandomProblem()" style="margin-top:15px;">
+<i class="fa-solid fa-bolt"></i>
 
                         Continue Challenge
 
                     </button>
-
-
-                </div>
-
-
-                <!-- TOPICS -->
-
-                <div class="side-card">
-
-
-                    <div class="side-card-title">
-
-                        <h4>
+</div>
+<!-- TOPICS -->
+<div class="side-card">
+<div class="side-card-title">
+<h4>
                             Topic Progress
                         </h4>
-
-                        <span>
+<span>
                             View All
                         </span>
-
-                    </div>
-
-
-                    <div class="topic-item">
-
-
-                        <div class="topic-icon">
-
-                            <i class="fa-solid fa-layer-group"></i>
-
-                        </div>
-
-
-                        <div class="topic-info">
-
-                            <strong>
+</div>
+<div class="topic-item">
+<div class="topic-icon">
+<i class="fa-solid fa-layer-group"></i>
+</div>
+<div class="topic-info">
+<strong>
                                 Arrays
                             </strong>
-
-                            <span>
+<span>
                                 12 / 15 solved
                             </span>
-
-                        </div>
-
-
-                        <div class="topic-percent">
+</div>
+<div class="topic-percent">
                             80%
                         </div>
-
-                    </div>
-
-
-                    <div class="topic-item">
-
-
-                        <div class="topic-icon">
-
-                            <i class="fa-solid fa-font"></i>
-
-                        </div>
-
-
-                        <div class="topic-info">
-
-                            <strong>
+</div>
+<div class="topic-item">
+<div class="topic-icon">
+<i class="fa-solid fa-font"></i>
+</div>
+<div class="topic-info">
+<strong>
                                 Strings
                             </strong>
-
-                            <span>
+<span>
                                 8 / 12 solved
                             </span>
-
-                        </div>
-
-
-                        <div class="topic-percent">
+</div>
+<div class="topic-percent">
                             67%
                         </div>
-
-                    </div>
-
-
-                    <div class="topic-item">
-
-
-                        <div class="topic-icon">
-
-                            <i class="fa-solid fa-arrows-spin"></i>
-
-                        </div>
-
-
-                        <div class="topic-info">
-
-                            <strong>
+</div>
+<div class="topic-item">
+<div class="topic-icon">
+<i class="fa-solid fa-arrows-spin"></i>
+</div>
+<div class="topic-info">
+<strong>
                                 Loops
                             </strong>
-
-                            <span>
+<span>
                                 10 / 10 solved
                             </span>
-
-                        </div>
-
-
-                        <div class="topic-percent">
+</div>
+<div class="topic-percent">
                             100%
                         </div>
-
-                    </div>
-
-
-                    <div class="topic-item">
-
-
-                        <div class="topic-icon">
-
-                            <i class="fa-solid fa-sitemap"></i>
-
-                        </div>
-
-
-                        <div class="topic-info">
-
-                            <strong>
+</div>
+<div class="topic-item">
+<div class="topic-icon">
+<i class="fa-solid fa-sitemap"></i>
+</div>
+<div class="topic-info">
+<strong>
                                 DSA
                             </strong>
-
-                            <span>
+<span>
                                 6 / 15 solved
                             </span>
-
-                        </div>
-
-
-                        <div class="topic-percent">
+</div>
+<div class="topic-percent">
                             40%
                         </div>
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- RECENT -->
-
-                <div class="side-card">
-
-
-                    <div class="side-card-title">
-
-                        <h4>
+</div>
+</div>
+<!-- RECENT -->
+<div class="side-card">
+<div class="side-card-title">
+<h4>
                             Recent Practice
                         </h4>
-
-                        <span>
+<span>
                             History
                         </span>
-
-                    </div>
-
-
-                    <div class="recent-item">
-
-
-                        <div class="recent-icon">
-
-                            <i class="fa-solid fa-check"></i>
-
-                        </div>
-
-
-                        <div class="recent-info">
-
-                            <strong>
+</div>
+<div class="recent-item">
+<div class="recent-icon">
+<i class="fa-solid fa-check"></i>
+</div>
+<div class="recent-info">
+<strong>
                                 Reverse a String
                             </strong>
-
-                            <span>
+<span>
                                 Solved • 10 min ago
                             </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="recent-item">
-
-
-                        <div class="recent-icon">
-
-                            <i class="fa-solid fa-code"></i>
-
-                        </div>
-
-
-                        <div class="recent-info">
-
-                            <strong>
+</div>
+</div>
+<div class="recent-item">
+<div class="recent-icon">
+<i class="fa-solid fa-code"></i>
+</div>
+<div class="recent-info">
+<strong>
                                 Two Sum
                             </strong>
-
-                            <span>
+<span>
                                 Attempted • Yesterday
                             </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="recent-item">
-
-
-                        <div class="recent-icon">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                        </div>
-
-
-                        <div class="recent-info">
-
-                            <strong>
+</div>
+</div>
+<div class="recent-item">
+<div class="recent-icon">
+<i class="fa-solid fa-circle-check"></i>
+</div>
+<div class="recent-info">
+<strong>
                                 Palindrome Number
                             </strong>
-
-                            <span>
+<span>
                                 Solved • 2 days ago
                             </span>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-            </aside>
-
-
-        </div>
-
-
-        <!-- FOOTER -->
-
-        <div class="footer">
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- FOOTER -->
+<div class="footer">
 
             © 2026 SkillBridge • Learn. Practice. Grow.
 
         </div>
-
-
-    </div>
-
+</div>
 </main>
-
-
 <!-- =========================================================
      CODING MODAL
 ========================================================= -->
-
-<div class="modal"
-     id="problemModal">
-
-
-    <div class="modal-box">
-
-
-        <div class="modal-header">
-
-
-            <div class="modal-title">
-
-
-                <div class="modal-number"
-                     id="modalNumber">
+<div class="modal" id="problemModal">
+<div class="modal-box">
+<div class="modal-header">
+<div class="modal-title">
+<div class="modal-number" id="modalNumber">
 
                     01
 
                 </div>
-
-
-                <div>
-
-                    <h3 id="modalTitle">
+<div>
+<h3 id="modalTitle">
                         Reverse a String
                     </h3>
-
-                    <p id="modalDifficulty">
+<p id="modalDifficulty">
                         Easy
                     </p>
-
-                </div>
-
-
-            </div>
-
-
-            <button class="close-modal"
-                    onclick="closeProblem()">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-
-        </div>
-
-
-        <div class="modal-body">
-
-
-            <div class="problem-description"
-                 id="modalDescription">
+</div>
+</div>
+<button class="close-modal" onclick="closeProblem()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+</div>
+<div class="modal-body">
+<div class="problem-description" id="modalDescription">
 
                 Write a program to reverse the given string.
 
             </div>
-
-
-            <div class="example-box">
-
-
-                <h4>
+<div class="example-box">
+<h4>
                     Example
                 </h4>
-
-
-                <div class="example-row">
-
-                    <span>
+<div class="example-row">
+<span>
                         Input
                     </span>
-
-                    <strong id="modalInput">
+<strong id="modalInput">
                         Hello
                     </strong>
-
-                </div>
-
-
-                <div class="example-row">
-
-                    <span>
+</div>
+<div class="example-row">
+<span>
                         Output
                     </span>
-
-                    <strong id="modalOutput">
+<strong id="modalOutput">
                         olleH
                     </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="code-editor">
-
-
-                <div class="editor-header">
-
-
-                    <div>
-
-                        <i class="fa-solid fa-code"></i>
+</div>
+</div>
+<div class="code-editor">
+<div class="editor-header">
+<div>
+<i class="fa-solid fa-code"></i>
 
                         solution.js
 
                     </div>
-
-
-                    <div class="editor-dots">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-
-                </div>
-
-
-                <textarea id="codeArea"
-placeholder="// Write your solution here...
+<div class="editor-dots">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<textarea id="codeArea" placeholder="// Write your solution here...
 
 function solution(input) {
 
     // Your code
 
 }"></textarea>
-
-
-            </div>
-
-
-            <div style="
+</div>
+<div style="
                 display:flex;
                 flex-wrap:wrap;
                 gap:8px;
             ">
-
-
-                <button class="btn btn-primary"
-                        onclick="runCode()">
-
-                    <i class="fa-solid fa-play"></i>
+<button class="btn btn-primary" onclick="runCode()">
+<i class="fa-solid fa-play"></i>
 
                     Run Code
 
                 </button>
-
-
-                <button class="btn btn-secondary"
-                        onclick="submitCode()">
-
-                    <i class="fa-solid fa-paper-plane"></i>
+<button class="btn btn-secondary" onclick="submitCode()">
+<i class="fa-solid fa-paper-plane"></i>
 
                     Submit
 
                 </button>
-
-
-                <button class="btn btn-secondary"
-                        onclick="copyCode()">
-
-                    <i class="fa-regular fa-copy"></i>
+<button class="btn btn-secondary" onclick="copyCode()">
+<i class="fa-regular fa-copy"></i>
 
                     Copy Code
 
                 </button>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
 </div>
-
-
+</div>
+</div>
+</div>
 <!-- TOAST -->
-
-<div class="toast-container"
-     id="toastContainer">
+<div class="toast-container" id="toastContainer">
 </div>
-
-
 <script>
+
+
+const API_URL = "http://localhost:5000";
+let codingProblems = [];
+let selectedTopic = "all";
+
+function getToken(){
+    return localStorage.getItem("skillbridge_token") || "";
+}
+
+function escapeHTML(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function normalizeCodingResponse(result){
+    if(Array.isArray(result)) return result;
+    if(Array.isArray(result?.codingProblems)) return result.codingProblems;
+    if(Array.isArray(result?.problems)) return result.problems;
+    if(Array.isArray(result?.data)) return result.data;
+    if(Array.isArray(result?.data?.codingProblems)) return result.data.codingProblems;
+    if(Array.isArray(result?.data?.problems)) return result.data.problems;
+    return [];
+}
+
+async function loadCodingProblems(){
+    const list=document.getElementById("problemList");
+    list.innerHTML=`<div class="fetch-state"><i class="fa-solid fa-spinner fa-spin"></i><h4>Loading coding problems...</h4><p>Fetching coding problems from SkillBridge backend.</p></div>`;
+    try{
+        const headers={"Content-Type":"application/json"};
+        const token=getToken();
+        if(token) headers.Authorization=`Bearer ${token}`;
+        const response=await fetch(`${API_URL}/api/coding`,{method:"GET",headers});
+        if(response.status===401){
+            localStorage.removeItem("skillbridge_token");
+            localStorage.removeItem("skillbridge_user");
+            showToast("Session expired. Please login again.","fa-circle-exclamation");
+            setTimeout(()=>location.href="login.html",900);
+            return;
+        }
+        if(!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result=await response.json();
+        codingProblems=normalizeCodingResponse(result);
+        renderCodingProblems(codingProblems);
+        if(codingProblems.length) showToast(`${codingProblems.length} coding problems loaded from backend.`);
+    }catch(error){
+        console.error("Coding API Error:",error);
+        list.innerHTML=`<div class="fetch-state"><i class="fa-solid fa-triangle-exclamation"></i><h4>Unable to load coding problems</h4><p>Make sure the SkillBridge backend is running and the coding API is available.</p><button class="btn btn-secondary" style="margin-top:12px" onclick="loadCodingProblems()"><i class="fa-solid fa-rotate-right"></i> Retry</button></div>`;
+        showToast("Coding API connection failed","fa-circle-exclamation");
+    }
+}
+
+function renderCodingProblems(data){
+    const list=document.getElementById("problemList");
+    if(!data.length){
+        list.innerHTML=`<div class="fetch-state"><i class="fa-regular fa-folder-open"></i><h4>No coding problems found</h4><p>No coding problem records are available in the backend.</p></div>`;
+        return;
+    }
+    list.innerHTML=data.map((p,index)=>{
+        const number=escapeHTML(p.problem_number ?? String(index+1).padStart(2,"0"));
+        const title=escapeHTML(p.title ?? `Coding Problem ${index+1}`);
+        const difficulty=String(p.difficulty ?? "Medium").toLowerCase();
+        const difficultyLabel=escapeHTML(p.difficulty ?? "Medium");
+        const language=String(p.language ?? "javascript").toLowerCase();
+        const languageLabel=escapeHTML(p.language ?? "JavaScript");
+        const topic=String(p.topic ?? "general").toLowerCase();
+        const topicLabel=escapeHTML(p.topic ?? "General");
+        const description=escapeHTML(p.description ?? "");
+        const points=Number(p.points ?? 0);
+        const input=escapeHTML(p.input_example ?? "");
+        const output=escapeHTML(p.output_example ?? "");
+        const id=escapeHTML(p.id ?? index+1);
+        return `<div class="problem-card" data-title="${title}" data-difficulty="${escapeHTML(difficulty)}" data-language="${escapeHTML(language)}" data-topic="${escapeHTML(topic)}" data-id="${id}">
+            <div class="problem-number">${number}</div>
+            <div class="problem-info">
+                <div class="problem-title"><h4>${title}</h4><span class="tag ${escapeHTML(difficulty)}">${difficultyLabel}</span></div>
+                <p>${description}</p>
+                <div class="problem-meta"><span class="tag">${topicLabel}</span><span class="tag language">${languageLabel}</span><span class="tag">${points} Points</span></div>
+            </div>
+            <div class="problem-actions">
+                <button class="small-btn" onclick="toggleBookmark(this)" title="Bookmark"><i class="fa-regular fa-bookmark"></i></button>
+                <button class="solve-btn" onclick='openProblem(${JSON.stringify(number)},${JSON.stringify(title)},${JSON.stringify(difficultyLabel)},${JSON.stringify(p.description ?? "")},${JSON.stringify(p.input_example ?? "")},${JSON.stringify(p.output_example ?? "")})'>Solve</button>
+            </div>
+        </div>`;
+    }).join("");
+    filterProblems();
+}
 
 /* =========================================================
    LOADER
@@ -4560,7 +3233,7 @@ function toggleTheme(){
    SEARCH + FILTER
 ========================================================= */
 
-let selectedTopic="all";
+
 
 
 function selectTopic(button,topic){
@@ -5064,6 +3737,8 @@ document.addEventListener(
 );
 
 
+document.addEventListener("DOMContentLoaded", loadCodingProblems);
+
 /* =========================================================
    LOAD USER NAME
 ========================================================= */
@@ -5087,7 +3762,5 @@ document.addEventListener(
 })();
 
 </script>
-
-
 </body>
 </html>

@@ -7,6 +7,7 @@ const profileRoutes = require("./routes/profile");
 const materialsRoutes = require("./routes/materials");
 const questionsRoutes = require("./routes/questions");
 const progressRoutes = require("./routes/progress");
+const codingRoutes = require("./routes/coding");
 
 const app = express();
 const PORT = 5000;
@@ -19,7 +20,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/materials", materialsRoutes);
 app.use("/api/questions", questionsRoutes);
 app.use("/api/progress", progressRoutes);
-
+app.use("/api/coding", codingRoutes);
 app.get("/", (req, res) => {
     res.json({
         success: true,

@@ -314,6 +314,14 @@ body.dark{
 .empty-state i{font-size:32px;color:var(--muted);margin-bottom:12px}
 .empty-state h4{font-size:14px;margin-bottom:5px}
 .empty-state p{color:var(--muted);font-size:10px}
+.api-state{
+    text-align:center;background:var(--card);border:1px dashed var(--border);
+    border-radius:16px;padding:45px 20px;color:var(--muted);margin-bottom:12px;
+}
+.api-state i{font-size:28px;color:var(--orange);margin-bottom:12px}
+.api-state h4{font-size:14px;color:var(--text);margin-bottom:5px}
+.api-state p{font-size:10px;line-height:1.6}
+
 
 /* MODAL */
 .modal{
@@ -533,19 +541,19 @@ body.dark{
         <section class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-                <div class="stat-info"><strong id="solvedStat">36</strong><span>Questions Solved</span></div>
+                <div class="stat-info"><strong id="solvedStat">—</strong><span>Questions Available</span></div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div>
-                <div class="stat-info"><strong id="accuracyStat">84%</strong><span>Accuracy</span></div>
+                <div class="stat-info"><strong id="accuracyStat">—</strong><span>Topics Available</span></div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon blue"><i class="fa-solid fa-stopwatch"></i></div>
-                <div class="stat-info"><strong>12m</strong><span>Avg. Practice Time</span></div>
+                <div class="stat-info"><strong>API</strong><span>Backend Status</span></div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon purple"><i class="fa-solid fa-fire"></i></div>
-                <div class="stat-info"><strong>9</strong><span>Day Streak</span></div>
+                <div class="stat-info"><strong>—</strong><span>Login Status</span></div>
             </div>
         </section>
 
@@ -564,7 +572,7 @@ body.dark{
                 </div>
                 <h4>Quantitative Aptitude</h4>
                 <p>Numbers, percentages, ratios, averages, profit and time-based problems.</p>
-                <div class="category-bottom"><span>12 Questions</span><b>Start →</b></div>
+                <div class="category-bottom"><span>From Backend</span><b>Start →</b></div>
             </div>
 
             <div class="category-card" onclick="selectTopic('reasoning')">
@@ -574,7 +582,7 @@ body.dark{
                 </div>
                 <h4>Logical Reasoning</h4>
                 <p>Patterns, series, coding-decoding, directions and analytical thinking.</p>
-                <div class="category-bottom"><span>10 Questions</span><b>Start →</b></div>
+                <div class="category-bottom"><span>From Backend</span><b>Start →</b></div>
             </div>
 
             <div class="category-card" onclick="selectTopic('verbal')">
@@ -584,7 +592,7 @@ body.dark{
                 </div>
                 <h4>Verbal Ability</h4>
                 <p>Grammar, vocabulary, sentence correction and reading-based questions.</p>
-                <div class="category-bottom"><span>8 Questions</span><b>Start →</b></div>
+                <div class="category-bottom"><span>From Backend</span><b>Start →</b></div>
             </div>
 
             <div class="category-card" onclick="selectTopic('data')">
@@ -594,7 +602,7 @@ body.dark{
                 </div>
                 <h4>Data Interpretation</h4>
                 <p>Tables, charts, percentages and data-based calculation practice.</p>
-                <div class="category-bottom"><span>8 Questions</span><b>Start →</b></div>
+                <div class="category-bottom"><span>From Backend</span><b>Start →</b></div>
             </div>
         </section>
 
@@ -641,118 +649,14 @@ body.dark{
                 </div>
 
                 <div class="question-list" id="questionList">
-
-                    <div class="question-card" data-title="Percentage increase" data-difficulty="easy" data-topic="quantitative" data-id="1">
-                        <div class="question-number">01</div>
-                        <div class="question-info">
-                            <div class="question-title">
-                                <h4>Percentage Increase</h4><span class="tag easy">Easy</span>
-                            </div>
-                            <p>If a number increases from 80 to 100, what is the percentage increase?</p>
-                            <div class="question-meta">
-                                <span class="tag">Quantitative</span><span class="tag topic">Percentages</span><span class="tag">10 Points</span>
-                            </div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)" title="Save"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(1,'Percentage Increase','Easy','Quantitative','If a number increases from 80 to 100, what is the percentage increase?',['20%','25%','30%','15%'],1,'Percentage increase = (Increase ÷ Original) × 100. Here, (20 ÷ 80) × 100 = 25%.')">Practice</button>
-                        </div>
+                    <div class="api-state" id="questionLoading">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <h4>Loading questions...</h4>
+                        <p>Fetching aptitude questions from SkillBridge backend.</p>
                     </div>
 
-                    <div class="question-card" data-title="Simple interest" data-difficulty="easy" data-topic="quantitative" data-id="2">
-                        <div class="question-number">02</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Simple Interest</h4><span class="tag easy">Easy</span></div>
-                            <p>Find the simple interest on ₹5,000 at 8% per annum for 2 years.</p>
-                            <div class="question-meta"><span class="tag">Quantitative</span><span class="tag topic">Interest</span><span class="tag">10 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(2,'Simple Interest','Easy','Quantitative','Find the simple interest on ₹5,000 at 8% per annum for 2 years.',['₹600','₹700','₹800','₹900'],2,'Simple Interest = (P × R × T) ÷ 100 = (5000 × 8 × 2) ÷ 100 = ₹800.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Number series" data-difficulty="medium" data-topic="reasoning" data-id="3">
-                        <div class="question-number">03</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Number Series</h4><span class="tag medium">Medium</span></div>
-                            <p>Find the next number: 2, 6, 12, 20, 30, ?</p>
-                            <div class="question-meta"><span class="tag">Reasoning</span><span class="tag topic">Series</span><span class="tag">15 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(3,'Number Series','Medium','Reasoning','Find the next number: 2, 6, 12, 20, 30, ?',['36','40','42','44'],3,'The differences are 4, 6, 8, 10, so the next difference is 12. Therefore, 30 + 12 = 42.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Coding decoding" data-difficulty="medium" data-topic="reasoning" data-id="4">
-                        <div class="question-number">04</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Coding-Decoding</h4><span class="tag medium">Medium</span></div>
-                            <p>If CAT is coded as DBU, how will DOG be coded using the same pattern?</p>
-                            <div class="question-meta"><span class="tag">Reasoning</span><span class="tag topic">Coding</span><span class="tag">15 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(4,'Coding-Decoding','Medium','Reasoning','If CAT is coded as DBU, how will DOG be coded using the same pattern?',['EPH','EOG','DPH','FOH'],1,'Each letter is shifted one position forward: D→E, O→P and G→H. Therefore DOG becomes EPH.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Synonym rapid" data-difficulty="easy" data-topic="verbal" data-id="5">
-                        <div class="question-number">05</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Vocabulary — Synonym</h4><span class="tag easy">Easy</span></div>
-                            <p>Choose the word closest in meaning to “Rapid”.</p>
-                            <div class="question-meta"><span class="tag">Verbal</span><span class="tag topic">Vocabulary</span><span class="tag">10 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(5,'Vocabulary — Synonym','Easy','Verbal','Choose the word closest in meaning to “Rapid”.',['Slow','Quick','Weak','Late'],2,'Rapid means very fast or quick. Therefore, Quick is the correct answer.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Sentence correction" data-difficulty="medium" data-topic="verbal" data-id="6">
-                        <div class="question-number">06</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Sentence Correction</h4><span class="tag medium">Medium</span></div>
-                            <p>Choose the grammatically correct sentence.</p>
-                            <div class="question-meta"><span class="tag">Verbal</span><span class="tag topic">Grammar</span><span class="tag">15 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(6,'Sentence Correction','Medium','Verbal','Choose the grammatically correct sentence.',['He don’t like coffee.','He doesn’t likes coffee.','He doesn’t like coffee.','He not like coffee.'],3,'With singular subject “He”, use “doesn’t” followed by the base verb “like”.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Data table percentage" data-difficulty="hard" data-topic="data" data-id="7">
-                        <div class="question-number">07</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Data Interpretation</h4><span class="tag hard">Hard</span></div>
-                            <p>A company sold 240 units in January and 300 units in February. What was the percentage increase?</p>
-                            <div class="question-meta"><span class="tag">Data Interpretation</span><span class="tag topic">Tables</span><span class="tag">20 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(7,'Data Interpretation','Hard','Data Interpretation','A company sold 240 units in January and 300 units in February. What was the percentage increase?',['20%','25%','30%','35%'],2,'Increase = 300 − 240 = 60. Percentage increase = (60 ÷ 240) × 100 = 25%.')">Practice</button>
-                        </div>
-                    </div>
-
-                    <div class="question-card" data-title="Time and work" data-difficulty="hard" data-topic="quantitative" data-id="8">
-                        <div class="question-number">08</div>
-                        <div class="question-info">
-                            <div class="question-title"><h4>Time &amp; Work</h4><span class="tag hard">Hard</span></div>
-                            <p>A can complete a job in 10 days and B in 15 days. How many days together?</p>
-                            <div class="question-meta"><span class="tag">Quantitative</span><span class="tag topic">Time &amp; Work</span><span class="tag">20 Points</span></div>
-                        </div>
-                        <div class="question-actions">
-                            <button class="small-btn" onclick="toggleSave(this)"><i class="fa-regular fa-bookmark"></i></button>
-                            <button class="practice-btn" onclick="openQuestion(8,'Time & Work','Hard','Quantitative','A can complete a job in 10 days and B in 15 days. How many days together?',['5 days','6 days','7 days','8 days'],2,'A’s rate is 1/10 and B’s rate is 1/15. Together = 1/10 + 1/15 = 1/6, so the work takes 6 days.')">Practice</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="empty-state" id="emptyState">
+                    <div class="question-list" id="dynamicQuestionList"></div>
+<div class="empty-state" id="emptyState">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <h4>No questions found</h4>
                     <p>Try a different search term or reset the filters.</p>
@@ -768,33 +672,40 @@ body.dark{
                         <button class="btn btn-primary" onclick="startRandomQuestion()"><i class="fa-solid fa-bolt"></i> Challenge</button>
                     </div>
                     <div class="progress-wrap">
-                        <div class="progress-top"><span>Today’s progress</span><b>68%</b></div>
+                        <div class="progress-top"><span>Backend question loading</span><b id="apiProgressText">Waiting...</b></div>
                         <div class="progress"><span></span></div>
                     </div>
                 </div>
 
+                
                 <div class="side-card">
-                    <div class="side-card-title"><h4>Topic Progress</h4><span>View all</span></div>
-
-                    <div class="topic-item">
-                        <div class="topic-icon"><i class="fa-solid fa-calculator"></i></div>
-                        <div class="topic-info"><strong>Quantitative</strong><span>18 / 25 completed</span></div>
-                        <div class="topic-percent">72%</div>
+                    <div class="side-card-title">
+                        <h4>Backend Questions</h4>
+                        <span>Live API</span>
                     </div>
                     <div class="topic-item">
-                        <div class="topic-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-                        <div class="topic-info"><strong>Reasoning</strong><span>14 / 20 completed</span></div>
-                        <div class="topic-percent">70%</div>
+                        <div class="topic-icon"><i class="fa-solid fa-database"></i></div>
+                        <div class="topic-info">
+                            <strong>Question Source</strong>
+                            <span>MySQL → Express API → Frontend</span>
+                        </div>
+                        <div class="topic-percent">LIVE</div>
                     </div>
                     <div class="topic-item">
-                        <div class="topic-icon"><i class="fa-solid fa-language"></i></div>
-                        <div class="topic-info"><strong>Verbal</strong><span>12 / 18 completed</span></div>
-                        <div class="topic-percent">67%</div>
+                        <div class="topic-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                        <div class="topic-info">
+                            <strong>Data Loading</strong>
+                            <span>Fetched from /api/questions</span>
+                        </div>
+                        <div class="topic-percent">API</div>
                     </div>
                     <div class="topic-item">
-                        <div class="topic-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                        <div class="topic-info"><strong>Data Interpretation</strong><span>8 / 12 completed</span></div>
-                        <div class="topic-percent">66%</div>
+                        <div class="topic-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="topic-info">
+                            <strong>Authentication</strong>
+                            <span>JWT token sent when available</span>
+                        </div>
+                        <div class="topic-percent">API</div>
                     </div>
                 </div>
 
@@ -859,181 +770,500 @@ body.dark{
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
+const API_URL = "http://localhost:5000";
+
 let selectedTopic = "all";
 let currentQuestion = null;
-let solvedCount = 36;
+let allQuestions = [];
+let solvedQuestionIds = new Set();
 
-const questions = [
-    {id:1,title:"Percentage Increase",difficulty:"Easy",topic:"Quantitative",question:"If a number increases from 80 to 100, what is the percentage increase?",options:["20%","25%","30%","15%"],answer:1,explanation:"Percentage increase = (Increase ÷ Original) × 100. Here, (20 ÷ 80) × 100 = 25%."},
-    {id:2,title:"Simple Interest",difficulty:"Easy",topic:"Quantitative",question:"Find the simple interest on ₹5,000 at 8% per annum for 2 years.",options:["₹600","₹700","₹800","₹900"],answer:2,explanation:"Simple Interest = (P × R × T) ÷ 100 = (5000 × 8 × 2) ÷ 100 = ₹800."},
-    {id:3,title:"Number Series",difficulty:"Medium",topic:"Reasoning",question:"Find the next number: 2, 6, 12, 20, 30, ?",options:["36","40","42","44"],answer:2,explanation:"The differences are 4, 6, 8, 10, so the next difference is 12. Therefore, 30 + 12 = 42."},
-    {id:4,title:"Coding-Decoding",difficulty:"Medium",topic:"Reasoning",question:"If CAT is coded as DBU, how will DOG be coded using the same pattern?",options:["EPH","EOG","DPH","FOH"],answer:0,explanation:"Each letter is shifted one position forward: D→E, O→P and G→H. Therefore DOG becomes EPH."},
-    {id:5,title:"Vocabulary — Synonym",difficulty:"Easy",topic:"Verbal",question:"Choose the word closest in meaning to “Rapid”.",options:["Slow","Quick","Weak","Late"],answer:1,explanation:"Rapid means very fast or quick. Therefore, Quick is the correct answer."},
-    {id:6,title:"Sentence Correction",difficulty:"Medium",topic:"Verbal",question:"Choose the grammatically correct sentence.",options:["He don’t like coffee.","He doesn’t likes coffee.","He doesn’t like coffee.","He not like coffee."],answer:2,explanation:"With singular subject “He”, use “doesn’t” followed by the base verb “like”."},
-    {id:7,title:"Data Interpretation",difficulty:"Hard",topic:"Data Interpretation",question:"A company sold 240 units in January and 300 units in February. What was the percentage increase?",options:["20%","25%","30%","35%"],answer:1,explanation:"Increase = 300 − 240 = 60. Percentage increase = (60 ÷ 240) × 100 = 25%."},
-    {id:8,title:"Time & Work",difficulty:"Hard",topic:"Quantitative",question:"A can complete a job in 10 days and B in 15 days. How many days together?",options:["5 days","6 days","7 days","8 days"],answer:1,explanation:"A’s rate is 1/10 and B’s rate is 1/15. Together = 1/10 + 1/15 = 1/6, so the work takes 6 days."}
-];
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const loader = document.getElementById("loader");
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 500);
+    }, 700);
 
-window.addEventListener("load",()=>{
-    setTimeout(()=>{
-        const loader=document.getElementById("loader");
-        loader.style.opacity="0";
-        setTimeout(()=>loader.style.display="none",500);
-    },700);
     applySavedTheme();
+    loadUserProfile();
+    fetchQuestions();
 });
 
-function toggleTheme(){
-    document.body.classList.toggle("dark");
-    const dark=document.body.classList.contains("dark");
-    localStorage.setItem("skillbridgeTheme",dark?"dark":"light");
-    updateThemeIcon();
-}
-function applySavedTheme(){
-    if(localStorage.getItem("skillbridgeTheme")==="dark") document.body.classList.add("dark");
-    updateThemeIcon();
-}
-function updateThemeIcon(){
-    const icon=document.querySelector("#themeButton i");
-    if(icon) icon.className=document.body.classList.contains("dark")?"fa-solid fa-sun":"fa-solid fa-moon";
+function getToken() {
+    return localStorage.getItem("skillbridge_token") || "";
 }
 
-document.getElementById("mobileMenu").addEventListener("click",()=>{
+function authHeaders() {
+    const token = getToken();
+    return token
+        ? { "Authorization": "Bearer " + token }
+        : {};
+}
+
+function loadUserProfile() {
+    try {
+        const savedUser = JSON.parse(localStorage.getItem("skillbridge_user") || "null");
+        if (savedUser && savedUser.name) {
+            const sideName = document.getElementById("sideName");
+            if (sideName) sideName.textContent = savedUser.name;
+        }
+    } catch (error) {
+        console.warn("Unable to read saved user:", error);
+    }
+}
+
+async function fetchQuestions() {
+    const loading = document.getElementById("questionLoading");
+    const list = document.getElementById("dynamicQuestionList");
+    const empty = document.getElementById("emptyState");
+
+    loading.style.display = "block";
+    list.innerHTML = "";
+    empty.style.display = "none";
+
+    try {
+        const response = await fetch(`${API_URL}/api/questions`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                ...authHeaders()
+            }
+        });
+
+        if (response.status === 401) {
+            localStorage.removeItem("skillbridge_token");
+            localStorage.removeItem("skillbridge_user");
+            showToast("Session expired. Please login again.");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 900);
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        // Supports the current backend array response and common wrapped responses.
+        if (Array.isArray(result)) {
+            allQuestions = result;
+        } else if (Array.isArray(result.questions)) {
+            allQuestions = result.questions;
+        } else if (result.data && Array.isArray(result.data.questions)) {
+            allQuestions = result.data.questions;
+        } else if (Array.isArray(result.data)) {
+            allQuestions = result.data;
+        } else {
+            allQuestions = [];
+        }
+
+        loading.style.display = "none";
+        updateStats();
+        const progressText = document.getElementById("apiProgressText");
+        const progressBar = document.getElementById("apiProgressBar");
+        if (progressText) progressText.textContent = "Connected";
+        if (progressBar) progressBar.style.width = "100%";
+        renderQuestions();
+        showToast(`${allQuestions.length} question${allQuestions.length === 1 ? "" : "s"} loaded from backend`);
+    } catch (error) {
+        console.error("Questions API error:", error);
+        loading.innerHTML = `
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h4>Unable to load questions</h4>
+            <p>Make sure the SkillBridge backend is running on port 5000.</p>
+            <button class="btn btn-primary" onclick="fetchQuestions()" style="margin-top:14px;">
+                <i class="fa-solid fa-rotate-right"></i> Retry
+            </button>
+        `;
+        loading.style.display = "block";
+        showToast("Could not fetch questions from backend");
+    }
+}
+
+function normalizeQuestion(raw, index) {
+    const options = [
+        raw.option_a,
+        raw.option_b,
+        raw.option_c,
+        raw.option_d
+    ].filter(value => value !== undefined && value !== null && String(value).trim() !== "");
+
+    // Also supports an API response that already provides an options array.
+    const finalOptions = Array.isArray(raw.options) && raw.options.length
+        ? raw.options
+        : options;
+
+    let correctAnswer = raw.correct_answer ?? raw.answer ?? raw.correctAnswer;
+
+    if (typeof correctAnswer === "string") {
+        const value = correctAnswer.trim().toUpperCase();
+        if (/^[ABCD]$/.test(value)) {
+            correctAnswer = value.charCodeAt(0) - 65;
+        } else if (/^\d+$/.test(value)) {
+            const numeric = Number(value);
+            correctAnswer = numeric >= 1 && numeric <= finalOptions.length ? numeric - 1 : numeric;
+        } else {
+            const found = finalOptions.findIndex(option =>
+                String(option).trim().toLowerCase() === value.toLowerCase()
+            );
+            correctAnswer = found;
+        }
+    }
+
+    if (typeof correctAnswer !== "number" || correctAnswer < 0 || correctAnswer >= finalOptions.length) {
+        correctAnswer = -1;
+    }
+
+    const topic = raw.topic || raw.category || raw.type || "General";
+    const difficulty = raw.difficulty || "General";
+
+    return {
+        id: raw.id ?? index + 1,
+        title: raw.title || `Question ${index + 1}`,
+        question: raw.question || raw.text || "",
+        options: finalOptions.map(option => String(option)),
+        answer: correctAnswer,
+        explanation: raw.explanation || "No explanation was provided by the backend.",
+        topic: String(topic),
+        difficulty: String(difficulty)
+    };
+}
+
+function updateStats() {
+    document.getElementById("solvedStat").textContent = allQuestions.length;
+    document.querySelector("#solvedStat + span").textContent = "Questions Available";
+
+    const topics = new Set(
+        allQuestions
+            .map((q, i) => normalizeQuestion(q, i).topic)
+            .filter(Boolean)
+    );
+
+    document.getElementById("accuracyStat").textContent = topics.size;
+    document.querySelector("#accuracyStat + span").textContent = "Topics Available";
+
+    document.querySelector(".stat-card:nth-child(3) .stat-info strong").textContent = "API";
+    document.querySelector(".stat-card:nth-child(3) .stat-info span").textContent = "Backend Connected";
+
+    document.querySelector(".stat-card:nth-child(4) .stat-info strong").textContent =
+        getToken() ? "✓" : "—";
+    document.querySelector(".stat-card:nth-child(4) .stat-info span").textContent =
+        getToken() ? "Authenticated" : "Login Required";
+}
+
+function renderQuestions() {
+    const list = document.getElementById("dynamicQuestionList");
+    const empty = document.getElementById("emptyState");
+
+    list.innerHTML = "";
+
+    const normalized = allQuestions.map((q, index) => normalizeQuestion(q, index));
+
+    normalized.forEach((q, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.title = q.title.toLowerCase();
+        card.dataset.question = q.question.toLowerCase();
+        card.dataset.difficulty = q.difficulty.toLowerCase();
+        card.dataset.topic = q.topic.toLowerCase();
+        card.dataset.id = q.id;
+
+        const difficultyClass = ["easy", "medium", "hard"].includes(q.difficulty.toLowerCase())
+            ? q.difficulty.toLowerCase()
+            : "";
+
+        card.innerHTML = `
+            <div class="question-number">${String(index + 1).padStart(2, "0")}</div>
+            <div class="question-info">
+                <div class="question-title">
+                    <h4>${escapeHTML(q.title)}</h4>
+                    <span class="tag ${difficultyClass}">${escapeHTML(q.difficulty)}</span>
+                </div>
+                <p>${escapeHTML(q.question)}</p>
+                <div class="question-meta">
+                    <span class="tag">${escapeHTML(q.topic)}</span>
+                    <span class="tag topic">${q.options.length} Options</span>
+                    <span class="tag">Backend</span>
+                </div>
+            </div>
+            <div class="question-actions">
+                <button class="small-btn" onclick="toggleSave(this)" title="Save">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+                <button class="practice-btn" onclick="openQuestionByIndex(${index})">
+                    Practice
+                </button>
+            </div>
+        `;
+
+        list.appendChild(card);
+    });
+
+    if (!normalized.length) {
+        empty.style.display = "block";
+        empty.querySelector("h4").textContent = "No questions available";
+        empty.querySelector("p").textContent = "Add questions through the SkillBridge backend API.";
+    }
+
+    filterQuestions();
+}
+
+function openQuestionByIndex(index) {
+    const q = normalizeQuestion(allQuestions[index], index);
+    openQuestion(q);
+}
+
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+    const dark = document.body.classList.contains("dark");
+    localStorage.setItem("skillbridgeTheme", dark ? "dark" : "light");
+    updateThemeIcon();
+}
+
+function applySavedTheme() {
+    if (localStorage.getItem("skillbridgeTheme") === "dark") {
+        document.body.classList.add("dark");
+    }
+    updateThemeIcon();
+}
+
+function updateThemeIcon() {
+    const icon = document.querySelector("#themeButton i");
+    if (icon) {
+        icon.className = document.body.classList.contains("dark")
+            ? "fa-solid fa-sun"
+            : "fa-solid fa-moon";
+    }
+}
+
+document.getElementById("mobileMenu").addEventListener("click", () => {
     document.getElementById("sidebar").classList.toggle("open");
     document.getElementById("overlay").classList.toggle("show");
 });
-document.getElementById("overlay").addEventListener("click",()=>{
+
+document.getElementById("overlay").addEventListener("click", () => {
     document.getElementById("sidebar").classList.remove("open");
     document.getElementById("overlay").classList.remove("show");
 });
 
-function scrollToQuestions(){
-    document.getElementById("questionSection").scrollIntoView({behavior:"smooth",block:"start"});
+function scrollToQuestions() {
+    document.getElementById("questionSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
-function setChip(button,topic){
-    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+function setChip(button, topic) {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     button.classList.add("active");
-    selectedTopic=topic;
-    document.getElementById("typeFilter").value=topic==="all"?"all":topic;
+    selectedTopic = topic.toLowerCase();
+    document.getElementById("typeFilter").value =
+        topic === "all" ? "all" : topic.toLowerCase();
     filterQuestions();
 }
-function selectTopic(topic){
-    selectedTopic=topic;
-    document.getElementById("typeFilter").value=topic;
-    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.topic===topic));
+
+function selectTopic(topic) {
+    selectedTopic = topic.toLowerCase();
+    document.getElementById("typeFilter").value = selectedTopic;
+    document.querySelectorAll(".chip").forEach(c => {
+        c.classList.toggle("active", c.dataset.topic === selectedTopic);
+    });
     scrollToQuestions();
     filterQuestions();
-    showToast(topic==="all"?"Showing all topics":topic.charAt(0).toUpperCase()+topic.slice(1)+" questions");
+    showToast(
+        topic === "all"
+            ? "Showing all topics"
+            : topic.charAt(0).toUpperCase() + topic.slice(1) + " questions"
+    );
 }
 
-function filterQuestions(){
-    const search=document.getElementById("searchInput").value.toLowerCase().trim();
-    const difficulty=document.getElementById("difficultyFilter").value;
-    const type=document.getElementById("typeFilter").value;
-    const cards=[...document.querySelectorAll(".question-card")];
-    let visible=0;
+function filterQuestions() {
+    const search = document.getElementById("searchInput").value.toLowerCase().trim();
+    const difficulty = document.getElementById("difficultyFilter").value.toLowerCase();
+    const type = document.getElementById("typeFilter").value.toLowerCase();
 
-    cards.forEach(card=>{
-        const title=card.dataset.title.toLowerCase();
-        const diff=card.dataset.difficulty;
-        const topic=card.dataset.topic;
-        const matchesSearch=!search || title.includes(search) || card.innerText.toLowerCase().includes(search);
-        const matchesDifficulty=difficulty==="all" || diff===difficulty;
-        const matchesType=type==="all" || topic===type;
-        const matchesChip=selectedTopic==="all" || topic===selectedTopic;
-        const show=matchesSearch && matchesDifficulty && matchesType && matchesChip;
-        card.style.display=show?"flex":"none";
-        if(show) visible++;
+    const cards = [...document.querySelectorAll("#dynamicQuestionList .question-card")];
+    let visible = 0;
+
+    cards.forEach(card => {
+        const title = card.dataset.title || "";
+        const question = card.dataset.question || "";
+        const diff = card.dataset.difficulty || "";
+        const topic = card.dataset.topic || "";
+
+        const matchesSearch =
+            !search || title.includes(search) || question.includes(search);
+
+        const matchesDifficulty =
+            difficulty === "all" || diff === difficulty;
+
+        const matchesType =
+            type === "all" ||
+            topic === type ||
+            topic.includes(type);
+
+        const matchesChip =
+            selectedTopic === "all" ||
+            topic === selectedTopic ||
+            topic.includes(selectedTopic);
+
+        const show =
+            matchesSearch &&
+            matchesDifficulty &&
+            matchesType &&
+            matchesChip;
+
+        card.style.display = show ? "flex" : "none";
+        if (show) visible++;
     });
-    document.getElementById("emptyState").style.display=visible?"none":"block";
+
+    document.getElementById("emptyState").style.display =
+        visible ? "none" : "block";
 }
 
-function clearFilters(){
-    selectedTopic="all";
-    document.getElementById("searchInput").value="";
-    document.getElementById("difficultyFilter").value="all";
-    document.getElementById("typeFilter").value="all";
-    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.topic==="all"));
+function clearFilters() {
+    selectedTopic = "all";
+    document.getElementById("searchInput").value = "";
+    document.getElementById("difficultyFilter").value = "all";
+    document.getElementById("typeFilter").value = "all";
+
+    document.querySelectorAll(".chip").forEach(c => {
+        c.classList.toggle("active", c.dataset.topic === "all");
+    });
+
     filterQuestions();
     showToast("Filters reset");
 }
 
-function toggleSave(button){
+function toggleSave(button) {
     button.classList.toggle("saved");
-    const icon=button.querySelector("i");
-    const saved=button.classList.contains("saved");
-    icon.className=saved?"fa-solid fa-bookmark":"fa-regular fa-bookmark";
-    showToast(saved?"Question saved":"Question removed from saved");
+    const icon = button.querySelector("i");
+    const saved = button.classList.contains("saved");
+    icon.className = saved
+        ? "fa-solid fa-bookmark"
+        : "fa-regular fa-bookmark";
+    showToast(saved ? "Question saved" : "Question removed from saved");
 }
 
-function openQuestion(id,title,difficulty,topic,question,options,answer,explanation){
-    currentQuestion={id,title,difficulty,topic,question,options,answer,explanation};
-    document.getElementById("modalNumber").textContent=String(id).padStart(2,"0");
-    document.getElementById("modalTitle").textContent=title;
-    document.getElementById("modalMeta").textContent=difficulty+" • "+topic;
-    document.getElementById("modalQuestion").textContent=question;
-    document.getElementById("exampleTopic").textContent=topic;
-    document.getElementById("explanation").textContent="Explanation: "+explanation;
-    document.getElementById("explanation").style.display="none";
+function openQuestion(q) {
+    currentQuestion = q;
 
-    const optionsBox=document.getElementById("options");
-    optionsBox.innerHTML="";
-    options.forEach((option,index)=>{
-        const btn=document.createElement("button");
-        btn.className="option";
-        btn.innerHTML='<span class="option-letter">'+String.fromCharCode(65+index)+'</span><span>'+option+'</span>';
-        btn.onclick=()=>checkAnswer(index,btn);
+    document.getElementById("modalNumber").textContent =
+        String(q.id).padStart(2, "0");
+    document.getElementById("modalTitle").textContent = q.title;
+    document.getElementById("modalMeta").textContent =
+        q.difficulty + " • " + q.topic;
+    document.getElementById("modalQuestion").textContent = q.question;
+    document.getElementById("exampleTopic").textContent = q.topic;
+    document.getElementById("explanation").textContent =
+        "Explanation: " + q.explanation;
+    document.getElementById("explanation").style.display = "none";
+
+    const optionsBox = document.getElementById("options");
+    optionsBox.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+
+        const letter = document.createElement("span");
+        letter.className = "option-letter";
+        letter.textContent = String.fromCharCode(65 + index);
+
+        const text = document.createElement("span");
+        text.textContent = option;
+
+        btn.appendChild(letter);
+        btn.appendChild(text);
+
+        btn.onclick = () => checkAnswer(index, btn);
         optionsBox.appendChild(btn);
     });
+
     document.getElementById("questionModal").classList.add("show");
-    document.body.style.overflow="hidden";
+    document.body.style.overflow = "hidden";
 }
 
-function checkAnswer(index,button){
-    if(!currentQuestion)return;
-    document.querySelectorAll(".option").forEach(b=>b.disabled=true);
-    const correct=index===currentQuestion.answer;
-    button.classList.add(correct?"correct":"wrong");
-    if(!correct) document.querySelectorAll(".option")[currentQuestion.answer].classList.add("correct");
-    document.getElementById("explanation").style.display="block";
+function checkAnswer(index, button) {
+    if (!currentQuestion) return;
 
-    if(correct){
-        solvedCount++;
-        document.getElementById("solvedStat").textContent=solvedCount;
+    document.querySelectorAll(".option").forEach(b => b.disabled = true);
+
+    if (currentQuestion.answer < 0) {
+        document.getElementById("explanation").style.display = "block";
+        showToast("Correct answer is not configured in backend.");
+        return;
+    }
+
+    const correct = index === currentQuestion.answer;
+
+    button.classList.add(correct ? "correct" : "wrong");
+
+    if (!correct) {
+        const correctButton =
+            document.querySelectorAll(".option")[currentQuestion.answer];
+
+        if (correctButton) correctButton.classList.add("correct");
+    }
+
+    document.getElementById("explanation").style.display = "block";
+
+    if (correct) {
+        solvedQuestionIds.add(String(currentQuestion.id));
         showToast("Correct answer! Great work 🎯");
-    }else{
+    } else {
         showToast("Not quite. Check the explanation.");
     }
 }
 
-function closeModal(){
+function closeModal() {
     document.getElementById("questionModal").classList.remove("show");
-    document.body.style.overflow="";
+    document.body.style.overflow = "";
 }
-document.getElementById("questionModal").addEventListener("click",(e)=>{
-    if(e.target.id==="questionModal") closeModal();
+
+document.getElementById("questionModal").addEventListener("click", e => {
+    if (e.target.id === "questionModal") closeModal();
 });
 
-function startRandomQuestion(){
-    const q=questions[Math.floor(Math.random()*questions.length)];
-    openQuestion(q.id,q.title,q.difficulty,q.topic,q.question,q.options,q.answer,q.explanation);
+function startRandomQuestion() {
+    if (!allQuestions.length) {
+        showToast("No questions available from backend");
+        return;
+    }
+
+    const index = Math.floor(Math.random() * allQuestions.length);
+    openQuestionByIndex(index);
 }
-function nextRandomQuestion(){
+
+function nextRandomQuestion() {
     closeModal();
-    setTimeout(startRandomQuestion,180);
+    setTimeout(startRandomQuestion, 180);
 }
-document.addEventListener("keydown",(e)=>{
-    if(e.key==="Escape") closeModal();
+
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeModal();
 });
 
-function showToast(message){
-    const box=document.getElementById("toastContainer");
-    const toast=document.createElement("div");
-    toast.className="toast";
-    toast.innerHTML='<i class="fa-solid fa-circle-check"></i><span>'+message+'</span>';
+function showToast(message) {
+    const box = document.getElementById("toastContainer");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML =
+        '<i class="fa-solid fa-circle-check"></i><span></span>';
+    toast.querySelector("span").textContent = message;
     box.appendChild(toast);
-    setTimeout(()=>toast.remove(),2600);
+    setTimeout(() => toast.remove(), 2600);
 }
 </script>
 </body>

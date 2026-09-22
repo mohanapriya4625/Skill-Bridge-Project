@@ -104,30 +104,24 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 
 <div class="section-title"><div><h3>Performance Overview</h3><p>A quick snapshot of your coding activity.</p></div><span style="font-size:9px;color:var(--muted)">This month</span></div>
 <section class="stats">
-  <div class="stat-card"><div class="stat-icon orange"><i class="fa-solid fa-code"></i></div><div class="stat-info"><span>Problems Solved</span><strong>128 <em class="up">+18%</em></strong></div></div>
-  <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div><div class="stat-info"><span>Accuracy</span><strong>84% <em class="up">+6%</em></strong></div></div>
-  <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-clock"></i></div><div class="stat-info"><span>Practice Hours</span><strong>32.5h <em class="up">+12%</em></strong></div></div>
-  <div class="stat-card"><div class="stat-icon purple"><i class="fa-solid fa-fire"></i></div><div class="stat-info"><span>Day Streak</span><strong>14 days <em class="up">Best 21</em></strong></div></div>
+<div class="stat-card"><div class="stat-icon orange"><i class="fa-solid fa-check"></i></div><div class="stat-info"><span>Completed</span><strong id="completedStat">Loading...</strong></div></div>
+<div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div><div class="stat-info"><span>Average Score</span><strong id="averageStat">Loading...</strong></div></div>
+<div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-layer-group"></i></div><div class="stat-info"><span>Categories</span><strong id="categoryStat">Loading...</strong></div></div>
+<div class="stat-card"><div class="stat-icon purple"><i class="fa-solid fa-database"></i></div><div class="stat-info"><span>Backend</span><strong id="backendStat">Checking...</strong></div></div>
 </section>
 
 <div class="section-title"><div><h3>Progress Details</h3><p>Understand your strengths and next targets.</p></div></div>
 <section class="grid">
   <div>
     <div class="card chart-wrap">
-      <div class="card-head"><h4>Weekly Coding Activity</h4><span>Problems solved</span></div>
-      <div class="chart" id="chart">
-        <div class="day"><div class="barcol" style="height:34%"></div><span class="day-label">Mon</span></div>
-        <div class="day"><div class="barcol" style="height:52%"></div><span class="day-label">Tue</span></div>
-        <div class="day"><div class="barcol active" style="height:72%"></div><span class="day-label">Wed</span></div>
-        <div class="day"><div class="barcol" style="height:43%"></div><span class="day-label">Thu</span></div>
-        <div class="day"><div class="barcol active" style="height:86%"></div><span class="day-label">Fri</span></div>
-        <div class="day"><div class="barcol" style="height:61%"></div><span class="day-label">Sat</span></div>
-        <div class="day"><div class="barcol active" style="height:92%"></div><span class="day-label">Sun</span></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:16px">
-      <div class="card-head"><h4>Skill Progress</h4><span>Current level</span></div>
-      <div class="progress-row"><div class="progress-top"><span>JavaScript</span><span>88%</span></div><div class="bar"><div class="fill" style="--w:88%"></div></div></div>
+<div class="card-head"><h4>Progress by Category</h4><span>Backend data</span></div>
+<div class="chart" id="chart"><div id="chartState" style="width:100%;text-align:center;color:var(--muted);font-size:10px">Loading progress...</div></div>
+</div>
+<div class="card" style="margin-top:16px">
+<div class="card-head"><h4>Skill Progress</h4><span>Current backend data</span></div>
+<div id="skillProgressList"><div style="font-size:10px;color:var(--muted)">Loading progress...</div></div>
+</div>
+</div>
       <div class="progress-row"><div class="progress-top"><span>Python</span><span>76%</span></div><div class="bar"><div class="fill blue-fill" style="--w:76%"></div></div></div>
       <div class="progress-row"><div class="progress-top"><span>DSA</span><span>69%</span></div><div class="bar"><div class="fill green-fill" style="--w:69%"></div></div></div>
       <div class="progress-row"><div class="progress-top"><span>SQL</span><span>62%</span></div><div class="bar"><div class="fill" style="--w:62%"></div></div></div>
@@ -136,54 +130,80 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 
   <div>
     <div class="card">
-      <div class="card-head"><h4>Language Breakdown</h4><span>Problems solved</span></div>
-      <div class="skill"><div class="skill-icon"><i class="fa-brands fa-js" style="color:#d69d00"></i></div><div class="skill-main"><strong>JavaScript</strong><small>52 problems</small></div><span class="badge">41%</span></div>
-      <div class="skill"><div class="skill-icon"><i class="fa-brands fa-python" style="color:#3978f6"></i></div><div class="skill-main"><strong>Python</strong><small>39 problems</small></div><span class="badge">30%</span></div>
-      <div class="skill"><div class="skill-icon"><i class="fa-solid fa-database" style="color:#7957d5"></i></div><div class="skill-main"><strong>SQL</strong><small>21 problems</small></div><span class="badge">16%</span></div>
-      <div class="skill"><div class="skill-icon"><i class="fa-solid fa-code" style="color:#e45b62"></i></div><div class="skill-main"><strong>C++</strong><small>16 problems</small></div><span class="badge">13%</span></div>
-    </div>
-    <div class="card" style="margin-top:16px">
-      <div class="card-head"><h4>Recent Activity</h4><span>View all</span></div>
-      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-check"></i></div><div><strong>Two Sum</strong><p>Solved in JavaScript • 8 min ago</p></div></div>
-      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-check"></i></div><div><strong>Reverse a String</strong><p>Solved in Python • Yesterday</p></div></div>
-      <div class="activity"><div class="activity-icon"><i class="fa-solid fa-trophy"></i></div><div><strong>7-day streak achieved</strong><p>Consistency milestone unlocked</p></div></div>
-    </div>
+<div class="card-head"><h4>Category Breakdown</h4><span>Backend data</span></div>
+<div id="categoryBreakdown"><div style="font-size:10px;color:var(--muted)">Loading progress...</div></div>
+</div>
+<div class="card" style="margin-top:16px">
+<div class="card-head"><h4>Recent Progress</h4><span>Database</span></div>
+<div id="recentActivity"><div style="font-size:10px;color:var(--muted)">Loading progress...</div></div>
+</div>
+</div>
   </div>
 </section>
 
 <div class="section-title"><div><h3>Practice Consistency</h3><p>Your recent coding activity calendar.</p></div></div>
 <section class="card">
-  <div class="card-head"><h4>Last 8 Weeks</h4><span>More practice = stronger consistency</span></div>
-  <div class="calendar" id="calendar"></div>
-  <div class="legend"><span>Less</span><i></i><i></i><i></i><i></i><span>More</span></div>
+<div class="card-head"><h4>Activity History</h4><span>Backend data</span></div>
+<div id="calendar" style="min-height:80px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:20px">Activity history is not stored in the current progress API.</div>
 </section>
 
 <div class="section-title"><div><h3>Achievements</h3><p>Milestones earned from your coding practice.</p></div></div>
 <section class="grid">
-  <div class="card">
-    <div class="achievement"><div class="medal"><i class="fa-solid fa-fire"></i></div><div><strong>Consistency Starter</strong><p>Completed coding practice for 7 consecutive days.</p></div></div>
-    <div class="achievement"><div class="medal"><i class="fa-solid fa-code"></i></div><div><strong>Problem Solver</strong><p>Solved more than 100 coding problems.</p></div></div>
-    <div class="achievement"><div class="medal"><i class="fa-solid fa-bolt"></i></div><div><strong>Fast Learner</strong><p>Improved average solving time this month.</p></div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><h4>Next Target</h4><span>128 / 150</span></div>
-    <div class="progress-row"><div class="progress-top"><span>Reach 150 solved problems</span><span>85%</span></div><div class="bar"><div class="fill" style="--w:85%"></div></div></div>
-    <p style="font-size:9px;color:var(--muted);line-height:1.7;margin-top:15px">Solve 22 more problems to unlock your next milestone. Keep your streak active and focus on DSA this week.</p>
-    <button class="btn btn-primary" style="margin-top:14px" onclick="location.href='coding.html'"><i class="fa-solid fa-arrow-right"></i> Practice Now</button>
-  </div>
+<div class="card">
+<div class="achievement"><div class="medal"><i class="fa-solid fa-database"></i></div><div><strong>Backend Connected</strong><p id="achievementOne">Loading...</p></div></div>
+<div class="achievement"><div class="medal"><i class="fa-solid fa-chart-line"></i></div><div><strong>Progress Tracking</strong><p id="achievementTwo">Loading...</p></div></div>
+<div class="achievement"><div class="medal"><i class="fa-solid fa-circle-check"></i></div><div><strong>Completed Categories</strong><p id="achievementThree">Loading...</p></div></div>
+</div>
+<div class="card">
+<div class="card-head"><h4>Overall Progress</h4><span id="overallLabel">Loading...</span></div>
+<div class="progress-row"><div class="progress-top"><span>Average backend score</span><span id="overallPercent">0%</span></div><div class="bar"><div class="fill" id="overallFill" style="--w:0%"></div></div></div>
+<p id="overallMessage" style="font-size:9px;color:var(--muted);line-height:1.7;margin-top:15px">Fetching progress from SkillBridge database...</p>
+<button class="btn btn-primary" style="margin-top:14px" onclick="location.href='coding.html'"><i class="fa-solid fa-arrow-right"></i> Practice Now</button>
+</div>
 </section>
 </div>
 </main>
 
 <div class="toast-container" id="toastBox"></div>
 <script>
-window.addEventListener('load',()=>setTimeout(()=>{document.getElementById('loader').style.opacity='0';setTimeout(()=>document.getElementById('loader').remove(),500)},650));
-function toast(msg){const box=document.getElementById('toastBox');const el=document.createElement('div');el.className='toast';el.innerHTML='<i class="fa-solid fa-circle-check"></i>'+msg;box.appendChild(el);setTimeout(()=>el.remove(),2500)}
-function toggleSide(){document.getElementById('sidebar').classList.toggle('open')}
-function toggleTheme(){document.body.classList.toggle('dark');const on=document.body.classList.contains('dark');localStorage.setItem('codingProgressTheme',on?'dark':'light');document.getElementById('themeIcon').className=on?'fa-solid fa-sun':'fa-solid fa-moon';toast(on?'Dark mode enabled':'Light mode enabled')}
-if(localStorage.getItem('codingProgressTheme')==='dark'){document.body.classList.add('dark');document.getElementById('themeIcon').className='fa-solid fa-sun'}
-const cal=document.getElementById('calendar');
-for(let i=0;i<112;i++){const c=document.createElement('span');c.className='cell';const r=Math.random();if(r>.78)c.classList.add('l4');else if(r>.62)c.classList.add('l3');else if(r>.45)c.classList.add('l2');else if(r>.31)c.classList.add('l1');cal.appendChild(c)}
+const API_URL="http://localhost:5000";
+let progressData=[];
+window.addEventListener("load",()=>{setTimeout(()=>{const l=document.getElementById("loader");if(l){l.style.opacity="0";setTimeout(()=>l.remove(),500)}},650);loadProgress()});
+function toast(msg){const b=document.getElementById("toastBox"),e=document.createElement("div");e.className="toast";e.innerHTML='<i class="fa-solid fa-circle-check"></i>'+msg;b.appendChild(e);setTimeout(()=>e.remove(),2500)}
+function toggleSide(){document.getElementById("sidebar").classList.toggle("open")}
+function toggleTheme(){document.body.classList.toggle("dark");const on=document.body.classList.contains("dark");localStorage.setItem("codingProgressTheme",on?"dark":"light");document.getElementById("themeIcon").className=on?"fa-solid fa-sun":"fa-solid fa-moon"}
+if(localStorage.getItem("codingProgressTheme")==="dark"){document.body.classList.add("dark");document.getElementById("themeIcon").className="fa-solid fa-sun"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function normalize(r){if(Array.isArray(r))return r;if(Array.isArray(r?.progress))return r.progress;if(Array.isArray(r?.data))return r.data;if(Array.isArray(r?.data?.progress))return r.data.progress;return []}
+function getUserId(){try{const u=JSON.parse(localStorage.getItem("skillbridge_user")||"{}");return u.id||u.userId||u.user_id||1}catch{return 1}}
+async function loadProgress(){
+ const token=localStorage.getItem("skillbridge_token");
+ if(!token){location.href="login.html";return}
+ try{
+  const r=await fetch(`${API_URL}/api/progress/${encodeURIComponent(getUserId())}`,{headers:{Authorization:`Bearer ${token}`}});
+  if(r.status===401){localStorage.removeItem("skillbridge_token");localStorage.removeItem("skillbridge_user");location.href="login.html";return}
+  if(!r.ok)throw Error("HTTP "+r.status);
+  progressData=normalize(await r.json());render(progressData);toast("Progress loaded from backend");
+ }catch(e){console.error(e);document.getElementById("backendStat").textContent="Error";document.getElementById("skillProgressList").innerHTML='<div style="font-size:10px;color:var(--red)">Unable to load backend progress.</div>';toast("Progress API connection failed")}
+}
+function render(d){
+ const score=x=>Math.max(0,Math.min(100,Number(x.score??0))), done=x=>Number(x.completed??0), cat=x=>x.category||"Unknown";
+ const total=d.reduce((a,x)=>a+done(x),0), avg=d.length?Math.round(d.reduce((a,x)=>a+score(x),0)/d.length):0, cats=[...new Set(d.map(cat))];
+ document.getElementById("completedStat").textContent=total;
+ document.getElementById("averageStat").textContent=avg+"%";
+ document.getElementById("categoryStat").textContent=cats.length;
+ document.getElementById("backendStat").textContent="Connected";
+ document.getElementById("skillProgressList").innerHTML=d.length?d.map((x,i)=>`<div class="progress-row"><div class="progress-top"><span>${esc(cat(x))}</span><span>${score(x)}%</span></div><div class="bar"><div class="fill ${i%3===1?"blue-fill":i%3===2?"green-fill":""}" style="--w:${score(x)}%"></div></div></div>`).join(""):'<div style="font-size:10px;color:var(--muted)">No progress data available.</div>';
+ document.getElementById("categoryBreakdown").innerHTML=d.length?d.map(x=>`<div class="skill"><div class="skill-icon"><i class="fa-solid fa-code"></i></div><div class="skill-main"><strong>${esc(cat(x))}</strong><small>${done(x)} completed • score ${score(x)}%</small></div><span class="badge">${score(x)}%</span></div>`).join(""):'<div style="font-size:10px;color:var(--muted)">No category data available.</div>';
+ document.getElementById("recentActivity").innerHTML=d.length?d.slice().reverse().slice(0,5).map(x=>`<div class="activity"><div class="activity-icon"><i class="fa-solid fa-check"></i></div><div><strong>${esc(cat(x))}</strong><p>${done(x)} completed • Score ${score(x)}%</p></div></div>`).join(""):'<div style="font-size:10px;color:var(--muted)">No progress records.</div>';
+ document.getElementById("chart").innerHTML=d.length?d.slice(0,8).map(x=>`<div class="day"><div class="barcol active" style="height:${Math.max(8,score(x))}%"></div><span class="day-label">${esc(cat(x).slice(0,8))}</span></div>`).join(""):'<div style="width:100%;text-align:center;color:var(--muted);font-size:10px">No progress data.</div>';
+ document.getElementById("overallLabel").textContent=d.length?d.length+" record"+(d.length===1?"":"s"):"No data";
+ document.getElementById("overallPercent").textContent=avg+"%";document.getElementById("overallFill").style.setProperty("--w",avg+"%");
+ document.getElementById("overallMessage").textContent=d.length?"Calculated from scores stored in the SkillBridge progress table.":"No progress records are available.";
+ document.getElementById("achievementOne").textContent=d.length?"Progress is connected directly to the database.":"No records found.";
+ document.getElementById("achievementTwo").textContent=d.length+" progress record"+(d.length===1?"":"s")+" tracked.";
+ document.getElementById("achievementThree").textContent=cats.length+" categor"+(cats.length===1?"y":"ies")+" tracked.";
+}
 </script>
 </body>
 </html>

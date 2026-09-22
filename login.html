@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 :root{
@@ -21,6 +23,8 @@
     --muted:#72809a;
     --line:#e4e9f1;
     --shadow:0 18px 50px rgba(16,26,45,.12);
+    --success:#16a34a;
+    --error:#dc2626;
 }
 
 *{
@@ -121,6 +125,7 @@ body{
         opacity:0;
         transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -231,6 +236,35 @@ body{
     transform:translateY(-2px);
 }
 
+.login-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.message{
+    display:none;
+    padding:12px 14px;
+    border-radius:10px;
+    margin-bottom:18px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.message.success{
+    display:block;
+    color:var(--success);
+    background:#ecfdf3;
+    border:1px solid #bbf7d0;
+}
+
+.message.error{
+    display:block;
+    color:var(--error);
+    background:#fef2f2;
+    border:1px solid #fecaca;
+}
+
 .register{
     text-align:center;
     margin-top:20px;
@@ -254,107 +288,418 @@ body{
 }
 </style>
 </head>
+
 <body>
 
 <div class="page">
 
+    <!-- LEFT SIDE -->
     <div class="left">
+
         <div class="logo">
             <div class="logo-box">SB</div>
             <h3>SkillBridge</h3>
         </div>
 
-        <h1>Welcome Back to <span>SkillBridge</span></h1>
+        <h1>
+            Welcome Back to <span>SkillBridge</span>
+        </h1>
 
         <p>
             Continue your learning journey. Access coding practice,
             aptitude preparation, study materials, mock tests and
             track your progress from one dashboard.
         </p>
+
     </div>
 
+
+    <!-- RIGHT SIDE -->
     <div class="right">
+
         <div class="card">
 
             <div class="card-header">
+
                 <div class="icon">
                     <i class="fa-solid fa-right-to-bracket"></i>
                 </div>
+
                 <h2>Login</h2>
+
                 <p>Sign in to continue learning</p>
+
             </div>
+
+
+            <!-- API MESSAGE -->
+            <div id="message" class="message"></div>
+
 
             <form id="loginForm">
 
+                <!-- EMAIL -->
                 <div class="field">
+
                     <label>Email Address</label>
+
                     <div class="input-wrap">
+
                         <i class="fa-regular fa-envelope"></i>
-                        <input type="email" id="email" placeholder="Enter your email">
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
                     </div>
+
                 </div>
 
+
+                <!-- PASSWORD -->
                 <div class="field">
+
                     <label>Password</label>
+
                     <div class="input-wrap">
+
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="password" placeholder="Enter your password">
-                        <i class="fa-regular fa-eye eye" onclick="togglePassword(this)"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <i
+                            class="fa-regular fa-eye eye"
+                            onclick="togglePassword(this)">
+                        </i>
+
                     </div>
+
                 </div>
 
+
+                <!-- OPTIONS -->
                 <div class="options">
+
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="rememberMe">
                         Remember me
                     </label>
 
                     <a href="#">Forgot Password?</a>
+
                 </div>
 
-                <button type="submit" class="login-btn">
+
+                <!-- LOGIN BUTTON -->
+                <button
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn">
+
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     Login
+
                 </button>
 
             </form>
 
+
+            <!-- REGISTER -->
             <div class="register">
+
                 Don't have an account?
-                <a href="register.html">Register Now</a>
+
+                <a href="register.html">
+                    Register Now
+                </a>
+
             </div>
 
         </div>
+
     </div>
 
 </div>
 
-<script>
-function togglePassword(icon){
-    const input = document.getElementById('password');
 
-    if(input.type === 'password'){
-        input.type = 'text';
-        icon.classList.replace('fa-eye','fa-eye-slash');
+<script>
+
+/* ==========================================
+   SKILLBRIDGE BACKEND API
+========================================== */
+
+const API_URL = "http://localhost:5000";
+
+
+/* ==========================================
+   PASSWORD SHOW / HIDE
+========================================== */
+
+function togglePassword(icon){
+
+    const input = document.getElementById("password");
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        icon.classList.replace(
+            "fa-eye",
+            "fa-eye-slash"
+        );
+
     }else{
-        input.type = 'password';
-        icon.classList.replace('fa-eye-slash','fa-eye');
+
+        input.type = "password";
+
+        icon.classList.replace(
+            "fa-eye-slash",
+            "fa-eye"
+        );
     }
 }
 
-document.getElementById('loginForm').addEventListener('submit',function(e){
+
+/* ==========================================
+   MESSAGE FUNCTION
+========================================== */
+
+function showMessage(message, type){
+
+    const messageBox =
+        document.getElementById("message");
+
+    messageBox.textContent = message;
+
+    messageBox.className =
+        "message " + type;
+}
+
+
+/* ==========================================
+   LOGIN API
+========================================== */
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", async function(e){
+
     e.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
 
-    if(email === '' || password === ''){
-        alert('Please enter email and password');
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value
+        .trim();
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+
+    /* Clear previous message */
+
+    document.getElementById("message")
+        .className = "message";
+
+
+    /* Frontend validation */
+
+    if(!email || !password){
+
+        showMessage(
+            "Please enter email and password.",
+            "error"
+        );
+
         return;
     }
 
-    window.location.href = "dashboard.html";
+
+    /* Loading state */
+
+    loginBtn.disabled = true;
+
+    loginBtn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
+
+
+    try{
+
+        /* Send request to backend */
+
+        const response = await fetch(
+            `${API_URL}/api/auth/login`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            }
+        );
+
+
+        /* Convert response to JSON */
+
+        const data = await response.json();
+
+
+        /* Login failed */
+
+        if(!response.ok || !data.success){
+
+            throw new Error(
+                data.message ||
+                "Invalid email or password"
+            );
+        }
+
+
+        /* ==========================================
+           SAVE JWT TOKEN
+        ========================================== */
+
+        localStorage.setItem(
+            "skillbridge_token",
+            data.token
+        );
+
+
+        /* ==========================================
+           SAVE USER DETAILS
+        ========================================== */
+
+        localStorage.setItem(
+            "skillbridge_user",
+            JSON.stringify(data.user)
+        );
+
+
+        /* Optional remember email */
+
+        const rememberMe =
+            document.getElementById("rememberMe")
+            .checked;
+
+        if(rememberMe){
+
+            localStorage.setItem(
+                "skillbridge_email",
+                email
+            );
+
+        }else{
+
+            localStorage.removeItem(
+                "skillbridge_email"
+            );
+        }
+
+
+        /* Success message */
+
+        showMessage(
+            "Login successful! Redirecting...",
+            "success"
+        );
+
+
+        /* Redirect */
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 800);
+
+
+    }catch(error){
+
+        console.error(
+            "Login Error:",
+            error
+        );
+
+
+        /* Backend unavailable */
+
+        if(
+            error instanceof TypeError &&
+            error.message.includes("fetch")
+        ){
+
+            showMessage(
+                "Cannot connect to SkillBridge server. Please make sure the backend is running on port 5000.",
+                "error"
+            );
+
+        }else{
+
+            showMessage(
+                error.message ||
+                "Login failed. Please try again.",
+                "error"
+            );
+        }
+
+
+        /* Restore button */
+
+        loginBtn.disabled = false;
+
+        loginBtn.innerHTML =
+            '<i class="fa-solid fa-arrow-right-to-bracket"></i> Login';
+    }
+
 });
+
+
+/* ==========================================
+   LOAD REMEMBERED EMAIL
+========================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const savedEmail =
+            localStorage.getItem(
+                "skillbridge_email"
+            );
+
+        if(savedEmail){
+
+            document.getElementById("email")
+                .value = savedEmail;
+
+            document.getElementById("rememberMe")
+                .checked = true;
+        }
+
+    }
+);
+
 </script>
 
 </body>

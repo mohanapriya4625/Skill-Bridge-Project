@@ -2854,6 +2854,136 @@
             }
         );
 
+
+        /* =====================================================
+           WEEK 4 - FRONTEND + BACKEND INTEGRATION
+        ===================================================== */
+
+        const SKILLBRIDGE_API = "http://localhost:5000";
+        const skillBridgeToken = localStorage.getItem("skillbridge_token");
+        const skillBridgeUserRaw = localStorage.getItem("skillbridge_user");
+
+        function getStoredUser() {
+            try {
+                return skillBridgeUserRaw ? JSON.parse(skillBridgeUserRaw) : null;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        const storedUser = getStoredUser();
+
+        if (!skillBridgeToken || !storedUser) {
+            window.location.href = "login.html";
+        }
+
+        async function loadDashboardFromBackend() {
+            if (!skillBridgeToken || !storedUser) return;
+
+            try {
+                const profileResponse = await fetch(`${SKILLBRIDGE_API}/api/profile`, {
+                    method: "GET",
+                    headers: { "Authorization": `Bearer ${skillBridgeToken}` }
+                });
+
+                if (profileResponse.status === 401) {
+                    localStorage.removeItem("skillbridge_token");
+                    localStorage.removeItem("skillbridge_user");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                if (!profileResponse.ok) throw new Error("Profile API request failed");
+
+                const profileData = await profileResponse.json();
+                updateDashboardUser(storedUser.name || "Student", storedUser.role || profileData.role || "student");
+
+                const progressResponse = await fetch(`${SKILLBRIDGE_API}/api/progress/${profileData.id}`, {
+                    method: "GET",
+                    headers: { "Authorization": `Bearer ${skillBridgeToken}` }
+                });
+
+                if (!progressResponse.ok) throw new Error("Progress API request failed");
+
+                const progressData = await progressResponse.json();
+                if (progressData.success && Array.isArray(progressData.progress)) {
+                    updateDashboardProgress(progressData.progress);
+                }
+
+                showToast("Dashboard synced with backend successfully ✓");
+            } catch (error) {
+                console.error("Dashboard API Error:", error);
+                showToast("Backend data could not be loaded. Showing dashboard data.");
+            }
+        }
+
+        function updateDashboardUser(name, role) {
+            const cleanName = name || "Student";
+            const profileName = document.querySelector(".profile-info strong");
+            const profileRole = document.querySelector(".profile-info span");
+            const profileAvatar = document.querySelector(".profile-avatar");
+            const welcomeHeading = document.querySelector(".welcome h1");
+
+            if (profileName) profileName.textContent = cleanName;
+            if (profileRole) profileRole.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+            if (profileAvatar) {
+                const initials = cleanName.trim().split(/\s+/).slice(0, 2).map(p => p.charAt(0).toUpperCase()).join("");
+                profileAvatar.textContent = initials || "ST";
+            }
+            if (welcomeHeading) welcomeHeading.textContent = `Welcome back, ${cleanName}! 👋`;
+        }
+
+        function updateDashboardProgress(rows) {
+            if (!rows.length) return;
+            const scores = {};
+            rows.forEach(row => {
+                const category = String(row.category || "").toLowerCase().trim();
+                const score = Number(row.score);
+                if (category && Number.isFinite(score)) scores[category] = Math.max(0, Math.min(100, score));
+            });
+
+            let studyScore = 80, aptitudeScore = 68, codingScore = 74;
+            Object.entries(scores).forEach(([category, score]) => {
+                if (category.includes("material") || category.includes("study")) studyScore = score;
+                if (category.includes("aptitude") || category.includes("quantitative") || category.includes("logical")) aptitudeScore = score;
+                if (category.includes("javascript") || category.includes("coding") || category.includes("java")) codingScore = score;
+            });
+
+            const overallScore = Math.round((studyScore + aptitudeScore + codingScore) / 3);
+            [studyScore, aptitudeScore, codingScore, overallScore].forEach((value, index) => setProgressValue(index, value));
+
+            const progressNumber = document.querySelector(".progress-number strong");
+            if (progressNumber) progressNumber.textContent = `${overallScore}%`;
+
+            const progressCircle = document.querySelector(".progress-circle");
+            if (progressCircle) {
+                const degree = Math.round(overallScore * 3.6);
+                progressCircle.style.background = `conic-gradient(var(--primary) 0deg ${degree}deg, #edf0f4 ${degree}deg 360deg)`;
+            }
+
+            const statCards = document.querySelectorAll(".stat-card");
+            if (statCards.length >= 4) {
+                const performanceValue = statCards[3].querySelector("h3");
+                if (performanceValue) performanceValue.textContent = `${overallScore}%`;
+            }
+        }
+
+        function setProgressValue(index, value) {
+            const details = document.querySelectorAll(".progress-detail");
+            const detail = details[index];
+            if (!detail) return;
+            const percentage = Math.round(Math.max(0, Math.min(100, value)));
+            const percentageText = detail.querySelector(".progress-label span:last-child");
+            const bar = detail.querySelector(".bar-fill");
+            if (percentageText) percentageText.textContent = `${percentage}%`;
+            if (bar) {
+                bar.setAttribute("data-width", `${percentage}%`);
+                bar.style.width = `${percentage}%`;
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", loadDashboardFromBackend);
+
     </script>
 
 </body>
