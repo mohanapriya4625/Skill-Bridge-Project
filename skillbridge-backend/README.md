@@ -389,3 +389,112 @@ Question	PUT	/api/questions/:id
 Question	DELETE	/api/questions/:id
 Progress	POST	/api/progress
 Progress    GET    /api/progress/:user_id
+---
+
+# 🧪 Week 5 - Testing, Debugging and Optimization
+
+## Testing Overview
+
+During Week 5, the SkillBridge backend was tested using Jest and Supertest.
+
+The testing process covered:
+
+- API validation
+- Authentication testing
+- CRUD operation testing
+- Error handling
+- Database-backed API testing
+- Integration testing
+- Debugging and reliability checks
+
+## Testing Tools
+
+- Jest
+- Supertest
+- Node.js
+- Express.js
+- MySQL
+- Postman
+- PowerShell
+
+## How to Run Automated Tests
+
+Install dependencies:
+
+```bash
+npm install
+est Files
+API Tests
+tests/server.test.js
+
+This file contains tests for:
+
+Authentication
+Study Materials
+Aptitude Questions
+Student Progress
+Validation
+Error handling
+CRUD operations
+Integration Tests
+tests/integration.test.js
+
+Integration tests cover:
+
+Register → Login
+Create Material → Get Material
+Save Progress → Get Progress
+Final Test Result
+Test Suites: 2 passed, 2 total
+Tests:       28 passed, 28 total
+Snapshots:   0 total
+Testing Status
+
+28/28 automated tests passed successfully.
+
+Error and Debugging Testing
+
+The following scenarios were tested:
+
+Empty login credentials
+Invalid login credentials
+Missing registration fields
+Short passwords
+Missing material fields
+Invalid material IDs
+Missing aptitude question details
+Invalid aptitude question IDs
+Missing progress information
+Server connection issues
+Debugging Techniques
+
+The following techniques were used:
+
+Console logging
+Jest test output analysis
+HTTP status code verification
+PowerShell API requests
+Database record verification
+Supertest response verification
+Optimization and Reliability
+
+The following improvements were completed during Week 5:
+
+Automated API testing
+Input validation verification
+Error handling verification
+CRUD operation verification
+Integration testing
+Database-backed API verification
+Reusable automated test cases
+Improved testing reliability
+
+These improvements help identify backend issues early and make future debugging easier.
+
+No unsupported performance percentage or benchmark improvement is claimed.
+
+Detailed Testing Report
+
+The complete Week 5 testing report is available at:
+
+docs/test-report.md
