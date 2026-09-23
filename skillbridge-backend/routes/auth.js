@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const router = express.Router();
 
@@ -154,16 +155,10 @@ router.post("/login", async (req, res) => {
             // ==================================================
 
             const token = jwt.sign(
-                {
-                    id: user.id,
-                    email: user.email,
-                    role: user.role
-                },
-                "skillbridge_secret_key",
-                {
-                    expiresIn: "1h"
-                }
-            );
+    { id, email, role },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+)
 
 
             // ==================================================
